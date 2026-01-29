@@ -333,3 +333,62 @@ section { padding: 3rem 2rem; text-align: center; }
         font-size: 0.9rem;
     }
 }
+
+/* --- BEST OF MONTH (ΔΙΟΡΘΩΣΗ ΕΙΚΟΝΩΝ) --- */
+.monthly-section {
+    background-color: #fff;
+    padding-bottom: 2rem;
+}
+
+.month-content {
+    background: #f0f4f8;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.month-layout {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    text-align: left;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd; /* Μια γραμμή για διαχωρισμό */
+    padding-bottom: 20px;
+}
+
+/* Για να μην κολλάει το τελευταίο */
+.month-layout:last-child {
+    border-bottom: none;
+}
+
+.month-layout img {
+    width: 250px;       /* Σταθερό μέγεθος σε PC */
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.month-info h3 {
+    color: #0045ad;
+    margin-top: 0;
+    font-size: 1.3rem;
+}
+
+/* --- SOS FIX ΓΙΑ ΚΙΝΗΤΑ (Να μην ξεχειλίζουν) --- */
+@media (max-width: 768px) {
+    .month-layout {
+        flex-direction: column; /* Η εικόνα πάνω, το κείμενο κάτω */
+        text-align: center;
+    }
+    
+    .month-layout img {
+        width: 100% !important; /* Να πιάνει όλο το πλάτος του κινητού */
+        max-width: 100%;        /* Να μην βγαίνει ΠΟΤΕ έξω */
+        height: auto;           /* Να προσαρμόζεται το ύψος */
+        margin-bottom: 15px;
+    }
+}
