@@ -50,7 +50,11 @@ const translations = {
         "desc-boat": "Κρουαζιέρα στα πιο γαλάζια νερά της Μεσογείου.",
         "desc-ski": "Απολαύστε το χιόνι στην κορυφή του Ολύμπου.",
         "desc-museum": "Ταξίδι στην ιστορία και την αρχαιολογία του νησιού.",
-        "desc-wine": "Δοκιμή παραδοσιακών κρασιών στα κρασοχώρια."
+        "desc-wine": "Δοκιμή παραδοσιακών κρασιών στα κρασοχώρια.",
+        
+        // ΝΕΕΣ ΠΡΟΣΘΗΚΕΣ:
+        "desc-sunshine": "Μια αξέχαστη ολοήμερη εμπειρία σαφάρι με ντόπιο οδηγό.",
+        "desc-sunseals": "Παρατήρηση χελωνών, κολύμβηση με αναπνευστήρα και καταδύσεις."
     },
     en: {
         "nav-home": "Home",
@@ -97,7 +101,11 @@ const translations = {
         "desc-boat": "Cruise in the bluest waters of the Mediterranean.",
         "desc-ski": "Enjoy the snow at the peak of Olympus.",
         "desc-museum": "A journey through the island's history and archaeology.",
-        "desc-wine": "Traditional wine tasting in the wine villages."
+        "desc-wine": "Traditional wine tasting in the wine villages.",
+
+        // NEW ADDITIONS:
+        "desc-sunshine": "A memorable full-day safari experience with a local guide.",
+        "desc-sunseals": "Turtle watching, snorkeling trips, and scuba diving experiences."
     },
     ru: {
         "nav-home": "Главная",
@@ -144,7 +152,11 @@ const translations = {
         "desc-boat": "Круиз по самым голубым водам Средиземноморья.",
         "desc-ski": "Наслаждайтесь снегом на вершине Олимпа.", 
         "desc-museum": "Путешествие в историю и археологию острова.",
-        "desc-wine": "Дегустация традиционных вин в винодельческих деревнях."
+        "desc-wine": "Дегустация традиционных вин в винодельческих деревнях.",
+
+        // НОВЫЕ ДОПОЛНЕНИЯ:
+        "desc-sunshine": "Незабываемое сафари на целый день с местным гидом.",
+        "desc-sunseals": "Наблюдение за черепахами, сноркелинг и дайвинг."
     },
     zh: {
         "nav-home": "首页",
@@ -191,7 +203,11 @@ const translations = {
         "desc-boat": "在地中海最湛蓝的海水中巡游。",
         "desc-ski": "在奥林匹斯山顶享受雪景。", 
         "desc-museum": "岛屿历史和考古之旅。",
-        "desc-wine": "在葡萄酒村品尝传统葡萄酒。"
+        "desc-wine": "在葡萄酒村品尝传统葡萄酒。",
+
+        // 新增内容:
+        "desc-sunshine": "与当地向导一起度过难忘的全天野生动物园体验。",
+        "desc-sunseals": "观赏海龟，浮潜和潜水之旅。"
     }
 };
 
@@ -215,7 +231,7 @@ const monthlyData = {
     0: [
         { 
             id: "ski-center",
-            img: "images/Cyprus Ski Federation.jpg",
+            img: "images/cyprus-ski-federation.jpg",
             el: { title: "Χιονοδρομικό Κέντρο", desc: "Απολαύστε το χιόνι στην κορυφή του Ολύμπου." },
             en: { title: "Ski Center", desc: "Enjoy the snow at the peak of Olympus." },
             ru: { title: "Горнолыжный центр", desc: "Наслаждайтесь снегом на вершине Олимпа." },
@@ -223,7 +239,7 @@ const monthlyData = {
         },
         {
             id: "nicosia-walk",
-            img: "images/Nicosia Old Town.jpg",
+            img: "images/nicosia-old-town.jpg",
             el: { title: "Βόλτα στην Παλιά Λευκωσία", desc: "Ιδανική εποχή για να χαθείς στα στενά της παλιάς πόλης." },
             en: { title: "Walk in Nicosia", desc: "Perfect time to get lost in the old town streets." },
             ru: { title: "Прогулка по Никосии", desc: "Идеальное время прогуляться по улочкам старого города." },
@@ -233,7 +249,7 @@ const monthlyData = {
     default: [
         {
             id: "nicosia-walk",
-            img: "images/Nicosia Old Town.jpg",
+            img: "images/nicosia-old-town.jpg",
             el: { title: "Βόλτα στην Παλιά Λευκωσία", desc: "Εξερευνήστε την πρωτεύουσα." },
             en: { title: "Walk in Nicosia", desc: "Explore the capital." },
             ru: { title: "Прогулка по Никосии", desc: "Исследуйте столицу." },
@@ -316,12 +332,11 @@ const itemDetails = {
     "pafilia": { title: "Pafilia", phone: "+357 26 84 88 00", web: "http://www.pafilia.com/", map: "https://maps.app.goo.gl/Gw8NH82NdbYs7pK6A" },
 
     // --- THINGS TO DO ---
-    "safari": { title: "Akamas Jeep Safari", phone: "+357 99 00 00 00", web: "https://www.visitcyprus.com", map: "http://googleusercontent.com/maps.google.com/search?q=Akamas+Peninsula" },
-    "boat": { title: "Blue Lagoon Boat Trip", phone: "+357 99 11 11 11", web: "https://www.latchiboat.com", map: "http://googleusercontent.com/maps.google.com/search?q=Latchi+Harbour" },
-    // ΝΕΟ MUSEUM:
-    "museum-nic": { title: "Cyprus Museum", phone: "+357 22 86 58 54", web: "http://www.mcw.gov.cy", map: "https://maps.app.goo.gl/YA6h15D9P7aHEqFr6" },
-    // ΝΕΟ WINE:
-    "wine": { title: "Omodos Wine Tasting", phone: "+357 25 422000", web: "https://www.omodosvillage.com", map: "http://googleusercontent.com/maps.google.com/search?q=Omodos+Village" } // <--- ΝΕΟ!
+    "sunshine": { title: "Sunshine Safari Tours", phone: "+357 97 66 07 33", web: "https://sunshinesafaritours.com/", map: "https://maps.app.goo.gl/LCjPHt1QGcj968cCA" },
+    "sunseals": { title: "Sun Seals Divers", phone: "+357 97 82 94 09", web: "https://sunsealsdivers.com/", map: "https://maps.app.goo.gl/CqpP6WhjMcAyb64z6" },
+    "boat": { title: "Blue Lagoon Boat Trip", phone: "+357 99 30 28 79", web: "https://www.cyprusminicruises.com/", map: "https://maps.app.goo.gl/1UpgLYkptrqGmVya9" },
+    "museum-nic": { title: "Cyprus Museum", phone: "+357 22 86 58 54", web: "http://www.mcw.gov.cy", map: "https://maps.app.goo.gl/Hxtqq6dVETy7QQtu9" },
+    "wine": { title: "Omodos Wine Tasting", phone: "+357 25 44 60 00", web: "https://www.oenouyiwine.com/", map: "https://maps.app.goo.gl/1ZMG3sfGrRvXpCsw5" }
 };
 
 // Συνάρτηση για να ανοίγει το Modal

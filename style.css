@@ -39,7 +39,7 @@ body {
 /* Hero Section */
 .hero {
     /* Εδώ βάζουμε την εικόνα ως φόντο */
-    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/cyprus\ holidays.jpg');
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/cyprus-holidays.jpg');
     
     /* Ρυθμίσεις για να φαίνεται σωστά */
     background-size: cover;       /* Να καλύπτει όλο τον χώρο */
@@ -111,31 +111,31 @@ section { padding: 3rem 2rem; text-align: center; }
 /* 1. Hotels */
 #hotels {
     background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), 
-                      url('Images/hotels.png');
+                      url('images/hotels.png');
 }
 
 /* 2. Restaurants */
 #restaurants {
     background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), 
-                      url('Images/restaurants.png');
+                      url('images/restaurants.png');
 }
 
 /* 3. Views */
 #views {
     background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), 
-                      url('Images/view.jpg');
+                      url('images/view.jpg');
 }
 
 /* 4. Real Estate */
 #real-estate {
     background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), 
-                      url('images/real\ estate.jpg');
+                      url('images/real-estate.jpg');
 }
 
 /* 5. Things to Do */
 #thingstodo {
     background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), 
-                      url('Images/paphos\ castle.jpg');
+                      url('images/paphos-castle.jpg');
 }
 
 

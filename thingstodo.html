@@ -35,30 +35,41 @@
         </ul>
     </nav>
 
-    <header class="page-header" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?q=80&w=1920');">
+    <header class="page-header" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/things-to-do.png');">
         <h1 data-i18n="cat-things-title">Things to Do</h1>
     </header>
 
-<div id="filter-container">
+    <div id="filter-container">
         <button class="filter-btn active" onclick="filterSelection('all')">All</button>
         <button class="filter-btn" onclick="filterSelection('safari')">🚙 Safari</button>
-        <button class="filter-btn" onclick="filterSelection('ski')">🎿 Ski</button>
-        <button class="filter-btn" onclick="filterSelection('water')">🚤 Water Sports</button>
+        <button class="filter-btn" onclick="filterSelection('water')">🚤 Boat Trips</button>
+        <button class="filter-btn" onclick="filterSelection('diving')">🤿 Diving</button> <button class="filter-btn" onclick="filterSelection('ski')">🎿 Ski</button>
         <button class="filter-btn" onclick="filterSelection('museums')">🏛️ Museums</button>
         <button class="filter-btn" onclick="filterSelection('wine')">🍷 Wine</button>
     </div>
 
     <section class="items-list">
-        
-        <div class="item-card safari"> <img src="https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?q=80&w=600" alt="Jeep Safari">
+
+        <div class="item-card diving"> 
+            <img src="images/sun-seals.jpg" alt="Sun Seals Divers">
             <div class="item-info">
-                <h3>Akamas Jeep Safari</h3>
-                <p data-i18n="desc-safari">Εξερευνήστε την άγρια φύση του Ακάμα με 4x4.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('safari')">More Info</button>
+                <h3>Sun Seals Divers</h3>
+                <p data-i18n="desc-sunseals">Παρατήρηση χελωνών, κολύμβηση με αναπνευστήρα και καταδύσεις.</p>
+                <button class="btn-small" data-i18n="btn-more" onclick="openModal('sunseals')">More Info</button>
+            </div>
+        </div>
+        
+        <div class="item-card safari">
+            <img src="images/sunshine-safari.jpg" alt="Sunshine Safari">
+            <div class="item-info">
+                <h3>Sunshine Safari Tours</h3>
+                <p data-i18n="desc-sunshine">Μια αξέχαστη ολοήμερη εμπειρία σαφάρι με ντόπιο οδηγό.</p>
+                <button class="btn-small" data-i18n="btn-more" onclick="openModal('sunshine')">More Info</button>
             </div>
         </div>
 
-        <div class="item-card water"> <img src="images/blue lagoon.jpg" alt="Blue Lagoon">
+        <div class="item-card water"> 
+            <img src="images/blue-lagoon.jpg" alt="Blue Lagoon">
             <div class="item-info">
                 <h3>Blue Lagoon Boat Trip</h3>
                 <p data-i18n="desc-boat">Κρουαζιέρα στα πιο γαλάζια νερά της Μεσογείου.</p>
@@ -66,7 +77,8 @@
             </div>
         </div>
 
-        <div class="item-card ski"> <img src="images/Cyprus Ski Federation.jpg" alt="Ski Center">
+        <div class="item-card ski"> 
+            <img src="images/cyprus-ski-federation.jpg" alt="Ski Center">
             <div class="item-info">
                 <h3>Troodos Ski Club</h3>
                 <p data-i18n="desc-ski">Απολαύστε το χιόνι στην κορυφή του Ολύμπου.</p>
@@ -74,7 +86,8 @@
             </div>
         </div>
 
-        <div class="item-card museums"> <img src="Images/Cyprus Museum.jpg" alt="Cyprus Museum">
+        <div class="item-card museums"> 
+            <img src="images/cyprus-museum.jpg" alt="Cyprus Museum">
             <div class="item-info">
                 <h3>Cyprus Museum</h3>
                 <p data-i18n="desc-museum">Ταξίδι στην ιστορία και την αρχαιολογία του νησιού.</p>
@@ -82,7 +95,8 @@
             </div>
         </div>
 
-        <div class="item-card wine"> <img src="https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?q=80&w=600" alt="Wine Tasting">
+        <div class="item-card wine"> 
+            <img src="https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?q=80&w=600" alt="Wine Tasting">
             <div class="item-info">
                 <h3>Omodos Wine Tasting</h3>
                 <p data-i18n="desc-wine">Δοκιμή παραδοσιακών κρασιών στα κρασοχώρια.</p>
@@ -94,7 +108,7 @@
 
     <footer class="main-footer">
         <div class="footer-content">
-            <p>&copy; 2024 Cyprus Best. Created by Locals.</p>
+            <p>&copy; 2026 Cyprus Best. Created by Locals.</p>
         </div>
     </footer>
 
