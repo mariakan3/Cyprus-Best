@@ -513,8 +513,22 @@ footer {
 /* --- ΚΛΑΣΕΙΣ ΓΙΑ ΤΗ ΛΕΙΤΟΥΡΓΙΑ ΦΙΛΤΡΩΝ --- */
 /* ΣΗΜΑΝΤΙΚΟ: Αυτά κάνουν τα κουμπιά να δουλεύουν! */
 .item-card {
-    display: none; /* Κρύβουμε τα πάντα αρχικά */
-    animation: fadeIn 0.5s; /* Εφέ εμφάνισης */
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    
+    /* --- ΟΙ ΑΛΛΑΓΕΣ ΓΙΑ ΝΑ ΜΗΝ ΚΟΒΟΝΤΑΙ --- */
+    width: 100%;               /* Πιάνει όλο το διαθέσιμο χώρο */
+    max-width: 340px;          /* Αλλά βάζουμε "ταβάνι" για να μην γίνει τεράστιο */
+    
+    min-height: 420px;         /* Ελάχιστο ύψος (για να είναι ομοιόμορφα) */
+    height: auto;              /* Αν το κείμενο είναι μεγάλο, το κουτί ΨΗΛΩΝΕΙ μόνο του! */
+    
+    display: flex;
+    flex-direction: column;
+    margin: 15px 10px;         /* Λίγο παραπάνω αέρα γύρω γύρω */
+    position: relative;
 }
 
 .show {
