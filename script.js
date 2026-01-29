@@ -52,7 +52,6 @@ const translations = {
         "desc-museum": "Ταξίδι στην ιστορία και την αρχαιολογία του νησιού.",
         "desc-wine": "Δοκιμή παραδοσιακών κρασιών στα κρασοχώρια.",
         
-        // ΝΕΕΣ ΠΡΟΣΘΗΚΕΣ:
         "desc-sunshine": "Μια αξέχαστη ολοήμερη εμπειρία σαφάρι με ντόπιο οδηγό.",
         "desc-sunseals": "Παρατήρηση χελωνών, κολύμβηση με αναπνευστήρα και καταδύσεις."
     },
@@ -103,7 +102,6 @@ const translations = {
         "desc-museum": "A journey through the island's history and archaeology.",
         "desc-wine": "Traditional wine tasting in the wine villages.",
 
-        // NEW ADDITIONS:
         "desc-sunshine": "A memorable full-day safari experience with a local guide.",
         "desc-sunseals": "Turtle watching, snorkeling trips, and scuba diving experiences."
     },
@@ -154,7 +152,6 @@ const translations = {
         "desc-museum": "Путешествие в историю и археологию острова.",
         "desc-wine": "Дегустация традиционных вин в винодельческих деревнях.",
 
-        // НОВЫЕ ДОПОЛНЕНИЯ:
         "desc-sunshine": "Незабываемое сафари на целый день с местным гидом.",
         "desc-sunseals": "Наблюдение за черепахами, сноркелинг и дайвинг."
     },
@@ -205,7 +202,6 @@ const translations = {
         "desc-museum": "岛屿历史和考古之旅。",
         "desc-wine": "在葡萄酒村品尝传统葡萄酒。",
 
-        // 新增内容:
         "desc-sunshine": "与当地向导一起度过难忘的全天野生动物园体验。",
         "desc-sunseals": "观赏海龟，浮潜和潜水之旅。"
     }
@@ -375,65 +371,50 @@ window.onclick = function(event) {
     }
 }
 
-/* --- FILTER FUNCTIONALITY --- */
+/* --- 4. NEW FILTER FUNCTIONALITY (FIXED) --- */
 
-filterSelection("all"); 
-
-function filterSelection(c) {
-  var x, i;
-  x = document.getElementsByClassName("item-card");
-  if (c == "all") c = ""; 
-  
-  for (i = 0; i < x.length; i++) {
-    removeClass(x[i], "show"); 
-    if (x[i].className.indexOf(c) > -1) addClass(x[i], "show");
-  }
-}
-
-function addClass(element, name) {
-  var i, arr1, arr2;
-  arr1 = element.className.split(" ");
-  arr2 = name.split(" ");
-  for (i = 0; i < arr2.length; i++) {
-    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
-  }
-}
-
-function removeClass(element, name) {
-  var i, arr1, arr2;
-  arr1 = element.className.split(" ");
-  arr2 = name.split(" ");
-  for (i = 0; i < arr2.length; i++) {
-    while (arr1.indexOf(arr2[i]) > -1) {
-      arr1.splice(arr1.indexOf(arr2[i]), 1);     
-    }
-  }
-  element.className = arr1.join(" ");
-}
-
-var btnContainer = document.getElementById("filter-container");
-if (btnContainer) {
-    var btns = btnContainer.getElementsByClassName("filter-btn");
-    for (var i = 0; i < btns.length; i++) {
-      btns[i].addEventListener("click", function(){
-        var current = document.getElementsByClassName("active");
-        for(let j=0; j<current.length; j++) {
-            if(current[j].classList.contains('filter-btn')) {
-                current[j].classList.remove("active");
-            }
+function filterSelection(category) {
+    // 1. Βρες όλες τις κάρτες
+    const cards = document.getElementsByClassName("item-card");
+    
+    // 2. Πέρνα από την κάθε μία
+    for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        
+        // Καθαρισμός: Βγάλε την κλάση 'show' από όλους
+        card.classList.remove("show");
+        
+        // Έλεγχος: Αν είναι 'all' ή αν η κάρτα έχει την κατηγορία που ψάχνουμε
+        if (category === "all" || card.classList.contains(category)) {
+            card.classList.add("show");
         }
-        this.className += " active";
-      });
     }
 }
 
-/* --- MOBILE MENU LOGIC --- */
+// Λογική για τα κουμπιά (να γίνονται μπλε όταν τα πατάς)
+const btnContainer = document.getElementById("filter-container");
+if (btnContainer) {
+    const btns = btnContainer.getElementsByClassName("filter-btn");
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            // Βγάλε το 'active' από το προηγούμενο κουμπί
+            const current = document.getElementsByClassName("active");
+            if (current.length > 0) { 
+                current[0].classList.remove("active");
+            }
+            // Βάλε το 'active' σε αυτό που πατήθηκε
+            this.classList.add("active");
+        });
+    }
+}
+
+/* --- 5. MOBILE MENU LOGIC --- */
 function toggleMobileMenu() {
     const navLinks = document.querySelector('.nav-links');
     navLinks.classList.toggle('active');
 }
 
-/* --- WEATHER WIDGET LOGIC --- */
+/* --- 6. WEATHER WIDGET LOGIC --- */
 function getWeather() {
     fetch("https://api.open-meteo.com/v1/forecast?latitude=34.68&longitude=33.04&current_weather=true")
         .then(response => response.json())
@@ -456,7 +437,10 @@ function getWeather() {
         .catch(error => console.log("Weather error:", error));
 }
 
+/* --- 7. STARTUP LOGIC (ΕΚΚΙΝΗΣΗ) --- */
+// Αυτό τρέχει ΜΟΝΟ όταν φορτώσει όλη η σελίδα
 document.addEventListener("DOMContentLoaded", () => {
-    setLanguage('en'); // <--- Αυτό κάνει τη "μαγεία" με το που ανοίγει το site!
-    getWeather();        
+    setLanguage('en');  // Βάζουμε αγγλικά
+    getWeather();       // Φέρνουμε τον καιρό
+    filterSelection('all'); // <--- ΤΟ ΚΛΕΙΔΙ: Εμφανίζουμε τα πάντα ΑΦΟΥ φορτώσει το site
 });
