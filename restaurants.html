@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyprus Best Restaurants</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="language-bar">
+        <button onclick="setLanguage('el')">🇬🇷 ΕΛ</button>
+        <button onclick="setLanguage('en')">🇬🇧 EN</button>
+        <button onclick="setLanguage('ru')">🇷🇺 RU</button>
+        <button onclick="setLanguage('zh')">🇨🇳 CN</button>
+    </div>
+
+<nav class="navbar">
+        <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">Cyprus Best</a></div>
+        
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" data-i18n="nav-home">Home</a></li>
+            <li><a href="hotels.html" data-i18n="nav-hotels">Hotels</a></li>
+            <li><a href="restaurants.html" data-i18n="nav-restaurants">Restaurants</a></li>
+            <li><a href="views.html" data-i18n="nav-views">Views</a></li>
+            <li><a href="realestate.html" data-i18n="nav-realestate">Real Estate</a></li>
+            <li><a href="thingstodo.html" data-i18n="nav-things">Things to Do</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1920');">
+        <h1 data-i18n="cat-restaurants-title">Best Restaurants</h1>
+    </header>
+
+   <div id="filter-container">
+        <button class="filter-btn active" onclick="filterSelection('all')">All</button>
+        <button class="filter-btn" onclick="filterSelection('trad')">🍲 Traditional</button>
+        <button class="filter-btn" onclick="filterSelection('fine')">🍷 Fine Dining</button>
+        <button class="filter-btn" onclick="filterSelection('asian')">🍣 Asian</button>
+    </div>
+
+    <section class="items-list">
+        
+        <div class="item-card trad">
+            <img src="images/melania restaurant.jpg" alt="Melania">
+            <div class="item-info">
+                <h3>Melania Restaurant</h3>
+                <p data-i18n="desc-melania">Η αυθεντική κυπριακή σούβλα και διασκέδαση στην Πάφο.</p>
+                <button class="btn-small" data-i18n="btn-more" onclick="openModal('melania')">More Info</button>
+            </div>
+        </div>
+
+        <div class="item-card fine">
+            <img src="Images/sera.jpg" alt="sera">
+            <div class="item-info">
+                <h3>Sera By Ettore Botrini</h3>
+                <p data-i18n="desc-sera">Αυθεντική ιταλική φινέτσα και φρέσκα ζυμαρικά από τον βραβευμένο σεφ Ettore Botrini.</p>
+                <button class="btn-small" data-i18n="btn-more" onclick="openModal('sera')">More Info</button>
+            </div>
+        </div>
+
+        <div class="item-card trad">
+            <img src="images/kyparissos restaurant.jpg" alt="kyparissos">
+            <div class="item-info">
+                <h3>Kyparissos Restaurant</h3>
+                <p data-i18n="desc-kyparissos">Παραδοσιακό χαλούμι και μεζέδες.</p>
+                <button class="btn-small" data-i18n="btn-more" onclick="openModal('kyparissos')">More Info</button>
+            </div>
+        </div>
+
+        <div class="item-card asian">
+            <img src="Images/phuket.jpg" alt="Phukhet Restaurant">
+            <div class="item-info">
+                <h3>Phukhet Thai & Chinese</h3>
+                <p data-i18n="desc-phuket">Αυθεντική ταϊλανδέζικη και κινέζικη κουζίνα στην Πάφο.</p>
+                <button class="btn-small" data-i18n="btn-more" onclick="openModal('phukhet')">More Info</button>
+            </div>
+        </div> 
+
+    </section> <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Cyprus Best. Created by Locals.</p>
+        </div>
+    </footer>
+    
+        <div id="infoModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title">Title</h2>
+            
+            <div class="modal-info-item">
+                📞 <span data-i18n="lbl-phone">Tel:</span> <span id="modal-phone">-</span>
+            </div>
+            
+            <div class="modal-info-item">
+                🌍 <a href="#" id="modal-web" target="_blank">Website</a>
+            </div>
+            
+            <div class="modal-info-item">
+                📍 <a href="#" id="modal-map" target="_blank"><span data-i18n="lbl-map">Open Map</span></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

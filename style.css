@@ -1,0 +1,527 @@
+/* Βασικές Ρυθμίσεις */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0045ad; /* Κυπριακό μπλε περίπου */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+/* Hero Section */
+/* Hero Section */
+.hero {
+    /* Εδώ βάζουμε την εικόνα ως φόντο */
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/cyprus\ holidays.jpg');
+    
+    /* Ρυθμίσεις για να φαίνεται σωστά */
+    background-size: cover;       /* Να καλύπτει όλο τον χώρο */
+    background-position: center;  /* Να κεντράρει την εικόνα */
+    background-repeat: no-repeat; /* Να μην επαναλαμβάνεται */
+    
+    color: white;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+.btn {
+    background-color: #e69500; /* Πορτοκαλί της σημαίας */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Best of Month & Categories */
+section { padding: 3rem 2rem; text-align: center; }
+
+.monthly-section { background-color: #fff; border-bottom: 1px solid #ddd; }
+.month-content {
+    background: #f0f4f8;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #333; /* Χρώμα ασφαλείας αν δεν φορτώσει η εικόνα */
+    color: white; /* Άσπρα γράμματα */
+    height: 250px; /* Σταθερό ύψος για να είναι ομοιόμορφα */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Το κείμενο να πάει κάτω */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    /* Προσθέτουμε σκιά στα γράμματα για να διαβάζονται εύκολα πάνω από εικόνες */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Ειδική ρύθμιση για να μην είναι μπλε οι τίτλοι πια */
+.card h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+/* --- ΟΙ ΕΙΚΟΝΕΣ ΓΙΑ ΚΑΘΕ ΚΑΤΗΓΟΡΙΑ --- */
+/* Χρησιμοποιώ online εικόνες για ευκολία - μπορείς να τις αλλάξεις αργότερα */
+
+/* 1. Hotels */
+#hotels {
+    background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), 
+                      url('Images/hotels.png');
+}
+
+/* 2. Restaurants */
+#restaurants {
+    background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), 
+                      url('Images/restaurants.png');
+}
+
+/* 3. Views */
+#views {
+    background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), 
+                      url('Images/view.jpg');
+}
+
+/* 4. Real Estate */
+#real-estate {
+    background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), 
+                      url('images/real\ estate.jpg');
+}
+
+/* 5. Things to Do */
+#thingstodo {
+    background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), 
+                      url('Images/paphos\ castle.jpg');
+}
+
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+.language-bar {
+    background-color: #333;
+    display: flex;
+    justify-content: flex-end; /* Τα πάει δεξιά */
+    padding: 5px 20px;
+}
+
+.language-bar button {
+    background: none;
+    border: 1px solid #555;
+    color: white;
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    border-radius: 4px;
+}
+
+.language-bar button:hover {
+    background-color: #555;
+}
+
+/* --- ΣΤΥΛ ΓΙΑ ΕΣΩΤΕΡΙΚΕΣ ΣΕΛΙΔΕΣ (Hotels, etc.) --- */
+
+.page-header {
+    height: 40vh; /* Πιο κοντό από την αρχική σελίδα */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2.5rem;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.items-list {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: grid;
+    gap: 30px; /* Απόσταση μεταξύ των ξενοδοχείων */
+}
+
+/* --- STANDARD SIZE CARDS (Όλα Ίδια) --- */
+
+/* --- ΤΕΛΙΚΟ STANDARD SIZE (Συμμαζεμένα Κουτιά) --- */
+
+.items-list {
+    display: flex;
+    flex-wrap: wrap;          /* Να πέφτουν από κάτω αν δεν χωράνε */
+    justify-content: center;  /* Όλα στο κέντρο της οθόνης */
+    gap: 30px;                /* Απόσταση μεταξύ τους */
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.item-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    
+    /* ΕΔΩ ΕΙΝΑΙ ΤΟ ΜΥΣΤΙΚΟ ΓΙΑ ΝΑ ΜΗΝ ΤΕΝΤΩΝΟΥΝ: */
+    width: 320px !important;    /* Σταθερό Πλάτος (πιο στενό) */
+    height: 420px !important;   /* Σταθερό Ύψος (πιο κοντό για να μην έχει κενά) */
+    flex-grow: 0 !important;    /* Απαγορεύεται να μεγαλώσει! */
+    
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.item-card img {
+    width: 100%;
+    height: 200px;          /* Η εικόνα πιάνει σχεδόν το μισό κουτί */
+    object-fit: cover;      /* Κόβεται σωστά χωρίς να παραμορφώνεται */
+}
+
+.item-info {
+    padding: 15px;
+    text-align: center;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    
+    /* ΑΥΤΗ ΕΙΝΑΙ Η ΑΛΛΑΓΗ: */
+    /* Αντί για height: 100%, βάζουμε flex-grow: 1 */
+    /* Λέει: "Γέμισε τον ΥΠΟΛΟΙΠΟ χώρο, όχι όλο τον χώρο" */
+    flex-grow: 1;  
+}
+
+.item-info h3 {
+    margin: 5px 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.item-info p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    
+    /* Αν το κείμενο είναι μεγάλο, κόψτο στις 3 γραμμές */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Το κουμπί */
+.btn-small {
+    background-color: #0045ad;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+    margin-top: auto; /* Σπρώχνει το κουμπί στο τέλος */
+    align-self: center; /* Κεντράρισμα του κουμπιού */
+}
+
+.btn-small:hover {
+    background-color: #003380;
+    transform: scale(1.05);
+}
+
+/* Το σκούρο φόντο που καλύπτει όλη την οθόνη */
+.modal-overlay {
+    display: none; /* Κρυμμένο στην αρχή */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.7); /* Μαύρο με διαφάνεια */
+    z-index: 1000; /* Να είναι πάνω από όλα */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Το κουτί στο κέντρο */
+.modal-content {
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease;
+}
+
+/* Κουμπί κλεισίματος (X) */
+.close-btn {
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #666;
+}
+.close-btn:hover { color: red; }
+
+/* Στυλ για τα λινκ μέσα στο popup */
+.modal-info-item {
+    margin: 15px 0;
+    font-size: 1.1rem;
+}
+.modal-info-item a {
+    color: #0045ad;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Best of Month - ΝΕΟ ΣΤΥΛ ΜΕ ΕΙΚΟΝΑ */
+.monthly-section { background-color: #fff; padding-bottom: 2rem; }
+
+.month-content {
+    background: #f0f4f8;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Η νέα διάταξη: Εικόνα αριστερά, Κείμενο δεξιά */
+.month-layout {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    text-align: left;
+}
+
+.month-layout img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.month-info h3 {
+    color: #0045ad;
+    margin-top: 0;
+}
+
+/* Για κινητά: Η εικόνα πάνω από το κείμενο */
+@media (max-width: 768px) {
+    .month-layout {
+        flex-direction: column;
+        text-align: center;
+    }
+    .month-layout img {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+
+
+/* --- MOBILE MENU STYLES --- */
+
+/* Στυλ για τις 3 γραμμούλες */
+.hamburger {
+    display: none; /* Κρυμμένο στα PC */
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: rgb(47, 45, 45); /* Χρώμα γραμμών */
+    transition: all 0.3s ease;
+}
+
+/* Όταν η οθόνη είναι μικρή (Κινητά/Tablets) */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex; /* Εμφάνισε τις γραμμούλες */
+    }
+
+    .nav-links {
+        display: none; /* Κρύψε τα links αρχικά */
+        width: 100%;
+        position: absolute;
+        top: 60px; /* Κάτω από το λογότυπο */
+        left: 0;
+        background-color: #95bbf4; /* Μπλε φόντο */
+        flex-direction: column; /* Κάθετη λίστα */
+        text-align: center;
+        padding: 20px 0;
+        z-index: 100;
+    }
+
+    .nav-links li {
+        margin: 15px 0;
+    }
+
+    /* Αυτή η κλάση μπαίνει με JavaScript όταν πατάς το κουμπί */
+    .nav-links.active {
+        display: flex;
+    }
+}
+
+/* --- WEATHER BAR STYLES --- */
+.weather-bar {
+    background-color: #f0f4f8; /* Απαλό γκρι-μπλε */
+    color: #0045ad; /* Το μπλε του λογότυπου */
+    text-align: center;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    border-radius: 0 0 10px 10px; /* Στρογγύλεμα μόνο κάτω */
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Αν θες να κουνιέται λίγο το εικονίδιο */
+#weather-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-3px); }
+    100% { transform: translateY(0px); }
+}
+
+/* --- FOOTER STYLES --- */
+.main-footer {
+    background-color: #222; /* Σκούρο γκρι/μαύρο */
+    color: white;
+    padding: 30px 0;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- MODERN FILTER BUTTONS --- */
+#filter-container {
+    display: flex;             /* Τα βάζει στη σειρά */
+    justify-content: center;   /* Τα κεντράρει */
+    flex-wrap: wrap;           /* Αν δεν χωράνε, πάνε από κάτω */
+    gap: 15px;                 /* Κενό ανάμεσα στα κουμπιά */
+    margin: 30px auto;
+    max-width: 900px;
+    padding: 0 15px;
+}
+
+.filter-btn {
+    border: none;
+    outline: none;
+    padding: 12px 25px;        /* Πιο μεγάλα κουμπιά */
+    background-color: white;
+    cursor: pointer;
+    border-radius: 50px;       /* Οβάλ σχήμα (pill shape) */
+    font-size: 1.1rem;         /* Μεγαλύτερα γράμματα */
+    font-weight: 600;
+    color: #555;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Ελαφριά σκιά */
+    transition: all 0.3s ease; /* Ωραίο εφέ κίνησης */
+    border: 1px solid #eee;
+}
+
+.filter-btn:hover {
+    background-color: #f0f4f8;
+    transform: translateY(-2px); /* Ανεβαίνει λίγο όταν το ακουμπάς */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Το ενεργό κουμπί */
+.filter-btn.active {
+    background-color: #0045ad; /* Μπλε φόντο */
+    color: white;              /* Λευκά γράμματα */
+    box-shadow: 0 4px 10px rgba(0, 69, 173, 0.4);
+    border-color: #0045ad;
+}
+
+/* --- ΚΛΑΣΕΙΣ ΓΙΑ ΤΗ ΛΕΙΤΟΥΡΓΙΑ ΦΙΛΤΡΩΝ --- */
+/* ΣΗΜΑΝΤΙΚΟ: Αυτά κάνουν τα κουμπιά να δουλεύουν! */
+.item-card {
+    display: none; /* Κρύβουμε τα πάντα αρχικά */
+    animation: fadeIn 0.5s; /* Εφέ εμφάνισης */
+}
+
+.show {
+    display: block; /* Η Javascript βάζει αυτή την κλάση για να τα εμφανίσει */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
