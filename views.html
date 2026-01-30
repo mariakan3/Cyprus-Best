@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyprus Best Views</title>
@@ -37,35 +38,8 @@
         <h1 data-i18n="cat-views-title">Best Views</h1>
     </header>
 
-    <section class="items-list">
-        
-        <div class="item-card">
-            <img src="images/petra-tou-romiou.jpg" alt="Petra tou Romiou">
-            <div class="item-info">
-                <h3>Petra tou Romiou (Paphos)</h3>
-                <p data-i18n="desc-petra">Το θρυλικό σημείο γέννησης της Αφροδίτης.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('petra')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card">
-            <img src="images/cape-greco.jpg" alt="Cape Greco">
-            <div class="item-info">
-                <h3>Cape Cavo Greco (Ayia Napa)</h3>
-                <p data-i18n="desc-capegreco">Άγρια ομορφιά και κρυστάλλινα νερά στο νοτιοανατολικό άκρο.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('capegreco')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card">
-            <img src="images/troodos.webp" alt="Troodos Views">
-            <div class="item-info">
-                <h3>Troodos Mountains</h3>
-                <p data-i18n="desc-troodos">Πανοραμική θέα από την κορυφή του Ολύμπου.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('troodos')">More Info</button>
-            </div>
-        </div>
-
+    <section class="items-list" id="views-container">
+        <p style="text-align:center; width:100%;">Φόρτωση τοπίων...</p>
     </section>
 
 <footer class="main-footer">

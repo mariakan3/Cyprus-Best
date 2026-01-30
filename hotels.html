@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyprus Best Hotels</title>
@@ -37,35 +38,8 @@
         <h1 data-i18n="cat-hotels-title">Best Hotels</h1>
     </header>
 
-    <section class="items-list">
-        
-        <div class="item-card">
-            <img src="images/amara.jpg" alt="Hotel 1">
-            <div class="item-info">
-                <h3>Amara Hotel (Limassol)</h3>
-                <p data-i18n="desc-amara">Η απόλυτη πολυτέλεια με θέα τη θάλασσα της Λεμεσού.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('amara')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card">
-            <img src="images/anassa.jpg" alt="Hotel 2">
-            <div class="item-info">
-                <h3>Anassa Hotel (Paphos)</h3>
-                <p data-i18n="desc-anassa">Ένα βυζαντινό χωριό πολυτέλειας στον Ακάμα.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('anassa')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card">
-            <img src="images/four-seasons.jpg" alt="Hotel 3">
-            <div class="item-info">
-                <h3>Four Seasons (Limassol)</h3>
-                <p data-i18n="desc-fourseasons">Διαχρονική αξία και εξυπηρέτηση 5 αστέρων.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('fourseasons')">More Info</button>
-            </div>
-        </div>
-
+    <section class="items-list" id="hotels-container">
+        <p style="text-align:center; width:100%;">Φόρτωση ξενοδοχείων...</p>
     </section>
 
 <footer class="main-footer">

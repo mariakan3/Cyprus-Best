@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyprus Things to Do</title>
@@ -50,74 +51,8 @@
         <button class="filter-btn" onclick="filterSelection('yoga')">🧘🏻‍♀️ Yoga</button>
     </div>
 
-    <section class="items-list">
-
-        <div class="item-card yoga"> 
-            <img src="images/yoga-paphos.jpg" alt="Yoga Paphos">
-            <div class="item-info">
-                <h3>Yoga Paphos</h3>
-                <p data-i18n="desc-yoga">Βρείτε την εσωτερική σας γαλήνη με μια χαλαρωτική συνεδρία γιόγκα.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('yoga')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card diving"> 
-            <img src="images/sun-seals.jpg" alt="Sun Seals Divers">
-            <div class="item-info">
-                <h3>Sun Seals Divers</h3>
-                <p data-i18n="desc-sunseals">Παρατήρηση χελωνών, κολύμβηση με αναπνευστήρα και καταδύσεις.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('sunseals')">More Info</button>
-            </div>
-        </div>
-        
-        <div class="item-card safari">
-            <img src="images/sunshine-safari.jpg" alt="Sunshine Safari">
-            <div class="item-info">
-                <h3>Sunshine Safari Tours</h3>
-                <p data-i18n="desc-sunshine">Μια αξέχαστη ολοήμερη εμπειρία σαφάρι με ντόπιο οδηγό.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('sunshine')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card water"> 
-            <img src="images/blue-lagoon.jpg" alt="Blue Lagoon">
-            <div class="item-info">
-                <h3>Blue Lagoon Boat Trip</h3>
-                <p data-i18n="desc-boat">Κρουαζιέρα στα πιο γαλάζια νερά της Μεσογείου.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('boat')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card ski"> 
-            <img src="images/cyprus-ski-federation.jpg" alt="Ski Center">
-            <div class="item-info">
-                <h3>Troodos Ski Club</h3>
-                <p data-i18n="desc-ski">Απολαύστε το χιόνι στην κορυφή του Ολύμπου.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('ski-center')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card culture"> 
-            <img src="images/cyprus-museum.jpg" alt="Cyprus Museum">
-            <div class="item-info">
-                <h3>Cyprus Museum</h3>
-                <p data-i18n="desc-museum">Ταξίδι στην ιστορία και την αρχαιολογία του νησιού.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('museum-nic')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card culture"> 
-            <img src="images/nicosia-old-town.jpg" alt="Walk in Nicosia">
-            <div class="item-info">
-                <h3>Walk in Nicosia</h3>
-                <p data-i18n="desc-nicosiawalk">Εξερευνήστε την πρωτεύουσα.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('nicosiawalk')">More Info</button>
-            </div>
-        </div>
-
-
-
-
+    <section class="items-list" id="things-container">
+        <p style="text-align:center; width:100%;">Φόρτωση δραστηριοτήτων...</p>
     </section>
 
     <footer class="main-footer">

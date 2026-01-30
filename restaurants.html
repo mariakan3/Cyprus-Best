@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyprus Best Restaurants</title>
@@ -44,43 +45,9 @@
         <button class="filter-btn" onclick="filterSelection('asian')">🍣 Asian</button>
     </div>
 
-    <section class="items-list">
-        
-        <div class="item-card trad">
-            <img src="images/melania-restaurant.jpg" alt="Melania">
-            <div class="item-info">
-                <h3>Melania Restaurant</h3>
-                <p data-i18n="desc-melania">Η αυθεντική κυπριακή σούβλα και διασκέδαση στην Πάφο.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('melania')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card fine">
-            <img src="images/sera.jpg" alt="sera">
-            <div class="item-info">
-                <h3>Sera By Ettore Botrini</h3>
-                <p data-i18n="desc-sera">Αυθεντική ιταλική φινέτσα και φρέσκα ζυμαρικά από τον βραβευμένο σεφ Ettore Botrini.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('sera')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card trad">
-            <img src="images/kyparissos-restaurant.jpg" alt="kyparissos">
-            <div class="item-info">
-                <h3>Kyparissos Restaurant</h3>
-                <p data-i18n="desc-kyparissos">Παραδοσιακό χαλούμι και μεζέδες.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('kyparissos')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card asian">
-            <img src="images/phuket.jpg" alt="Phukhet Restaurant">
-            <div class="item-info">
-                <h3>Phukhet Thai & Chinese</h3>
-                <p data-i18n="desc-phuket">Αυθεντική ταϊλανδέζικη και κινέζικη κουζίνα στην Πάφο.</p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('phukhet')">More Info</button>
-            </div>
-        </div> 
+    <section class="items-list" id="restaurants-container">
+        <p style="text-align:center; width:100%;">Φόρτωση εστιατορίων...</p>
+    </section>
 
     </section> <footer class="main-footer">
         <div class="footer-content">

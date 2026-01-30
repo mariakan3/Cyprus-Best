@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyprus Real Estate</title>
@@ -37,35 +38,8 @@
         <h1 data-i18n="cat-realestate-title">Best Real Estate</h1>
     </header>
 
-    <section class="items-list">
-        
-        <div class="item-card">
-            <img src="images/korantina.jpg" alt="korantina">
-            <div class="item-info">
-                <h3>Korantina Homes</h3>
-                <p data-i18n="desc-korantina"></p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('korantina')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card">
-            <img src="images/leptos-real-estate.jpg" alt="leptos">
-            <div class="item-info">
-                <h3>Leptos Real Estate</h3>
-                <p data-i18n="desc-leptos"></p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('leptos')">More Info</button>
-            </div>
-        </div>
-
-        <div class="item-card">
-            <img src="images/pafilia.jpg" alt="pafilia">
-            <div class="item-info">
-                <h3>Pafilia</h3>
-                <p data-i18n="desc-pafilia"></p>
-                <button class="btn-small" data-i18n="btn-more" onclick="openModal('pafilia')">More Info</button>
-            </div>
-        </div>
-
+    <section class="items-list" id="realestate-container">
+        <p style="text-align:center; width:100%;">Φόρτωση ακινήτων...</p>
     </section>
 
 <footer class="main-footer">
