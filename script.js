@@ -313,7 +313,7 @@ function updateBestOfMonth() {
 const itemDetails = {
     // --- BEST OF MONTH ---
     "ski-center": { title: "Troodos Ski Club", phone: "+357 22 44 98 37", web: "http://www.cyprusski.com/", map: "https://maps.app.goo.gl/LMhnfjrj6VgN8sCHA" },
-    "nicosia-walk": { title: "Old Nicosia", phone: "-", web: "https://maps.app.goo.gl/zN1Txtm8yQ889h7n7", map: "https://maps.app.goo.gl/zN1Txtm8yQ889h7n7" },
+    "nicosiawalk": { title: "Old Nicosia", phone: "-", web: "https://maps.app.goo.gl/zN1Txtm8yQ889h7n7", map: "https://maps.app.goo.gl/zN1Txtm8yQ889h7n7" },
 
     // --- HOTELS ---
     "amara": { title: "Amara Hotel", phone: "+357 25 44 22 22", web: "http://www.amarahotel.com/", map: "https://maps.app.goo.gl/qz2s9yqypVCVYiPeA" },
