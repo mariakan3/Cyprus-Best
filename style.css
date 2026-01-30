@@ -123,11 +123,11 @@ section { padding: 3rem 2rem; text-align: center; }
 .card h3 { color: #fff; font-size: 1.5rem; margin-bottom: 5px; }
 
 /* Εικόνες Κατηγοριών */
-#hotels { background-image: linear-gradient(to top, rgba(255, 255, 255), transparent), url('images/hotels.png'); }
-#restaurants { background-image: linear-gradient(to top, rgba(255, 255, 255), transparent), url('images/restaurants.png'); }
-#views { background-image: linear-gradient(to top, rgba(255, 255, 255), transparent), url('images/view.jpg'); }
-#real-estate { background-image: linear-gradient(to top, rgba(255, 255, 255), transparent), url('images/real-estate.jpg'); }
-#thingstodo { background-image: linear-gradient(to top, rgba(255, 255, 255), transparent), url('images/paphos-castle.jpg'); }
+#hotels { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/hotels.png'); }
+#restaurants { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/restaurants.png'); }
+#views { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/view.jpg'); }
+#real-estate { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/real-estate.jpg'); }
+#thingstodo { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/paphos-castle.jpg'); }
 
 /* --- 6. PAGE HEADERS (ΤΙΤΛΟΙ ΣΕΛΙΔΩΝ) --- */
 .page-header {
