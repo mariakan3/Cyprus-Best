@@ -43,12 +43,23 @@
         <button class="filter-btn active" onclick="filterSelection('all')">All</button>
         <button class="filter-btn" onclick="filterSelection('safari')">🚙 Safari</button>
         <button class="filter-btn" onclick="filterSelection('water')">🚤 Boat Trips</button>
-        <button class="filter-btn" onclick="filterSelection('diving')">🤿 Diving</button> <button class="filter-btn" onclick="filterSelection('ski')">🎿 Ski</button>
+        <button class="filter-btn" onclick="filterSelection('diving')">🤿 Diving</button>
+        <button class="filter-btn" onclick="filterSelection('ski')">🎿 Ski</button>
         <button class="filter-btn" onclick="filterSelection('museums')">🏛️ Museums</button>
         <button class="filter-btn" onclick="filterSelection('wine')">🍷 Wine</button>
+        <button class="filter-btn" onclick="filterSelection('yoga')">🧘🏻‍♀️ Yoga</button>
     </div>
 
     <section class="items-list">
+
+        <div class="item-card yoga"> 
+            <img src="images/yoga-paphos.jpg" alt="Yoga Paphos">
+            <div class="item-info">
+                <h3>Yoga Paphos</h3>
+                <p data-i18n="desc-yoga">Βρείτε την εσωτερική σας γαλήνη με μια χαλαρωτική συνεδρία γιόγκα.</p>
+                <button class="btn-small" data-i18n="btn-more" onclick="openModal('yoga')">More Info</button>
+            </div>
+        </div>
 
         <div class="item-card diving"> 
             <img src="images/sun-seals.jpg" alt="Sun Seals Divers">
@@ -103,6 +114,7 @@
                 <button class="btn-small" data-i18n="btn-more" onclick="openModal('wine')">More Info</button>
             </div>
         </div>
+
 
     </section>
 

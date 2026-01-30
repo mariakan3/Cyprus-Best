@@ -53,7 +53,8 @@ const translations = {
         "desc-wine": "Δοκιμή παραδοσιακών κρασιών στα κρασοχώρια.",
         
         "desc-sunshine": "Μια αξέχαστη ολοήμερη εμπειρία σαφάρι με ντόπιο οδηγό.",
-        "desc-sunseals": "Παρατήρηση χελωνών, κολύμβηση με αναπνευστήρα και καταδύσεις."
+        "desc-sunseals": "Παρατήρηση χελωνών, κολύμβηση με αναπνευστήρα και καταδύσεις.",
+        "desc-yoga": "Βρείτε την εσωτερική σας γαλήνη με μια χαλαρωτική συνεδρία γιόγκα.",
     },
     en: {
         "nav-home": "Home",
@@ -103,7 +104,8 @@ const translations = {
         "desc-wine": "Traditional wine tasting in the wine villages.",
 
         "desc-sunshine": "A memorable full-day safari experience with a local guide.",
-        "desc-sunseals": "Turtle watching, snorkeling trips, and scuba diving experiences."
+        "desc-sunseals": "Turtle watching, snorkeling trips, and scuba diving experiences.",
+        "desc-yoga": "Find your inner peace with a relaxing yoga session.",
     },
     ru: {
         "nav-home": "Главная",
@@ -153,7 +155,9 @@ const translations = {
         "desc-wine": "Дегустация традиционных вин в винодельческих деревнях.",
 
         "desc-sunshine": "Незабываемое сафари на целый день с местным гидом.",
-        "desc-sunseals": "Наблюдение за черепахами, сноркелинг и дайвинг."
+        "desc-sunseals": "Наблюдение за черепахами, сноркелинг и дайвинг.",
+        "desc-yoga": "Обретите внутренний покой на расслабляющем сеансе йоги.",
+
     },
     zh: {
         "nav-home": "首页",
@@ -203,7 +207,8 @@ const translations = {
         "desc-wine": "在葡萄酒村品尝传统葡萄酒。",
 
         "desc-sunshine": "与当地向导一起度过难忘的全天野生动物园体验。",
-        "desc-sunseals": "观赏海龟，浮潜和潜水之旅。"
+        "desc-sunseals": "观赏海龟，浮潜和潜水之旅。",
+        "desc-yoga": "通过轻松的瑜伽课程寻找内心的平静。",
     }
 };
 
@@ -332,7 +337,8 @@ const itemDetails = {
     "sunseals": { title: "Sun Seals Divers", phone: "+357 97 82 94 09", web: "https://sunsealsdivers.com/", map: "https://maps.app.goo.gl/CqpP6WhjMcAyb64z6" },
     "boat": { title: "Blue Lagoon Boat Trip", phone: "+357 99 30 28 79", web: "https://www.cyprusminicruises.com/", map: "https://maps.app.goo.gl/1UpgLYkptrqGmVya9" },
     "museum-nic": { title: "Cyprus Museum", phone: "+357 22 86 58 54", web: "http://www.mcw.gov.cy", map: "https://maps.app.goo.gl/Hxtqq6dVETy7QQtu9" },
-    "wine": { title: "Omodos Wine Tasting", phone: "+357 25 44 60 00", web: "https://www.oenouyiwine.com/", map: "https://maps.app.goo.gl/1ZMG3sfGrRvXpCsw5" }
+    "wine": { title: "Omodos Wine Tasting", phone: "+357 25 44 60 00", web: "https://www.oenouyiwine.com/", map: "https://maps.app.goo.gl/1ZMG3sfGrRvXpCsw5" },
+    "yoga": {title: "Yoga Ppahos", phone: "+357 99 52 40 40", web: "http://yogastudiopaphos.com/", map: "https://maps.app.goo.gl/G7g9mVnFYzhoN5K9A"}
 };
 
 // Συνάρτηση για να ανοίγει το Modal
