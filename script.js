@@ -239,7 +239,7 @@ const monthlyData = {
             zh: { title: "滑雪中心", desc: "在奥林匹斯山顶享受雪景。" }
         },
         {
-            id: "nicosia-walk",
+            id: "nicosiawalk",
             img: "images/nicosia-old-town.jpg",
             el: { title: "Βόλτα στην Παλιά Λευκωσία", desc: "Ιδανική εποχή για να χαθείς στα στενά της παλιάς πόλης." },
             en: { title: "Walk in Nicosia", desc: "Perfect time to get lost in the old town streets." },
@@ -249,7 +249,7 @@ const monthlyData = {
     ],
     default: [
         {
-            id: "nicosia-walk",
+            id: "nicosiawalk",
             img: "images/nicosia-old-town.jpg",
             el: { title: "Βόλτα στην Παλιά Λευκωσία", desc: "Εξερευνήστε την πρωτεύουσα." },
             en: { title: "Walk in Nicosia", desc: "Explore the capital." },
@@ -338,7 +338,8 @@ const itemDetails = {
     "boat": { title: "Blue Lagoon Boat Trip", phone: "+357 99 30 28 79", web: "https://www.cyprusminicruises.com/", map: "https://maps.app.goo.gl/1UpgLYkptrqGmVya9" },
     "museum-nic": { title: "Cyprus Museum", phone: "+357 22 86 58 54", web: "http://www.mcw.gov.cy", map: "https://maps.app.goo.gl/Hxtqq6dVETy7QQtu9" },
     "wine": { title: "Omodos Wine Tasting", phone: "+357 25 44 60 00", web: "https://www.oenouyiwine.com/", map: "https://maps.app.goo.gl/1ZMG3sfGrRvXpCsw5" },
-    "yoga": {title: "Yoga Ppahos", phone: "+357 99 52 40 40", web: "http://yogastudiopaphos.com/", map: "https://maps.app.goo.gl/G7g9mVnFYzhoN5K9A"}
+    "yoga": {title: "Yoga Ppahos", phone: "+357 99 52 40 40", web: "http://yogastudiopaphos.com/", map: "https://maps.app.goo.gl/G7g9mVnFYzhoN5K9A"},
+    "nicosiawalk": {title: "Walk in Nicosia", phone: "-", web: "https://maps.app.goo.gl/x8FUVakCsdf3Qkt89", map: "https://maps.app.goo.gl/x8FUVakCsdf3Qkt89"},
 };
 
 // Συνάρτηση για να ανοίγει το Modal
