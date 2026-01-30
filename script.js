@@ -55,7 +55,7 @@ const translations = {
         "desc-sunshine": "Μια αξέχαστη ολοήμερη εμπειρία σαφάρι με ντόπιο οδηγό.",
         "desc-sunseals": "Παρατήρηση χελωνών, κολύμβηση με αναπνευστήρα και καταδύσεις.",
         "desc-yoga": "Βρείτε την εσωτερική σας γαλήνη με μια χαλαρωτική συνεδρία γιόγκα.",
-        "desc-nicosia-walk": "Εξερευνήστε την πρωτεύουσα.",
+        "desc-nicosiawalk": "Εξερευνήστε την πρωτεύουσα.",
     },
     en: {
         "nav-home": "Home",
@@ -107,7 +107,7 @@ const translations = {
         "desc-sunshine": "A memorable full-day safari experience with a local guide.",
         "desc-sunseals": "Turtle watching, snorkeling trips, and scuba diving experiences.",
         "desc-yoga": "Find your inner peace with a relaxing yoga session.",
-        "desc-nicosia-walk": "Explore the capital.",
+        "desc-nicosiawalk": "Explore the capital.",
     },
     ru: {
         "nav-home": "Главная",
@@ -159,7 +159,7 @@ const translations = {
         "desc-sunshine": "Незабываемое сафари на целый день с местным гидом.",
         "desc-sunseals": "Наблюдение за черепахами, сноркелинг и дайвинг.",
         "desc-yoga": "Обретите внутренний покой на расслабляющем сеансе йоги.",
-        "desc-nicosia-walk": "Исследуйте столицу.",
+        "desc-nicosiawalk": "Исследуйте столицу.",
 
     },
     zh: {
@@ -212,7 +212,7 @@ const translations = {
         "desc-sunshine": "与当地向导一起度过难忘的全天野生动物园体验。",
         "desc-sunseals": "观赏海龟，浮潜和潜水之旅。",
         "desc-yoga": "通过轻松的瑜伽课程寻找内心的平静。",
-        "desc-nicosia-walk": "探索首都。",
+        "desc-nicosiawalk": "探索首都。",
     }
 };
 
