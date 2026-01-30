@@ -90,15 +90,16 @@ const staticTranslations = {
     }
 };
 
-/* --- 4. DATA FETCHING (Με Loading Message) --- */
+/* --- 4. DATA FETCHING (Με Ταξινόμηση "Καρφίτσωμα") --- */
 async function loadCategory(categoryName, containerId) {
     const container = document.getElementById(containerId);
     if (!container || !dbClient) return;
 
-    // Δείχνουμε το μήνυμα φόρτωσης στη σωστή γλώσσα
+    // Loading Message
     const loadingText = staticTranslations[currentLang]["loading"];
     container.innerHTML = `<p style="text-align:center; width:100%; margin-top:20px;">${loadingText}</p>`;
 
+    // Ζητάμε τα δεδομένα από τη βάση
     const { data: places, error } = await dbClient
         .from('places')
         .select('*')
@@ -109,6 +110,27 @@ async function loadCategory(categoryName, containerId) {
         container.innerHTML = "<p>Something went wrong...</p>";
         return;
     }
+
+    // --- ΤΑΞΙΝΟΜΗΣΗ (PINNED ITEMS) ---
+    // Εδώ ορίζουμε ποια θέλουμε να βγαίνουν ΠΑΝΤΑ πρώτα σε κάθε κατηγορία
+    const pinnedIds = {
+        'things': 'yoga',       // Στα Things to Do -> Πρώτο το Yoga
+        'restaurants': 'melania' // Στα Restaurants -> Πρώτο το Melania
+    };
+
+    const pinnedId = pinnedIds[categoryName];
+
+    if (pinnedId && places) {
+        // Ψάχνουμε να βρούμε πού είναι στη λίστα
+        const index = places.findIndex(item => item.id === pinnedId);
+        
+        // Αν το βρούμε, το μετακινούμε στην αρχή (θέση 0)
+        if (index > -1) {
+            const item = places.splice(index, 1)[0]; // Το βγάζουμε από εκεί που είναι
+            places.unshift(item); // Το βάζουμε τέρμα πάνω
+        }
+    }
+    // ------------------------------------
 
     container.innerHTML = ''; // Καθαρισμός
 
