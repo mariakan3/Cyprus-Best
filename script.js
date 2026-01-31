@@ -182,7 +182,7 @@ async function loadBestOfMonth() {
         <div class="month-layout" style="display:flex; gap:20px; align-items:center; margin-bottom:20px; border-bottom:1px solid #ddd; padding-bottom:20px;">
             <img src="${place.image_url}" style="width:250px; height:180px; object-fit:cover; border-radius:10px;" alt="${title}">
             <div class="month-info">
-                <h3 style="margin-top:0; color:#0045ad;">${title}</h3>
+                <h3 style="margin-top:0; color:#333333;">${title}</h3>
                 <p>${desc}</p>
                 <button class="btn-small" onclick="openModal('${place.id}', '${place.phone}', '${place.website}', '${place.map_link}', '${title}')">
                     ${btnText}
