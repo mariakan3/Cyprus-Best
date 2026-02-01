@@ -10,83 +10,115 @@ if (typeof supabase !== 'undefined') {
 /* --- 2. GLOBAL VARIABLES --- */
 let currentLang = 'en'; 
 
-/* --- 3. ΠΛΗΡΕΙΣ ΜΕΤΑΦΡΑΣΕΙΣ --- */
+/* --- 3. ΠΛΗΡΕΙΣ ΜΕΤΑΦΡΑΣΕΙΣ (Με Emojis στα Φίλτρα) --- */
 const staticTranslations = {
     el: { 
         "nav-home": "Αρχική", "nav-hotels": "Ξενοδοχεία", "nav-restaurants": "Εστιατόρια", 
         "nav-views": "Θέα", "nav-realestate": "Ακίνητα", "nav-things": "Δραστηριότητες", 
-        "btn-more": "Περισσότερα", 
-        "loading": "Φόρτωση δεδομένων...", 
-        
-        "hero-title": "Ανακάλυψε την Κύπρο",
-        "hero-desc": "Τα καλύτερα του νησιού, προτεινόμενα από ντόπιους.",
-        "btn-explore": "Εξερεύνηση",
+        "btn-more": "Περισσότερα", "loading": "Φόρτωση δεδομένων...", 
+        "hero-title": "Ανακάλυψε την Κύπρο", "hero-desc": "Τα καλύτερα του νησιού, προτεινόμενα από ντόπιους.", "btn-explore": "Εξερεύνηση",
         "section-categories": "Οι Κατηγορίες Μας",
-        
         "cat-hotels-title": "Καλύτερα Ξενοδοχεία", "cat-hotels-desc": "Πολυτέλεια και φιλοξενία.",
         "cat-restaurants-title": "Καλύτερα Εστιατόρια", "cat-restaurants-desc": "Γεύσεις από την παράδοση.",
         "cat-views-title": "Καλύτερη Θέα", "cat-views-desc": "Τα ωραιότερα ηλιοβασιλέματα.",
         "cat-realestate-title": "Ακίνητα", "cat-realestate-desc": "Επενδυτικές ευκαιρίες.",
         "cat-things-title": "Δραστηριότητες", "cat-things-desc": "Εμπειρίες και περιπέτεια.",
-        
-        "lbl-phone": "Τηλ:", "lbl-map": "Δείτε τον Χάρτη"
+        "lbl-phone": "Τηλ:", "lbl-map": "Δείτε τον Χάρτη",
+
+        // --- ΦΙΛΤΡΑ (Με Emojis) ---
+        "filter-all": "Όλα",
+        "filter-safari": "🚙 Σαφάρι",
+        "filter-boat": "🛥️ Σκάφος",
+        "filter-diving": "🤿 Κατάδυση",
+        "filter-ski": "⛷️ Σκι",
+        "filter-culture": "🏛️ Πολιτισμός",
+        "filter-wine": "🍷 Κρασί",
+        "filter-yoga": "🧘🏻‍♀️ Γιόγκα",
+        "filter-trad": "🍲 Παραδοσιακά",
+        "filter-fine": "🍷 Πολυτελή",
+        "filter-asian": "🥢 Ασιατικά",
+
     },
     en: { 
         "nav-home": "Home", "nav-hotels": "Hotels", "nav-restaurants": "Restaurants", 
         "nav-views": "Views", "nav-realestate": "Real Estate", "nav-things": "Things to Do", 
-        "btn-more": "More Info", 
-        "loading": "Loading data...",
-
-        "hero-title": "Discover Cyprus",
-        "hero-desc": "The best of the island, recommended by locals.",
-        "btn-explore": "Explore",
+        "btn-more": "More Info", "loading": "Loading data...",
+        "hero-title": "Discover Cyprus", "hero-desc": "The best of the island, recommended by locals.", "btn-explore": "Explore",
         "section-categories": "Our Categories",
-
         "cat-hotels-title": "Best Hotels", "cat-hotels-desc": "Luxury and hospitality.",
         "cat-restaurants-title": "Best Restaurants", "cat-restaurants-desc": "Traditional flavors.",
         "cat-views-title": "Best Views", "cat-views-desc": "The most beautiful sunsets.",
         "cat-realestate-title": "Real Estate", "cat-realestate-desc": "Investment opportunities.",
         "cat-things-title": "Things to Do", "cat-things-desc": "Experiences and adventure.",
-        
-        "lbl-phone": "Tel:", "lbl-map": "Open Map"
+        "lbl-phone": "Tel:", "lbl-map": "Open Map",
+
+        // --- FILTERS (With Emojis) ---
+        "filter-all": "All",
+        "filter-safari": "🚙 Safari",
+        "filter-boat": "🛥️ Boat Trips",
+        "filter-diving": "🤿 Diving",
+        "filter-ski": "⛷️ Ski",
+        "filter-culture": "🏛️ Culture",
+        "filter-wine": "🍷 Wine",
+        "filter-yoga": "🧘🏻‍♀️ Yoga",
+        "filter-trad": "🍲 Traditional",
+        "filter-fine": "🍷 Fine Dining",
+        "filter-asian": "🥢 Asian",
+
     },
     ru: { 
         "nav-home": "Главная", "nav-hotels": "Отели", "nav-restaurants": "Рестораны", 
         "nav-views": "Виды", "nav-realestate": "Недвижимость", "nav-things": "Развлечения", 
-        "btn-more": "Подробнее", 
-        "loading": "Загрузка данных...",
-
-        "hero-title": "Откройте для себя Кипр",
-        "hero-desc": "Лучшее на острове, рекомендовано местными жителями.",
-        "btn-explore": "Исследовать",
+        "btn-more": "Подробнее", "loading": "Загрузка данных...",
+        "hero-title": "Откройте для себя Кипр", "hero-desc": "Лучшее на острове, рекомендовано местными жителями.", "btn-explore": "Исследовать",
         "section-categories": "Наши Категории",
-
         "cat-hotels-title": "Лучшие Отели", "cat-hotels-desc": "Роскошь и гостеприимство.",
         "cat-restaurants-title": "Лучшие Рестораны", "cat-restaurants-desc": "Традиционные вкусы.",
         "cat-views-title": "Лучшие Виды", "cat-views-desc": "Самые красивые закаты.",
         "cat-realestate-title": "Недвижимость", "cat-realestate-desc": "Инвестиционные возможности.",
         "cat-things-title": "Развлечения", "cat-things-desc": "Опыт и приключения.",
-        
-        "lbl-phone": "Тел:", "lbl-map": "Открыть Карту"
+        "lbl-phone": "Тел:", "lbl-map": "Открыть Карту",
+
+        // --- FILTERS (With Emojis) ---
+        "filter-all": "Все",
+        "filter-safari": "🚙 Сафари",
+        "filter-boat": "🛥️ Лодки",
+        "filter-diving": "🤿 Дайвинг",
+        "filter-ski": "⛷️ Лыжи",
+        "filter-culture": "🏛️ Культура",
+        "filter-wine": "🍷 Вино",
+        "filter-yoga": "🧘🏻‍♀️ Йога",
+        "filter-trad": "🍲 Традиционные",
+        "filter-fine": "🍷 Изысканные",
+        "filter-asian": "🥢 Азиатские",
+
     },
     zh: { 
         "nav-home": "首页", "nav-hotels": "酒店", "nav-restaurants": "餐厅", 
         "nav-views": "景色", "nav-realestate": "房地产", "nav-things": "休闲活动", 
-        "btn-more": "更多信息", 
-        "loading": "加载数据...",
-
-        "hero-title": "探索塞浦路斯",
-        "hero-desc": "岛上最好的地方，由当地人推荐。",
-        "btn-explore": "探索",
+        "btn-more": "更多信息", "loading": "加载数据...",
+        "hero-title": "探索塞浦路斯", "hero-desc": "岛上最好的地方，由当地人推荐。", "btn-explore": "探索",
         "section-categories": "我们的类别",
-
         "cat-hotels-title": "最好的酒店", "cat-hotels-desc": "奢华与热情。",
         "cat-restaurants-title": "最好的餐厅", "cat-restaurants-desc": "传统风味。",
         "cat-views-title": "最好的景色", "cat-views-desc": "最美丽的日落。",
         "cat-realestate-title": "房地产", "cat-realestate-desc": "投资机会。",
         "cat-things-title": "休闲活动", "cat-things-desc": "体验与冒险。",
-        
-        "lbl-phone": "电话:", "lbl-map": "打开地图"
+        "lbl-phone": "电话:", "lbl-map": "打开地图",
+
+        // --- FILTERS (With Emojis) ---
+        "filter-all": "全部",
+        "filter-safari": "🚙 野生动物园",
+        "filter-boat": "🛥️ 乘船游览",
+        "filter-diving": "🤿 潜水",
+        "filter-ski": "⛷️ 滑雪",
+        "filter-culture": "🏛️ 文化",
+        "filter-wine": "🍷 葡萄酒",
+        "filter-yoga": "🧘🏻‍♀️ 瑜伽",
+        "filter-trad": "🍲 传统",
+        "filter-fine": "🍷 高级餐饮",
+        "filter-asian": "🥢 亚洲",
+
     }
 };
 

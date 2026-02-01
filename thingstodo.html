@@ -40,16 +40,16 @@
         <h1 data-i18n="cat-things-title">Things to Do</h1>
     </header>
 
-    <div id="filter-container">
-        <button class="filter-btn active" onclick="filterSelection('all')">All</button>
-        <button class="filter-btn" onclick="filterSelection('safari')">🚙 Safari</button>
-        <button class="filter-btn" onclick="filterSelection('water')">🚤 Boat Trips</button>
-        <button class="filter-btn" onclick="filterSelection('diving')">🤿 Diving</button>
-        <button class="filter-btn" onclick="filterSelection('ski')">🎿 Ski</button>
-        <button class="filter-btn" onclick="filterSelection('culture')">🏛️ Culture</button>
-        <button class="filter-btn" onclick="filterSelection('wine')">🍷 Wine</button>
-        <button class="filter-btn" onclick="filterSelection('yoga')">🧘🏻‍♀️ Yoga</button>
-    </div>
+<div id="myBtnContainer">
+  <button class="filter-btn active" onclick="filterSelection('all')" data-i18n="filter-all">All</button>
+  <button class="filter-btn" onclick="filterSelection('safari')" data-i18n="filter-safari">🚙 Safari</button>
+  <button class="filter-btn" onclick="filterSelection('sea')" data-i18n="filter-boat">🛥️ Boat Trips</button>
+  <button class="filter-btn" onclick="filterSelection('diving')" data-i18n="filter-diving">🤿 Diving</button>
+  <button class="filter-btn" onclick="filterSelection('ski')" data-i18n="filter-ski">⛷️ Ski</button>
+  <button class="filter-btn" onclick="filterSelection('culture')" data-i18n="filter-culture">🏛️ Culture</button>
+  <button class="filter-btn" onclick="filterSelection('wine')" data-i18n="filter-wine">🍷 Wine</button>
+  <button class="filter-btn" onclick="filterSelection('yoga')" data-i18n="filter-yoga">🧘🏻‍♀️ Yoga</button>
+</div>
 
     <section class="items-list" id="things-container">
         <p style="text-align:center; width:100%;">Φόρτωση δραστηριοτήτων...</p>
