@@ -404,34 +404,31 @@ section { padding: 3rem 2rem; text-align: center; }
     }
 }
 
-/* --- 🚑 ΕΠΙΣΚΕΥΗ ΜΕΝΟΥ ΚΙΝΗΤΟΥ (MOBILE FIX) 🚑 --- */
+/* --- FINAL MOBILE FIX --- */
 @media (max-width: 768px) {
     
-    /* 1. Μικραίνουμε τη μπάρα στο κινητό για να είναι κομψή */
+    /* 1. Ρυθμίζουμε τη Μπάρα */
     .navbar {
-        height: 70px !important; /* Σταθερό ύψος 70px */
-        padding: 0 15px !important;
-        align-items: center !important;
+        height: 80px !important;       /* Σταθερό ύψος */
+        position: relative !important; /* Απαραίτητο για να "κουμπώσει" το μενού από κάτω */
+        z-index: 1000;                 /* Να είναι πάνω από όλα */
+        background-color: white;       /* Να έχει χρώμα για να φαίνεται */
     }
 
-    /* 2. Μικραίνουμε το λογότυπο για να χωράει στη μπάρα */
+    /* 2. Ρυθμίζουμε το Λογότυπο */
     .main-logo {
-        height: 50px !important; /* Μικρό ύψος για να μην κρύβει την οθόνη */
+        height: 60px !important;       /* Μικρό και κομψό */
         width: auto !important;
-        position: static !important; /* Απενεργοποιεί ειδικές θέσεις */
-        margin: 0 !important;
+        margin-top: 5px;               /* Λίγο κενό από πάνω */
     }
 
-    /* 3. Το Μπλε Μενού ξεκινάει ΑΚΡΙΒΩΣ κάτω από τη μπάρα */
+    /* 3. Το Μενού "κολλάει" αυτόματα από κάτω */
     .nav-links {
-        top: 70px !important; /* Πρέπει να είναι ΙΔΙΟ με το ύψος της navbar (70px) */
+        top: 100% !important;          /* Σημαίνει: "Ξεκίνα στο 100% του ύψους της μπάρας" */
+        left: 0;
         width: 100% !important;
-        background-color: #3cc6cb !important;
-    }
-    
-    /* Σιγουρεύουμε ότι το κουμπάκι Hamburger φαίνεται */
-    .hamburger {
-        display: flex !important;
-        z-index: 2000 !important;
+        background-color: #3cc6cb;     /* Το μπλε χρώμα */
+        position: absolute;            /* Για να βγει έξω από τη ροή */
+        z-index: 999;                  /* Ένα επίπεδο κάτω από τη μπάρα */
     }
 }
