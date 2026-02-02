@@ -7,22 +7,20 @@ body {
     background-color: #f9f9f9;
 }
 
-/* --- 2. NAVBAR (ΜΕΝΟΥ) --- */
+/* Ρυθμίζουμε το ύψος της μπάρας σταθερά */
 .navbar {
-    background-color: #fff;
-    padding: 1rem 2rem;
+    height: 100px; /* ύψος της μπάρας. Αν το θες πιο λεπτό, βάλε 80px */
+    padding: 0 20px; /* Μηδέν κενό πάνω-κάτω, μόνο δεξιά-αριστερά */
     display: flex;
+    align-items: center; /* Κεντράρει τα πάντα στη μέση */
     justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: relative; /* Για να δουλεύει το mobile menu */
-    z-index: 1001;
 }
 
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #3cc6cb;
+/* Ρυθμίζουμε το λογότυπο να γεμίζει τον χώρο */
+.main-logo {
+    height: 180px; /* Σταθερό ύψος για το λογότυπο */
+    width: auto;  /* Προσαρμόζεται αυτόματα το πλάτος */
+    display: block; /* Βοηθάει να μην έχει κρυφά κενά */
 }
 
 .nav-links {
