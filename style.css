@@ -451,3 +451,38 @@ section { padding: 3rem 2rem; text-align: center; }
         z-index: 10001 !important;     /* Το πιο ψηλό από όλα */
     }
 }
+
+/* --- SOCIAL MEDIA FOOTER --- */
+.footer-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.social-icons {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center; /* Κεντράρει τα εικονίδια */
+    gap: 20px; /* Απόσταση μεταξύ τους */
+}
+
+.social-icons a {
+    color: #555;          /* Αρχικό χρώμα (Γκρι σκούρο) */
+    font-size: 28px;      /* Μέγεθος εικονιδίων */
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #fff; /* Λευκός κύκλος από πίσω */
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Ελαφριά σκιά */
+}
+
+/* Όταν περνάς το ποντίκι από πάνω (Hover) */
+.social-icons a:hover {
+    transform: translateY(-5px); /* Ανεβαίνει λίγο πάνω */
+    color: white; /* Το εικονίδιο γίνεται λευκό */
+    background-color: #3cc6cb; /* Το φόντο γίνεται το μπλε του site σου */
+    box-shadow: 0 6px 12px rgba(60, 198, 203, 0.4);
+}
