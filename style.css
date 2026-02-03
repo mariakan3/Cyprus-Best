@@ -498,7 +498,7 @@ section { padding: 3rem 2rem; text-align: center; }
 
     /* 2. Το λογότυπο μικραίνει λίγο για να χωράει ΑΝΕΤΑ μέσα στη μπάρα */
     .main-logo {
-        height: 70px !important; /* Ιδανικό μέγεθος για μπάρα 80px */
+        height: 75px !important; /* Ιδανικό μέγεθος για μπάρα 80px */
         width: auto !important;  
         max-width: 180px !important; /* Να μην γίνει τεράστιο σε πλάτος */
         margin: 0 !important;
