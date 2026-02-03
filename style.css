@@ -421,7 +421,7 @@ section { padding: 3rem 2rem; text-align: center; }
 
     /* 2. ΤΟ ΛΟΓΟΤΥΠΟ (Να χωράει στη μπάρα) */
     .main-logo {
-        height: 90px !important;       /* Μέγεθος που χωράει άνετα στα 80px */
+        height: 100px !important;       /* Μέγεθος που χωράει άνετα στα 80px */
         width: auto !important;
         margin: 0 !important;
         position: static !important;
