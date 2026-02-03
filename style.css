@@ -488,79 +488,50 @@ section { padding: 3rem 2rem; text-align: center; }
     box-shadow: 0 6px 12px rgba(60, 198, 203, 0.4);
 }
 
-/* --- ΤΕΛΙΚΗ ΔΙΟΡΘΩΣΗ ΜΕΓΕΘΟΥΣ ΛΟΓΟΤΥΠΟΥ (MOBILE) --- */
-@media (max-width: 768px) {
-    /* 1. Η μπάρα μένει σταθερή */
-    .navbar {
-        height: 80px !important; 
-        padding: 0 10px !important; /* Λίγο λιγότερο κενό στο πλάι για να χωράει */
-    }
-
-    /* 2. Το λογότυπο μικραίνει λίγο για να χωράει ΑΝΕΤΑ μέσα στη μπάρα */
-    .main-logo {
-        height: 75px !important; /* Ιδανικό μέγεθος για μπάρα 80px */
-        width: auto !important;  
-        max-width: 180px !important; /* Να μην γίνει τεράστιο σε πλάτος */
-        margin: 0 !important;
-    }
-}
-
-/* --- 🚀 ULTRA BIG LOGO FIX (MOBILE) --- */
+/* --- 🛡️ ULTIMATE MOBILE FIX (Absolute Hamburger) --- */
 @media (max-width: 768px) {
     
-    /* 1. Μεγαλώνουμε το ύψος της μπάρας (από 80px σε 110px) */
+    /* 1. Η Μπάρα: Σταθερή βάση */
     .navbar {
-        height: 110px !important; 
-        padding: 0 10px !important;
-    }
-
-    /* 2. Τώρα το λογότυπο έχει χώρο να γίνει μεγάλο */
-    .main-logo {
-        height: 95px !important; /* Πολύ μεγαλύτερο! */
-        width: auto !important;
-        max-width: 250px !important; /* Του επιτρέπουμε να απλωθεί */
-        margin-left: 0 !important;
-    }
-
-    /* 3. Κατεβάζουμε το μενού πιο κάτω για να μην πέφτει πάνω στη μπάρα */
-    .nav-links {
-        top: 110px !important; /* Πρέπει να ταιριάζει με το ύψος της μπάρας */
-    }
-}
-
-/* --- 🚑 FINAL MOBILE FIX (Clickable Menu + Big Logo) --- */
-@media (max-width: 768px) {
-    
-    /* 1. Επαναφορά της μπάρας σε φυσιολογικό ύψος */
-    .navbar {
-        height: 90px !important; 
+        height: 100px !important; 
         padding: 0 15px !important;
-        position: relative; /* Απαραίτητο για να δουλέψει το z-index */
+        position: relative !important; /* Απαραίτητο για να δουλέψει το απόλυτο κουμπί */
+        overflow: visible !important; /* Επιτρέπει στο μενού να ανοίξει */
     }
 
-    /* 2. SOS: Φέρνουμε το κουμπί του μενού ΜΠΡΟΣΤΑ από όλα */
+    /* 2. Το Κουμπί (Hamburger): Το "ξεκολλάμε" και το βάζουμε πάνω από όλα */
     .hamburger {
-        z-index: 10000 !important; /* Το πιο ψηλό νούμερο για να πατιέται πάντα */
-        position: relative;
+        position: absolute !important; /* Αγνοεί τα πάντα και πάει όπου του πούμε */
+        right: 20px !important;        /* Καρφωμένο δεξιά */
+        top: 50% !important;           /* Κεντραρισμένο κάθετα */
+        transform: translateY(-50%) !important; 
+        z-index: 99999 !important;     /* Πάνω από ΟΛΑ (ακόμα κι από το λογότυπο) */
+        cursor: pointer;
+        display: flex !important;
     }
 
-    /* 3. Ρυθμίζουμε το Λογότυπο έξυπνα */
+    /* 3. Το Λογότυπο: Μεγάλο αλλά "μαζεμένο" */
     .main-logo {
-        height: 55px !important; /* Βασικό ύψος */
+        height: 60px !important;
         width: auto !important;
         
-        /* Περιορίζουμε το ΠΛΑΤΟΣ για να μην πέφτει πάνω στο μενού */
-        max-width: 65% !important; 
-        
-        /* Κάνουμε ΖΟΥΜ χωρίς να πιάνουμε χώρο */
-        transform: scale(1.8); 
+        /* Ζουμ για να φαίνεται μεγάλο */
+        transform: scale(1.6); 
         transform-origin: left center; 
-        margin-left: 15px !important; 
+        
+        /* ΣΗΜΑΝΤΙΚΟ: Το κόβουμε να μην πλησιάζει το κουμπί δεξιά */
+        max-width: 60% !important; 
+        margin-left: 10px !important;
+        
+        /* Βεβαιωνόμαστε ότι είναι "κάτω" από το κουμπί σε σειρά */
+        position: relative;
+        z-index: 1; 
     }
 
-    /* 4. Προσαρμογή του ύψους που κατεβαίνει το μενού */
+    /* 4. Το Μενού που ανοίγει */
     .nav-links {
-        top: 90px !important;
+        top: 100px !important; /* Ανοίγει ακριβώς κάτω από τη μπάρα */
+        z-index: 9999 !important;
     }
 }
 
