@@ -487,3 +487,20 @@ section { padding: 3rem 2rem; text-align: center; }
     background-color: #3cc6cb; /* Το φόντο γίνεται το μπλε του site σου */
     box-shadow: 0 6px 12px rgba(60, 198, 203, 0.4);
 }
+
+/* --- ΤΕΛΙΚΗ ΔΙΟΡΘΩΣΗ ΜΕΓΕΘΟΥΣ ΛΟΓΟΤΥΠΟΥ (MOBILE) --- */
+@media (max-width: 768px) {
+    /* 1. Η μπάρα μένει σταθερή */
+    .navbar {
+        height: 80px !important; 
+        padding: 0 10px !important; /* Λίγο λιγότερο κενό στο πλάι για να χωράει */
+    }
+
+    /* 2. Το λογότυπο μικραίνει λίγο για να χωράει ΑΝΕΤΑ μέσα στη μπάρα */
+    .main-logo {
+        height: 70px !important; /* Ιδανικό μέγεθος για μπάρα 80px */
+        width: auto !important;  
+        max-width: 180px !important; /* Να μην γίνει τεράστιο σε πλάτος */
+        margin: 0 !important;
+    }
+}
