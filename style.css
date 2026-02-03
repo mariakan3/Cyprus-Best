@@ -528,31 +528,39 @@ section { padding: 3rem 2rem; text-align: center; }
     }
 }
 
-/* --- 🪄 ZOOM FIX ΓΙΑ ΤΟ ΛΟΓΟΤΥΠΟ --- */
+/* --- 🚑 FINAL MOBILE FIX (Clickable Menu + Big Logo) --- */
 @media (max-width: 768px) {
     
-    /* 1. Κρατάμε τη μπάρα σε λογικό ύψος */
+    /* 1. Επαναφορά της μπάρας σε φυσιολογικό ύψος */
     .navbar {
-        height: 100px !important; 
+        height: 90px !important; 
         padding: 0 15px !important;
-        overflow: hidden; /* Για να μην βγει τίποτα έξω */
+        position: relative; /* Απαραίτητο για να δουλέψει το z-index */
     }
 
-    /* 2. Κάνουμε ΖΟΥΜ στο λογότυπο */
+    /* 2. SOS: Φέρνουμε το κουμπί του μενού ΜΠΡΟΣΤΑ από όλα */
+    .hamburger {
+        z-index: 10000 !important; /* Το πιο ψηλό νούμερο για να πατιέται πάντα */
+        position: relative;
+    }
+
+    /* 3. Ρυθμίζουμε το Λογότυπο έξυπνα */
     .main-logo {
-        height: 70px !important; /* Βασικό ύψος */
+        height: 55px !important; /* Βασικό ύψος */
         width: auto !important;
         
-        /* 👇 ΤΟ ΜΥΣΤΙΚΟ: Μεγεθύνει την εικόνα τεχνητά (1.6 φορές πιο μεγάλη) */
-        transform: scale(1.6); 
+        /* Περιορίζουμε το ΠΛΑΤΟΣ για να μην πέφτει πάνω στο μενού */
+        max-width: 65% !important; 
         
-        /* Ζουμάρει από τα αριστερά, για να μην πέσει πάνω στο κουμπί του μενού */
+        /* Κάνουμε ΖΟΥΜ χωρίς να πιάνουμε χώρο */
+        transform: scale(1.8); 
         transform-origin: left center; 
-        
-        margin-left: 10px !important; /* Λίγο "αέρας" από την άκρη */
+        margin-left: 15px !important; 
     }
 
+    /* 4. Προσαρμογή του ύψους που κατεβαίνει το μενού */
     .nav-links {
-        top: 100px !important;
+        top: 90px !important;
     }
 }
+
