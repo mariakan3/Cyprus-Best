@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyprus Best Restaurants</title>
+    <title>Cyprus Best Services</title>
     <link rel="icon" type="image/png" href="logo.png.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-</head>
+</html>
 
 <body>
 
@@ -40,24 +40,28 @@
             <li><a href="thingstodo.html" data-i18n="nav-things">Things to Do</a></li>
             <li><a href="services.html" data-i18n="nav-services">Services</a></li>
         </ul>
+
     </nav>
 
-    <header class="page-header" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1920');">
-        <h1 data-i18n="cat-restaurants-title">Best Restaurants</h1>
+
+    <header class="page-header" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/servicesbg.jpg');">
+        <h1 data-i18n="cat-services-title">Best Services</h1>   
+
     </header>
 
 <div id="myBtnContainer" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 60px; margin-bottom: 30px; width: 100%;">
-  <button class="filter-btn active" onclick="filterSelection('all')" data-i18n="filter-all">All</button>
-  <button class="filter-btn" onclick="filterSelection('traditional')" data-i18n="filter-trad">🍲 Traditional</button>
-  <button class="filter-btn" onclick="filterSelection('fine_dining')" data-i18n="filter-fine">🍷 Fine Dining</button>
-  <button class="filter-btn" onclick="filterSelection('asian')" data-i18n="filter-asian">🥢 Asian</button>
+    <button class="filter-btn active" onclick="filterSelection('all')" data-i18n="filter-all">All</button>
+    <button class="filter-btn" onclick="filterSelection('law')" data-i18n="filter-law">⚖️ Law</button>
+    <button class="filter-btn" onclick="filterSelection('medical')" data-i18n="filter-medical">🏥 Medical</button>
+    <button class="filter-btn" onclick="filterSelection('logistics')" data-i18n="filter-logistics">📊 Logistics</button>
 </div>
 
-    <section class="items-list" id="restaurants-container">
-        <p style="text-align:center; width:100%;">Φόρτωση εστιατορίων...</p>
+
+    <section class="items-list" id="services-container">
+        <p style="text-align:center; width:100%;">Loading services...</p>
     </section>
 
- <footer class="main-footer">
+   <footer class="main-footer">
     <div class="footer-content">
         <h3>Cyprus Best</h3>
         <p>The best of the island, recommended by locals.</p>
@@ -84,7 +88,7 @@
     </div>
 </footer>
 
-        <div id="infoModal" class="modal-overlay">
+<div id="infoModal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2 id="modal-title">Title</h2>

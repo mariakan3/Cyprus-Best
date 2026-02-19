@@ -14,7 +14,7 @@ let currentLang = 'en';
 const staticTranslations = {
     el: { 
         "nav-home": "Αρχική", "nav-hotels": "Ξενοδοχεία", "nav-restaurants": "Εστιατόρια", 
-        "nav-views": "Θέα", "nav-realestate": "Ακίνητα", "nav-things": "Δραστηριότητες", 
+        "nav-views": "Θέα", "nav-realestate": "Ακίνητα", "nav-things": "Δραστηριότητες", "nav-services": "Υπηρεσίες",
         "btn-more": "Περισσότερα", "loading": "Φόρτωση δεδομένων...", 
         "hero-title": "Ανακάλυψε την Κύπρο", "hero-desc": "Τα καλύτερα του νησιού, προτεινόμενα από ντόπιους.", "btn-explore": "Εξερεύνηση",
         "section-categories": "Οι Κατηγορίες Μας",
@@ -23,7 +23,9 @@ const staticTranslations = {
         "cat-views-title": "Καλύτερη Θέα", "cat-views-desc": "Τα ωραιότερα ηλιοβασιλέματα.",
         "cat-realestate-title": "Ακίνητα", "cat-realestate-desc": "Επενδυτικές ευκαιρίες.",
         "cat-things-title": "Δραστηριότητες", "cat-things-desc": "Εμπειρίες και περιπέτεια.",
+        "cat-services-title": "Καλύτερες Υπηρεσίες", "cat-services-desc": "Επαγγελματικές υπηρεσίες.",
         "lbl-phone": "Τηλ:", "lbl-map": "Δείτε τον Χάρτη",
+
 
         // --- ΦΙΛΤΡΑ (Με Emojis) ---
         "filter-all": "Όλα",
@@ -37,11 +39,14 @@ const staticTranslations = {
         "filter-trad": "🍲 Παραδοσιακά",
         "filter-fine": "🍷 Πολυτελή",
         "filter-asian": "🥢 Ασιατικά",
+        "filter-law": "⚖️ Νομικά",
+        "filter-medical": "🏥 Ιατρικά",
+        "filter-logistics": "📊 Λογιστικά"
 
     },
     en: { 
         "nav-home": "Home", "nav-hotels": "Hotels", "nav-restaurants": "Restaurants", 
-        "nav-views": "Views", "nav-realestate": "Real Estate", "nav-things": "Things to Do", 
+        "nav-views": "Views", "nav-realestate": "Real Estate", "nav-things": "Things to Do", "nav-services": "Services",
         "btn-more": "More Info", "loading": "Loading data...",
         "hero-title": "Discover Cyprus", "hero-desc": "The best of the island, recommended by locals.", "btn-explore": "Explore",
         "section-categories": "Our Categories",
@@ -50,7 +55,9 @@ const staticTranslations = {
         "cat-views-title": "Best Views", "cat-views-desc": "The most beautiful sunsets.",
         "cat-realestate-title": "Real Estate", "cat-realestate-desc": "Investment opportunities.",
         "cat-things-title": "Things to Do", "cat-things-desc": "Experiences and adventure.",
+        "cat-services-title": "Best Services", "cat-services-desc": "Professional services.",
         "lbl-phone": "Tel:", "lbl-map": "Open Map",
+
 
         // --- FILTERS (With Emojis) ---
         "filter-all": "All",
@@ -64,11 +71,14 @@ const staticTranslations = {
         "filter-trad": "🍲 Traditional",
         "filter-fine": "🍷 Fine Dining",
         "filter-asian": "🥢 Asian",
+        "filter-law": "⚖️ Law",
+        "filter-medical": "🏥 Medical",
+        "filter-logistics": "📊 Logistics",
 
     },
     ru: { 
         "nav-home": "Главная", "nav-hotels": "Отели", "nav-restaurants": "Рестораны", 
-        "nav-views": "Виды", "nav-realestate": "Недвижимость", "nav-things": "Развлечения", 
+        "nav-views": "Виды", "nav-realestate": "Недвижимость", "nav-things": "Развлечения", "nav-services": "Услуги",
         "btn-more": "Подробнее", "loading": "Загрузка данных...",
         "hero-title": "Откройте для себя Кипр", "hero-desc": "Лучшее на острове, рекомендовано местными жителями.", "btn-explore": "Исследовать",
         "section-categories": "Наши Категории",
@@ -77,7 +87,9 @@ const staticTranslations = {
         "cat-views-title": "Лучшие Виды", "cat-views-desc": "Самые красивые закаты.",
         "cat-realestate-title": "Недвижимость", "cat-realestate-desc": "Инвестиционные возможности.",
         "cat-things-title": "Развлечения", "cat-things-desc": "Опыт и приключения.",
+        "cat-services-title": "Лучшие Услуги", "cat-services-desc": "Профессиональные услуги.",
         "lbl-phone": "Тел:", "lbl-map": "Открыть Карту",
+
 
         // --- FILTERS (With Emojis) ---
         "filter-all": "Все",
@@ -91,11 +103,14 @@ const staticTranslations = {
         "filter-trad": "🍲 Традиционные",
         "filter-fine": "🍷 Изысканные",
         "filter-asian": "🥢 Азиатские",
+        "filter-law": "⚖️ Юридические",
+        "filter-medical": "🏥 Медицинские",
+        "filter-logistics": "📊 Логистика",
 
     },
     zh: { 
         "nav-home": "首页", "nav-hotels": "酒店", "nav-restaurants": "餐厅", 
-        "nav-views": "景色", "nav-realestate": "房地产", "nav-things": "休闲活动", 
+        "nav-views": "景色", "nav-realestate": "房地产", "nav-things": "休闲活动", "nav-services": "服务",
         "btn-more": "更多信息", "loading": "加载数据...",
         "hero-title": "探索塞浦路斯", "hero-desc": "岛上最好的地方，由当地人推荐。", "btn-explore": "探索",
         "section-categories": "我们的类别",
@@ -104,7 +119,9 @@ const staticTranslations = {
         "cat-views-title": "最好的景色", "cat-views-desc": "最美丽的日落。",
         "cat-realestate-title": "房地产", "cat-realestate-desc": "投资机会。",
         "cat-things-title": "休闲活动", "cat-things-desc": "体验与冒险。",
+        "cat-services-title": "最好的服务", "cat-services-desc": "专业服务。",
         "lbl-phone": "电话:", "lbl-map": "打开地图",
+
 
         // --- FILTERS (With Emojis) ---
         "filter-all": "全部",
@@ -118,6 +135,9 @@ const staticTranslations = {
         "filter-trad": "🍲 传统",
         "filter-fine": "🍷 高级餐饮",
         "filter-asian": "🥢 亚洲",
+        "filter-law": "⚖️ 法律",
+        "filter-medical": "🏥 医疗",
+        "filter-logistics": "📊 物流",
 
     }
 };
@@ -279,6 +299,7 @@ function closeModal() {
 /* --- 8. ΓΛΩΣΣΑ & ΦΙΛΤΡΑ --- */
 function setLanguage(lang) {
     currentLang = lang;
+    localStorage.setItem('userLang', lang);
     
     // Αλλαγή στατικών κειμένων
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -309,13 +330,14 @@ function filterSelection(category) {
     }
 }
 
-/* --- 9. STARTUP (ΕΚΚΙΝΗΣΗ) --- */
+/* --- 9. STARTUP (ΕΚΚΙΝΗΣΗ) - ΜΟΝΟ ΕΝΑ ΑΝΤΙΓΡΑΦΟ --- */
 function refreshAllData() {
     if (document.getElementById('hotels-container')) loadCategory('hotels', 'hotels-container');
     if (document.getElementById('restaurants-container')) loadCategory('restaurants', 'restaurants-container');
     if (document.getElementById('views-container')) loadCategory('views', 'views-container');
     if (document.getElementById('realestate-container')) loadCategory('realestate', 'realestate-container');
     if (document.getElementById('things-container')) loadCategory('things', 'things-container');
+    if (document.getElementById('services-container')) loadCategory('services', 'services-container');
     
     if (document.getElementById('month-recommendation')) loadBestOfMonth();
 }
@@ -324,10 +346,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Φόρτωση Καιρού
     getWeather();
     
-    // 2. Ορισμός Αγγλικών ως Default (Αυτό αλλάζει τα Ελληνικά του HTML)
-    setLanguage('en'); 
+    // 2. ΕΛΕΓΧΟΣ ΜΝΗΜΗΣ ΠΡΩΤΑ
+    const saved = localStorage.getItem('userLang');
+    
+    // 3. ΑΠΟΦΑΣΗ: Αν υπάρχει σωσμένη γλώσσα, βάλε αυτή. 
+    // Αν όχι, βάλε 'en' ως αρχική επιλογή.
+    if (saved) {
+        setLanguage(saved);
+    } else {
+        setLanguage('en'); 
+    }
 });
 
+// Κλείσιμο Modal όταν πατάμε έξω από αυτό
 window.onclick = function(event) {
     const modal = document.getElementById('infoModal');
     if (event.target == modal) closeModal();
@@ -335,5 +366,8 @@ window.onclick = function(event) {
 
 // Mobile Menu
 function toggleMobileMenu() {
-    document.querySelector('.nav-links').classList.toggle('active');
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks) {
+        navLinks.classList.toggle('active');
+    }
 }

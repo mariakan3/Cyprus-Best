@@ -126,6 +126,7 @@ section { padding: 3rem 2rem; text-align: center; }
 #views { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/view.jpg'); }
 #real-estate { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/real-estate.jpg'); }
 #thingstodo { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/paphos-castle.jpg'); }
+#services { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/services.jpeg'); }
 
 /* --- 6. PAGE HEADERS (ΤΙΤΛΟΙ ΣΕΛΙΔΩΝ) --- */
 .page-header {
