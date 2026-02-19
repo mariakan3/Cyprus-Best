@@ -41,7 +41,8 @@ const staticTranslations = {
         "filter-asian": "🥢 Ασιατικά",
         "filter-law": "⚖️ Νομικά",
         "filter-medical": "🏥 Ιατρικά",
-        "filter-accounting": "📊 Λογιστικά"
+        "filter-accounting": "📊 Λογιστικά",
+        "filter-architects": "🏗️ Αρχιτέκτονες",
 
     },
     en: { 
@@ -74,6 +75,7 @@ const staticTranslations = {
         "filter-law": "⚖️ Law",
         "filter-medical": "🏥 Medical",
         "filter-accounting": "📊 Accounting",
+        'filter-architects': "🏗️ Architects",
 
     },
     ru: { 
@@ -106,6 +108,7 @@ const staticTranslations = {
         "filter-law": "⚖️ Юридические",
         "filter-medical": "🏥 Медицинские",
         "filter-accounting": "📊 Бухгалтерские",
+        'filter-architects': "🏗️ Архитекторы",
 
     },
     zh: { 
@@ -138,6 +141,7 @@ const staticTranslations = {
         "filter-law": "⚖️ 法律",
         "filter-medical": "🏥 医疗",
         "filter-accounting": "📊 物流",
+        'filter-architects': "🏗️ 建筑师",
 
     }
 };
