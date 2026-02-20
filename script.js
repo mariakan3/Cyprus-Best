@@ -44,6 +44,7 @@ const staticTranslations = {
         "filter-accounting": "📊 Λογιστικά",
         "filter-architects": "🏗️ Αρχιτέκτονες",
         "filter-flowers": "🌸 Λουλούδια & Ανθοπωλεία",
+        "filter-taxi": "🚕 Ταξί"
 
     },
     en: { 
@@ -76,8 +77,9 @@ const staticTranslations = {
         "filter-law": "⚖️ Law",
         "filter-medical": "🏥 Medical",
         "filter-accounting": "📊 Accounting",
-        'filter-architects': "🏗️ Architects",
-        'filter-flowers': "🌸 Flowers & Florists",
+        "filter-architects": "🏗️ Architects",
+        "filter-flowers": "🌸 Flowers & Florists",
+        "filter-taxi": "🚕 Taxi"
 
     },
     ru: { 
@@ -113,6 +115,7 @@ const staticTranslations = {
         "filter-accounting": "📊 Бухгалтерские",
         "filter-architects": "🏗️ Архитекторы",
         "filter-flowers": "🌸 Цветы и Цветочные Магазины",
+        "filter-taxi": "🚕 Такси"
 
     },
     zh: { 
@@ -147,6 +150,7 @@ const staticTranslations = {
         "filter-accounting": "📊 物流",
         "filter-architects": "🏗️ 建筑师",
         "filter-flowers": "🌸 花卉和花店",
+        "filter-taxi": "🚕 出租车"
 
     }
 };
