@@ -488,3 +488,46 @@ section { padding: 3rem 2rem; text-align: center; }
     background-color: #3cc6cb; /* Το φόντο γίνεται το μπλε του site σου */
     box-shadow: 0 6px 12px rgba(60, 198, 203, 0.4);
 }
+
+/* Σταθερό μέγεθος για το πλαίσιο της πρότασης */
+.month-layout {
+    display: flex;
+    align-items: stretch; /* Για να έχουν το ίδιο ύψος εικόνα και κείμενο */
+    gap: 25px;
+    background: #f0f4f8;
+    border-radius: 12px;
+    overflow: hidden; /* Κόβει ό,τι περισσεύει */
+    margin-bottom: 25px;
+    height: 200px; /* Επιβάλλει σταθερό ύψος σε όλες τις κάρτες */
+}
+
+/* Σταθερό μέγεθος για την εικόνα */
+.month-layout img {
+    width: 300px !important; /* Σταθερό πλάτος */
+    height: 100% !important; /* Γεμίζει όλο το ύψος του πατέρα (.month-layout) */
+    object-fit: cover !important; /* Η εικόνα δεν παραμορφώνεται, αλλά "γεμίζει" το πλαίσιο */
+    border-radius: 12px 0 0 12px; /* Στρογγυλεμένες γωνίες μόνο αριστερά */
+}
+
+/* Ρυθμίσεις για το κείμενο */
+.month-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Κεντράρει το κείμενο κάθετα */
+    flex: 1;
+}
+
+/* Responsive για κινητά: οι κάρτες γίνονται κάθετες */
+@media (max-width: 768px) {
+    .month-layout {
+        flex-direction: column;
+        height: auto; /* Στα κινητά αφήνουμε το ύψος να προσαρμοστεί */
+    }
+    
+    .month-layout img {
+        width: 100% !important;
+        height: 200px !important;
+        border-radius: 12px 12px 0 0;
+    }
+}
