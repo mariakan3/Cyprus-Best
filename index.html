@@ -20,7 +20,6 @@
 }
 </script>
 </head>
-
 <body>
 
     <div class="language-bar">
@@ -53,19 +52,20 @@
         </ul>
     </nav>
 
-    <header class="hero">
-        <div class="hero-content">
-            <h1 data-i18n="hero-title">Ανακάλυψε την Κύπρο</h1>
-            <p data-i18n="hero-desc">Τα καλύτερα του νησιού, προτεινόμενα από ντόπιους.</p>
-            <a href="#categories" class="btn" data-i18n="btn-explore">Εξερεύνηση</a>
-        </div>
-    </header>
-
-    </header> <div class="weather-bar">
-        <span>Cyprus Weather: </span>
-        <span id="weather-temp">Loading...</span>
-        <span id="weather-icon">☀️</span>
+<div class="hero">
+    <div class="hero-content">
+        <h1 data-i18n="hero-title">Discover Cyprus</h1>
+        <p data-i18n="hero-desc">The best of the island, recommended by locals.</p>
+        <a href="#categories" class="btn" data-i18n="explore-btn">Explore Now</a>
     </div>
+</div>
+
+    </header> 
+    <div class="weather-bar">
+    <span data-i18n="weather-label">Cyprus Weather:</span>
+    <span id="weather-temp">--°C</span> ☀️
+    </div>
+
     <section id="categories"> 
 
     <section id="best-of-month" class="monthly-section">
@@ -76,40 +76,40 @@
     </section>
 
 <section id="categories" class="categories-section">
-        <h2 data-i18n="section-categories">Οι Κατηγορίες Μας</h2>
-        <div class="grid-container">
+<h2 data-i18n="categories-title">Οι Κατηγορίες Μας</h2>        
+<div class="grid-container">
             
-        <a href="hotels.html" class="card" id="hotels" style="text-decoration: none; cursor: pointer;">
-            <h3 data-i18n="cat-hotels-title">Best Hotels</h3>
-            <p data-i18n="cat-hotels-desc">Πολυτέλεια και φιλοξενία.</p>
-        </a>
+<div class="grid-container" id="categories">
+    <a href="hotels.html" class="card" id="hotels">
+        <h3>Best Hotels</h3>
+        <p data-i18n="card-hotels">Πολυτέλεια και φιλοξενία.</p>
+    </a>
 
-        <a href="restaurants.html" class="card" id="restaurants" style="text-decoration: none; cursor: pointer;">
-            <h3 data-i18n="cat-restaurants-title">Best Restaurants</h3> 
-            <p data-i18n="cat-restaurants-desc">Γεύσεις από την παράδοση.</p>
-        </a>
+    <a href="restaurants.html" class="card" id="restaurants">
+        <h3>Best Restaurants</h3>
+        <p data-i18n="card-rest">Γεύσεις από την παράδοση.</p>
+    </a>
 
-        <a href="views.html" class="card" id="views" style="text-decoration: none; cursor: pointer;">
-            <h3 data-i18n="cat-views-title">Best Views</h3>
-            <p data-i18n="cat-views-desc">Τα ωραιότερα ηλιοβασιλέματα.</p>
-        </a>
+    <a href="views.html" class="card" id="views">
+        <h3>Best Views</h3>
+        <p data-i18n="card-views">Τα ωραιότερα ηλιοβασιλέματα.</p>
+    </a>
 
-        <a href="realestate.html" class="card" id="real-estate" style="text-decoration: none; cursor: pointer;">
-            <h3 data-i18n="cat-realestate-title">Best Real Estate</h3>
-            <p data-i18n="cat-realestate-desc">Επενδυτικές ευκαιρίες.</p>
-        </a>
+    <a href="realestate.html" class="card" id="real-estate">
+        <h3>Best Real Estate</h3>
+        <p data-i18n="card-real">Επενδυτικές ευκαιρίες.</p>
+    </a>
 
-        <a href="thingstodo.html" class="card" id="thingstodo" style="text-decoration: none; cursor: pointer;">
-            <h3 data-i18n="cat-things-title">Things to Do</h3>
-            <p data-i18n="cat-things-desc">Δραστηριότητες και εμπειρίες.</p>
-        </a>
+    <a href="thingstodo.html" class="card" id="thingstodo">
+        <h3>Things to Do</h3>
+        <p data-i18n="card-things">Δραστηριότητες και εμπειρίες.</p>
+    </a>
 
-        <a href="services.html" class="card" id="services" style="text-decoration: none; cursor: pointer;">
-            <h3 data-i18n="cat-services-title">Best Services</h3>
-            <p data-i18n="cat-services-desc">Επαγγελματικές υπηρεσίες.</p>
-        </a>
-        </div>
-    </section>
+    <a href="services.html" class="card" id="services">
+        <h3>Best Services</h3>
+        <p data-i18n="card-serv">Επαγγελματικές υπηρεσίες.</p>
+    </a>
+</div>
 
 <footer class="main-footer">
     <div class="footer-content">
