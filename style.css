@@ -540,3 +540,25 @@ section { padding: 3rem 2rem; text-align: center; }
     transform: translateY(-3px);
     color: #e69500 !important;
 }
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    /* Η μαγεία είναι εδώ: */
+    display: block; 
+    padding: 15px 20px; /* Μεγάλη περιοχή κλικ πάνω-κάτω και δεξιά-αριστερά */
+    transition: all 0.3s ease;
+}
+
+/* Ειδικά για το κινητό, τα κάνουμε ακόμα πιο μεγάλα */
+@media (max-width: 768px) {
+    .nav-links li {
+        width: 100%;
+    }
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 20px; /* Πολύ εύκολο για το δάχτυλο */
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+}
