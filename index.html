@@ -20,7 +20,7 @@
 }
 </script>
 </head>
-<body>
+    <body>
 
     <div class="language-bar">
         <button onclick="setLanguage('el')">🇬🇷 ΕΛ</button>
@@ -29,7 +29,7 @@
         <button onclick="setLanguage('zh')">🇨🇳 CN</button>
     </div>
 
-<nav class="navbar">
+    <nav class="navbar">
         <div class="logo">
             <a href="index.html">
             <img src="logo1.png" alt="Cyprus Best" class="main-logo">
@@ -52,13 +52,13 @@
         </ul>
     </nav>
 
-<div class="hero">
+    <div class="hero">
     <div class="hero-content">
         <h1 data-i18n="hero-title">Discover Cyprus</h1>
         <p data-i18n="hero-desc">The best of the island, recommended by locals.</p>
         <a href="#categories" class="btn" data-i18n="explore-btn">Explore Now</a>
     </div>
-</div>
+    </div>
 
     </header> 
     <div class="weather-bar">
@@ -75,11 +75,11 @@
         </div>
     </section>
 
-<section id="categories" class="categories-section">
-<h2 data-i18n="categories-title">Οι Κατηγορίες Μας</h2>        
-<div class="grid-container">
+    <section id="categories" class="categories-section">
+    <h2 data-i18n="categories-title">Οι Κατηγορίες Μας</h2>        
+    <div class="grid-container">
             
-<div class="grid-container" id="categories">
+    <div class="grid-container" id="categories">
     <a href="hotels.html" class="card" id="hotels">
         <h3>Best Hotels</h3>
         <p data-i18n="card-hotels">Πολυτέλεια και φιλοξενία.</p>
@@ -109,7 +109,29 @@
         <h3>Best Services</h3>
         <p data-i18n="card-serv">Επαγγελματικές υπηρεσίες.</p>
     </a>
-</div>
+    </div>
+
+
+    
+    <div id="infoModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <h2 id="modal-title">Title</h2>
+            
+            <div class="modal-info-item">
+                <span data-i18n="lbl-phone">Tel:</span> <span id="modal-phone">-</span>
+            </div>
+            
+            <div class="modal-info-item">
+                <a href="#" id="modal-web" target="_blank">Website</a>
+            </div>
+            
+            <div class="modal-info-item">
+                <a href="#" id="modal-map" target="_blank"><span data-i18n="lbl-map">Open Map</span></a>
+            </div>
+        </div>
+
+    </div>
 
 <footer class="main-footer">
     <div class="footer-content">
@@ -137,27 +159,6 @@
         <p class="copyright">&copy; 2026 Cyprus Best. All rights reserved.</p>
     </div>
 </footer>
-
-    <div id="infoModal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">×</span>
-            <h2 id="modal-title">Title</h2>
-            
-            <div class="modal-info-item">
-                <span data-i18n="lbl-phone">Tel:</span> <span id="modal-phone">-</span>
-            </div>
-            
-            <div class="modal-info-item">
-                <a href="#" id="modal-web" target="_blank">Website</a>
-            </div>
-            
-            <div class="modal-info-item">
-                <a href="#" id="modal-map" target="_blank"><span data-i18n="lbl-map">Open Map</span></a>
-            </div>
-        </div>
-
-</div>
-
 <script src="script.js"></script>
 </body>
 </html>
