@@ -562,3 +562,23 @@ section { padding: 3rem 2rem; text-align: center; }
         border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 }
+
+.filter-btn {
+    border: 1px solid #eee;
+    outline: none;
+    padding: 15px 30px; /* Αυξήσαμε το padding */
+    background-color: white;
+    cursor: pointer;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #555;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    /* Διασφαλίζει ότι το κουμπί δεν θα είναι πολύ μικρό */
+    min-width: 120px; 
+}
+
+.filter-btn:active {
+    transform: scale(0.95); /* Οπτική επιβεβαίωση ότι πατήθηκε */
+}
