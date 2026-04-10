@@ -204,25 +204,43 @@ async function loadCategory(categoryName, containerId) {
     container.innerHTML = ''; // Καθαρισμός
 
     places.forEach(place => {
-        const title = place[`title_${currentLang}`] || place.title_en; 
-        const desc = place[`desc_${currentLang}`] || place.desc_en;
-        const btnText = staticTranslations[currentLang]["btn-more"];
-        const subCatClass = place.subcategory ? place.subcategory : "";
+    const title = place[`title_${currentLang}`] || place.title_en; 
+    
+    // ΕΔΩ ΕΙΝΑΙ Η ΔΙΟΡΘΩΣΗ: Χρησιμοποιούμε 'desc_' γιατί έτσι ονομάζονται στη βάση σου
+    const description = place[`desc_${currentLang}`] || place.desc_en || '';
+    
+    const btnText = staticTranslations[currentLang]["btn-more"];
+    const subCatClass = place.subcategory ? place.subcategory : "";
 
-        const cardHtml = `
-            <div class="item-card ${subCatClass} show">
-                <img src="${place.image_url}" alt="${title}">
-                <div class="item-info">
-                    <h3>${title}</h3>
-                    <p>${desc}</p>
-                    <button class="btn-small" onclick="openModal('${place.id}', '${place.phone}', '${place.website}', '${place.map_link}', '${title}')">
-                        ${btnText}
-                    </button>
+    const cardHtml = `
+        <div class="item-card ${subCatClass} show">
+            <img src="${place.image_url}" alt="${title}">
+            <div class="item-info">
+                <h3>${title}</h3>
+                <p>${description}</p>
+                
+                <div class="quick-links" style="margin: 10px 0; display: flex; justify-content: center; gap: 20px; min-height: 24px;">
+                    ${(place.phone && place.phone !== '-' && place.phone !== 'null' && place.phone !== '') 
+                        ? `<a href="tel:${place.phone}" title="Call" style="color: #3cc6cb;"><i class="fas fa-phone"></i></a>` 
+                        : ''}
+                    
+                    ${(place.map_link && place.map_link !== '#' && place.map_link !== 'null' && place.map_link !== '') 
+                        ? `<a href="${place.map_link}" target="_blank" title="Map" style="color: #3cc6cb;"><i class="fas fa-map-marker-alt"></i></a>` 
+                        : ''}
+                    
+                    ${(place.website && place.website !== '-' && place.website !== 'null' && place.website !== '') 
+                        ? `<a href="${place.website}" target="_blank" title="Website" style="color: #3cc6cb;"><i class="fas fa-external-link-alt"></i></a>` 
+                        : ''}
                 </div>
+
+                <button class="btn-small" onclick="openModal('${place.id}', '${place.phone}', '${place.website}', '${place.map_link}', '${title}')">
+                    ${btnText}
+                </button>
             </div>
-        `;
-        container.innerHTML += cardHtml;
-    });
+        </div>
+    `;
+    container.innerHTML += cardHtml;
+});
 }
 
 /* --- 5. BEST OF MONTH --- */
@@ -302,11 +320,10 @@ function openModal(id, phone, web, map, title) {
         webLink.href = web;
         webLink.style.display = 'inline';
     } else {
-        webLink.style.display = 'none';
-    }
+        webLink.style.display = 'none';}
 
     document.getElementById('modal-map').href = map || "#";
-    document.getElementById('infoModal').style.display = 'flex';
+    LargestContentfulPaint;  document.getElementById('infoModal').style.display = 'flex';
 }
 
 function closeModal() {
