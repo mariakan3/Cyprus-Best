@@ -26,6 +26,7 @@ const staticTranslations = {
         "nav-home": "Home", "nav-hotels": "Hotels", "nav-restaurants": "Restaurants", 
         "nav-views": "Views", "nav-realestate": "Real Estate", "nav-things": "Things to Do", "nav-services": "Services",
         "btn-more": "More Info", "loading": "Loading data...",
+        "hero-title": "Discover Cyprus", "hero-desc": "The best of the island, recommended by locals.",
         "filter-all": "All", "filter-safari": "🚙 Safari", "filter-boat": "🛥️ Boat Trips", "filter-diving": "🤿 Diving",
         "filter-ski": "⛷️ Ski", "filter-culture": "🏛️ Culture", "filter-wine": "🍷 Wine", "filter-yoga": "🧘🏻‍♀️ Yoga",
         "filter-trad": "🍲 Traditional", "filter-fine": "🍷 Fine Dining", "filter-asian": "🥢 Asian", "filter-law": "⚖️ Law",
@@ -51,11 +52,10 @@ const staticTranslations = {
         "filter-all": "全部", "filter-safari": "🚙 野生动物园", "filter-boat": "🛥️ 乘船游览", "filter-diving": "🤿 潜水",
         "filter-ski": "⛷️ 滑雪", "filter-culture": "🏛️ 文化", "filter-wine": "🍷 葡萄酒", "filter-yoga": "🧘🏻‍♀️ 瑜伽",
         "filter-trad": "🍲 传统", "filter-fine": "🍷 高级餐饮", "filter-asian": "🥢 亚洲", "filter-law": "⚖️ 法律",
-        "filter-medical": "🏥 医疗", "filter-accounting": "📊 物流", "filter-architects": "🏗️ 建筑师",
+        "filter-medical": "🏥 医疗", "filter-accounting": "📊 财务", "filter-architects": "🏗️ 建筑师",
         "filter-flowers": "🌸 花卉", "filter-taxi": "🚕 出租车", "filter-promenades": "🚶‍♂️ 散步"
     }
 };
-
 /* --- 3. LOAD DATA & CARDS --- */
 async function loadCategory(categoryName, containerId) {
     const container = document.getElementById(containerId);
