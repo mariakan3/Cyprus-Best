@@ -582,3 +582,53 @@ section { padding: 3rem 2rem; text-align: center; }
 .filter-btn:active {
     transform: scale(0.95); /* Οπτική επιβεβαίωση ότι πατήθηκε */
 }
+
+/* --- DETAILS PAGE STYLES --- */
+.details-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.details-header {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.long-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    margin: 30px 0;
+}
+
+.details-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 40px;
+    padding: 20px;
+    background: #f0f4f8;
+    border-radius: 10px;
+}
+
+/* Μεγάλα κουμπιά για κινητά */
+.details-meta .btn {
+    flex: 1;
+    min-width: 200px;
+    padding: 18px; /* Πολύ μεγάλο padding για εύκολο κλικ */
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.review-box {
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #3cc6cb;
+    border-radius: 5px;
+}

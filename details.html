@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Cyprus Best - Details</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a href="index.html"><img src="logo1.png" class="main-logo"></a></div>
+    </nav>
+
+    <div class="details-container">
+    <header id="details-header" class="details-header" style="height: 400px; background-size: cover; background-position: center; border-radius: 15px;"></header>
+    
+    <section class="details-content" style="padding: 30px;">
+        <h1 id="place-title" style="font-size: 2.5rem; color: #333;"></h1>
+        <hr>
+        
+        <div id="place-description" class="long-text" style="font-size: 1.2rem; line-height: 1.8; margin: 25px 0;"></div>
+        
+        <div class="contact-box" style="background: #f4f7f6; padding: 20px; border-radius: 10px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+            <div id="phone-wrapper" style="display:none;">
+                <strong>📞 Τηλέφωνο:</strong> <span id="place-phone"></span>
+            </div>
+            <a id="web-link" href="#" target="_blank" class="filter-btn" style="display:none; text-decoration: none;">🌍 Website</a>
+            <a id="map-link" href="#" target="_blank" class="filter-btn" style="display:none; text-decoration: none; background-color: #3cc6cb; color: white;">📍 Άνοιγμα Χάρτη</a>
+        </div>
+    </section>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            // Πλέον η συνάρτηση θα αναγνωρίζεται γιατί φορτώθηκε το script.js
+            if (id && typeof loadFullDetails === 'function') {
+                loadFullDetails(id);
+            }
+        });
+    </script>
+</body>
+</html>
