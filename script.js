@@ -317,6 +317,7 @@ function setLanguage(lang) {
 }
 
 function refreshAllData() {
+    // 1. Ανανέωση των κατηγοριών στην αρχική σελίδα
     if (document.getElementById('hotels-container')) loadCategory('hotels', 'hotels-container');
     if (document.getElementById('restaurants-container')) loadCategory('restaurants', 'restaurants-container');
     if (document.getElementById('views-container')) loadCategory('views', 'views-container');
@@ -324,6 +325,9 @@ function refreshAllData() {
     if (document.getElementById('things-container')) loadCategory('things', 'things-container');
     if (document.getElementById('services-container')) loadCategory('services', 'services-container');
     if (document.getElementById('month-recommendation')) loadBestOfMonth();
+
+    // 2. ΠΡΟΣΘΗΚΗ ΓΙΑ ΤΙΣ ΛΕΠΤΟΜΕΡΕΙΕΣ:
+    // Αν ο χρήστης είναι στη σελίδα details.html, ξαναφόρτωσε τα δεδομένα στη νέα γλώσσα
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
     if (id && document.getElementById('place-title')) {
