@@ -660,3 +660,8 @@ section { padding: 3rem 2rem; text-align: center; }
 .item-card:hover h3 {
     color: #3cc6cb; /* Ο τίτλος αλλάζει χρώμα στο hover */
 }
+
+.month-layout:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
