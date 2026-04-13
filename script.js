@@ -228,29 +228,23 @@ async function loadCategory(categoryName, containerId) {
 }
 
 /* --- 4. DETAILS PAGE (details.html) --- */
-async function loadFullDetails(id) {
-    if (!dbClient) return;
-    const { data: place, error } = await dbClient.from('places').select('*').eq('id', id).single();
-    if (error || !place) return;
+async function loadEverything() {
+    // Φέρνουμε όλα τα ενεργά μέρη με τη μία
+    const { data: allPlaces, error } = await dbClient
+        .from('places')
+        .select('id, title_el, title_en, desc_el, desc_en, image_url, category, is_best_of_month')
+        .limit(50); // Ένα λογικό όριο για την αρχική
 
-    document.getElementById('place-title').innerText = place[`title_${currentLang}`] || place.title_en;
-    const fullDesc = place[`long_description_${currentLang}`] || place[`desc_${currentLang}`] || place.desc_en;
-    document.getElementById('place-description').innerText = fullDesc;
+    if (error) return;
 
-    if (place.image_url) document.getElementById('details-header').style.backgroundImage = `url(${place.image_url})`;
-
-    if (place.phone && place.phone !== '-' && place.phone !== 'null') {
-        document.getElementById('place-phone').innerText = place.phone;
-        document.getElementById('phone-wrapper').style.display = 'block';
-    }
-    if (place.website && place.website !== '-' && place.website !== 'null') {
-        const webBtn = document.getElementById('web-link');
-        webBtn.href = place.website; webBtn.style.display = 'inline-block';
-    }
-    if (place.map_link && place.map_link !== '#' && place.map_link !== 'null') {
-        const mapBtn = document.getElementById('map-link');
-        mapBtn.href = place.map_link; mapBtn.style.display = 'inline-block';
-    }
+    // Μετά, μοιράζουμε τα δεδομένα στα containers τοπικά (0ms καθυστέρηση)
+    renderCategory(allPlaces.filter(p => p.category === 'hotels'), 'hotels-container');
+    renderCategory(allPlaces.filter(p => p.category === 'restaurants'), 'restaurants-container');
+    renderCategory(allPlaces.filter(p => p.category === 'views'), 'views-container');
+    renderCategory(allPlaces.filter(p => p.category === 'realestate'), 'realestate-container');
+    renderCategory(allPlaces.filter(p => p.category === 'things'), 'things-container');
+    renderCategory(allPlaces.filter(p => p.category === 'services'), 'services-container');
+    renderCategory(allPlaces.filter(p => p.is_best_of_month), 'month-recommendation');
 }
 
 /* --- 5. BEST OF MONTH --- */
