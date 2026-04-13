@@ -633,3 +633,30 @@ section { padding: 3rem 2rem; text-align: center; }
     border-radius: 5px;
 }
 
+.item-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 320px;
+    display: none; 
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ομαλή κίνηση */
+    cursor: pointer;
+}
+
+/* Εφέ όταν ακουμπάμε την κάρτα (Hover) */
+.item-card:hover {
+    transform: translateY(-8px); /* Η κάρτα ανασηκώνεται */
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.item-info h3 {
+    margin: 10px 0;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.item-card:hover h3 {
+    color: #3cc6cb; /* Ο τίτλος αλλάζει χρώμα στο hover */
+}

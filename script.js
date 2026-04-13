@@ -209,23 +209,20 @@ async function loadCategory(categoryName, containerId) {
     places.forEach(place => {
         const title = place[`title_${currentLang}`] || place.title_en; 
         const description = place[`desc_${currentLang}`] || place.desc_en || '';
-        const btnText = staticTranslations[currentLang]["btn-more"];
         const subCatClass = place.subcategory ? place.subcategory : "";
 
+        // Τώρα ολόκληρη η κάρτα είναι ένα <a> tag
         const cardHtml = `
-            <div class="item-card ${subCatClass} show">
+            <a href="details.html?id=${place.id}" class="item-card ${subCatClass} show" style="text-decoration: none; color: inherit;">
                 <img src="${place.image_url}" alt="${title}">
                 <div class="item-info">
                     <h3>${title}</h3>
                     <p>${description}</p>
-                    <div class="quick-links" style="margin: 10px 0; display: flex; justify-content: center; gap: 20px; min-height: 24px;">
-                        ${(place.phone && place.phone !== '-' && place.phone !== 'null') ? `<a href="tel:${place.phone}"><i class="fas fa-phone"></i></a>` : ''}
-                        ${(place.map_link && place.map_link !== '#') ? `<a href="${place.map_link}" target="_blank"><i class="fas fa-map-marker-alt"></i></a>` : ''}
-                        ${(place.website && place.website !== '-' && place.website !== 'null') ? `<a href="${place.website}" target="_blank"><i class="fas fa-external-link-alt"></i></a>` : ''}
+                    <div style="margin-top: auto; color: #3cc6cb; font-weight: bold; font-size: 0.9rem;">
+                        <span data-i18n="btn-more">${staticTranslations[currentLang]["btn-more"]}</span> →
                     </div>
-                    <a href="details.html?id=${place.id}" class="btn-small">${btnText}</a>
                 </div>
-            </div>`;
+            </a>`;
         container.innerHTML += cardHtml;
     });
 }
@@ -258,26 +255,45 @@ async function loadFullDetails(id) {
 
 /* --- 5. BEST OF MONTH --- */
 async function loadBestOfMonth() {
-    const container = document.getElementById("month-recommendation");
+    const container = document.getElementById('month-recommendation');
     if (!container || !dbClient) return;
 
-    const { data: bestItems, error } = await dbClient.from('places').select('*').eq('is_best_of_month', true);
-    if (error || !bestItems) return;
+    // 1. Τραβάμε όλα τα στοιχεία από τη βάση που είναι Best of Month
+    const { data: items, error } = await dbClient
+        .from('places')
+        .select('*')
+        .eq('is_best_of_month', true);
 
+    // 2. Αν υπάρχει σφάλμα ή δεν βρέθηκε τίποτα, δείξε το μήνυμα
+    if (error || !items || items.length === 0) {
+        console.log("No best of month items found.");
+        container.innerHTML = "<p>Coming soon...</p>";
+        return;
+    }
+
+    // 3. Καθαρίζουμε το container πριν βάλουμε τα νέα στοιχεία
     container.innerHTML = '';
-    bestItems.forEach(place => {
+
+    // 4. Δημιουργούμε μια κάρτα για ΚΑΘΕ στοιχείο που βρήκαμε
+    items.forEach(place => {
         const title = place[`title_${currentLang}`] || place.title_en;
         const desc = place[`desc_${currentLang}`] || place.desc_en;
-        container.innerHTML += `
-            <div class="month-layout">
-                <img src="${place.image_url}" alt="${title}">
-                <div class="month-info">
-                    <h3>${title}</h3>
-                    <p>${desc}</p>
-                    <a href="details.html?id=${place.id}" class="btn-small">${staticTranslations[currentLang]["btn-more"]}</a>
+
+        const itemHtml = `
+            <a href="details.html?id=${place.id}" class="month-layout" style="text-decoration: none; color: inherit; display: flex; align-items: stretch; cursor: pointer; margin-bottom: 30px; border: 1px solid #eee; border-radius: 12px; overflow: hidden; background: #f0f4f8; transition: transform 0.3s ease;">
+                <img src="${place.image_url}" alt="${title}" style="width: 300px; height: 200px; object-fit: cover;">
+                <div class="month-info" style="padding: 20px; flex: 1; display: flex; flex-direction: column;">
+                    <h3 style="margin-top: 0; color: #333;">${title}</h3>
+                    <p style="color: #555;">${desc}</p>
+                    <div style="color: #3cc6cb; font-weight: bold; margin-top: auto;">
+                        <span data-i18n="btn-more">${staticTranslations[currentLang]["btn-more"]}</span> →
+                    </div>
                 </div>
-            </div>`;
+            </a>
+        `;
+        container.innerHTML += itemHtml;
     });
+
 }
 
 /* --- 6. UTILITIES --- */
