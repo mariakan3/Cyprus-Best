@@ -124,7 +124,7 @@ section { padding: 3rem 2rem; text-align: center; }
 #hotels { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/hotels.png'); }
 #restaurants { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/restaurants.png'); }
 #views { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/view.jpg'); }
-#real-estate { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/real-estate.jpg'); }
+#realestate { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/real-estate.jpg'); }
 #thingstodo { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/paphos-castle.jpg'); }
 #services { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/services.jpeg'); }
 
