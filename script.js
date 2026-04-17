@@ -355,4 +355,39 @@ document.addEventListener("DOMContentLoaded", () => {
     getWeather();
     const saved = localStorage.getItem('userLang') || 'en';
     setLanguage(saved);
+    
+    // Κάλεσε αυτή τη συνάρτηση για να φορτώσουν όλα ακαριαία
+    loadEverything(); 
 });
+
+// Αυτή η συνάρτηση "σχεδιάζει" τις κάρτες στην οθόνη
+function renderCategory(places, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    container.innerHTML = ''; // Καθαρισμός
+    
+    places.forEach(place => {
+        const title = place[`title_${currentLang}`] || place.title_en;
+        const description = place[`desc_${currentLang}`] || place.desc_en || '';
+        
+        // IQ 250 Trick: Αν η εικόνα είναι από Cloudinary, πρόσθεσε αυτόματα το f_auto,q_auto
+        let optimizedUrl = place.image_url;
+        if (optimizedUrl.includes('cloudinary.com')) {
+            optimizedUrl = optimizedUrl.replace('/upload/', '/upload/f_auto,q_auto/');
+        }
+
+        const cardHtml = `
+            <a href="details.html?id=${place.id}" class="item-card show" style="text-decoration: none; color: inherit;">
+                <img src="${optimizedUrl}" alt="${title}" loading="lazy">
+                <div class="item-info">
+                    <h3>${title}</h3>
+                    <p>${description}</p>
+                    <div style="margin-top: auto; color: #3cc6cb; font-weight: bold; font-size: 0.9rem;">
+                        <span>${staticTranslations[currentLang]["btn-more"]}</span> →
+                    </div>
+                </div>
+            </a>`;
+        container.innerHTML += cardHtml;
+    });
+}
