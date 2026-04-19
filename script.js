@@ -7,7 +7,7 @@ if (typeof supabase !== 'undefined') {
     dbClient = supabase.createClient(PROJECT_URL, PROJECT_KEY);
 }
 
-let currentLang = 'en'; 
+let currentLang = localStorage.getItem('userLang') || 'en';
 
 /* --- 2. ΠΛΗΡΕΣ ΛΕΞΙΚΟ (ΟΛΕΣ ΟΙ ΓΛΩΣΣΕΣ - 100% COMPLETE) --- */
 const staticTranslations = {
@@ -183,43 +183,36 @@ const staticTranslations = {
         "filter-taxi": "🚕 出租车", 
         "filter-promenades": "🚶‍♂️ 散步"
     }
-};
-/* --- 3. LOAD DATA & CARDS --- */
+};/* --- 3. ΦΟΡΤΩΣΗ ΚΑΤΗΓΟΡΙΩΝ (ΟΛΕΣ ΟΙ ΕΙΚΟΝΕΣ & ΠΕΡΙΓΡΑΦΕΣ) --- */
 async function loadCategory(categoryName, containerId) {
     const container = document.getElementById(containerId);
     if (!container || !dbClient) return;
 
-    container.innerHTML = `<p style="text-align:center; width:100%;">${staticTranslations[currentLang]["loading"]}</p>`;
-
-    const { data: places, error } = await dbClient.from('places').select('*').eq('category', categoryName);
-    if (error) return;
-
-    // PINNED ITEMS LOGIC
-    const pinnedIds = { 'things': 'yoga', 'restaurants': 'melania' };
-    const pinnedId = pinnedIds[categoryName];
-    if (pinnedId && places) {
-        const idx = places.findIndex(item => item.id === pinnedId);
-        if (idx > -1) {
-            const item = places.splice(idx, 1)[0];
-            places.unshift(item);
-        }
+    const { data: places, error } = await dbClient
+        .from('places')
+        .select('*')
+        .eq('category', categoryName);
+    
+    if (error) {
+        console.error("Error loading category:", error);
+        return;
     }
 
     container.innerHTML = ''; 
     places.forEach(place => {
-        const title = place[`title_${currentLang}`] || place.title_en; 
-        const description = place[`desc_${currentLang}`] || place.desc_en || '';
-        const subCatClass = place.subcategory ? place.subcategory : "";
+        // Χρήση των στηλών από το νέο SQL σου
+        const title = place[`title_${currentLang}`] || place.title_en || "No Title";
+        const description = place[`desc_${currentLang}`] || place.desc_en || "";
+        const img = place.image_url || "";
 
-        // Τώρα ολόκληρη η κάρτα είναι ένα <a> tag
         const cardHtml = `
-            <a href="details.html?id=${place.id}" class="item-card ${subCatClass} show" style="text-decoration: none; color: inherit;">
-                <img src="${place.image_url}" alt="${title}">
+            <a href="details.html?id=${place.id}" class="item-card show" style="text-decoration: none; color: inherit;">
+                <img src="${img}" alt="${title}">
                 <div class="item-info">
                     <h3>${title}</h3>
                     <p>${description}</p>
-                    <div style="margin-top: auto; color: #3cc6cb; font-weight: bold; font-size: 0.9rem;">
-                        <span data-i18n="btn-more">${staticTranslations[currentLang]["btn-more"]}</span> →
+                    <div style="margin-top: auto; color: #3cc6cb; font-weight: bold;">
+                        <span>Περισσότερα</span> →
                     </div>
                 </div>
             </a>`;
@@ -227,95 +220,83 @@ async function loadCategory(categoryName, containerId) {
     });
 }
 
-/* --- 4. DETAILS PAGE (details.html) --- */
-async function loadEverything() {
-    // Φέρνουμε όλα τα ενεργά μέρη με τη μία
-    const { data: allPlaces, error } = await dbClient
-        .from('places')
-        .select('id, title_el, title_en, desc_el, desc_en, image_url, category, is_best_of_month')
-        .limit(50); // Ένα λογικό όριο για την αρχική
-
-    if (error) return;
-
-    // Μετά, μοιράζουμε τα δεδομένα στα containers τοπικά (0ms καθυστέρηση)
-    renderCategory(allPlaces.filter(p => p.category === 'hotels'), 'hotels-container');
-    renderCategory(allPlaces.filter(p => p.category === 'restaurants'), 'restaurants-container');
-    renderCategory(allPlaces.filter(p => p.category === 'views'), 'views-container');
-    renderCategory(allPlaces.filter(p => p.category === 'realestate'), 'realestate-container');
-    renderCategory(allPlaces.filter(p => p.category === 'things'), 'things-container');
-    renderCategory(allPlaces.filter(p => p.category === 'services'), 'services-container');
-    renderCategory(allPlaces.filter(p => p.is_best_of_month), 'month-recommendation');
-}
-
-/* --- 5. BEST OF MONTH --- */
+/* --- 4. BEST OF MONTH --- */
 async function loadBestOfMonth() {
     const container = document.getElementById('month-recommendation');
     if (!container || !dbClient) return;
 
-    // 1. Τραβάμε όλα τα στοιχεία από τη βάση που είναι Best of Month
-    const { data: items, error } = await dbClient
+    const { data: items, error } = await dbClient.from('places').select('*').eq('is_best_of_month', true);
+
+    if (error || !items) return;
+
+    container.innerHTML = '';
+    items.forEach(place => {
+        const title = place[`title_${currentLang}`] || place.title_en;
+        const desc = place[`description${currentLang}`] || place.desc_en;
+
+        const itemHtml = `
+            <a href="details.html?id=${place.id}" class="month-layout" style="text-decoration: none; color: inherit; display: flex;">
+                <img src="${place.image_url}" alt="${title}" style="width: 250px; height: 180px; object-fit: cover; border-radius: 10px;">
+                <div style="padding: 20px;">
+                    <h3>${title}</h3>
+                    <p>${desc}</p>
+                </div>
+            </a>`;
+        container.innerHTML += itemHtml;
+    });
+}
+
+/* --- 5. ΣΕΛΙΔΑ ΛΕΠΤΟΜΕΡΕΙΩΝ (DETAILS) --- */
+async function loadFullDetails(id) {
+    if (!dbClient || !id) return;
+
+    // Τραβάμε τα δεδομένα για το συγκεκριμένο ID
+    const { data: place, error } = await dbClient
         .from('places')
         .select('*')
-        .eq('is_best_of_month', true);
+        .eq('id', id)
+        .single();
 
-    // 2. Αν υπάρχει σφάλμα ή δεν βρέθηκε τίποτα, δείξε το μήνυμα
-    if (error || !items || items.length === 0) {
-        console.log("No best of month items found.");
-        container.innerHTML = "<p>Coming soon...</p>";
+    if (error || !place) {
+        console.error("Place not found:", error);
         return;
     }
 
-    // 3. Καθαρίζουμε το container πριν βάλουμε τα νέα στοιχεία
-    container.innerHTML = '';
+    // 1. Τίτλος: Ψάχνει title_el, title_en κλπ
+    const title = place[`title_${currentLang}`] || place.title_en || place.id;
+    
+    // 2. ΠΕΡΙΓΡΑΦΗ: Ψάχνει desc_el, desc_en (όπως το SQL σου)
+    const description = place[`desc_${currentLang}`] || place.desc_en || "";
 
-    // 4. Δημιουργούμε μια κάρτα για ΚΑΘΕ στοιχείο που βρήκαμε
-    items.forEach(place => {
-        const title = place[`title_${currentLang}`] || place.title_en;
-        const desc = place[`desc_${currentLang}`] || place.desc_en;
-
-        const itemHtml = `
-            <a href="details.html?id=${place.id}" class="month-layout" style="text-decoration: none; color: inherit; display: flex; align-items: stretch; cursor: pointer; margin-bottom: 30px; border: 1px solid #eee; border-radius: 12px; overflow: hidden; background: #f0f4f8; transition: transform 0.3s ease;">
-                <img src="${place.image_url}" alt="${title}" style="width: 300px; height: 200px; object-fit: cover;">
-                <div class="month-info" style="padding: 20px; flex: 1; display: flex; flex-direction: column;">
-                    <h3 style="margin-top: 0; color: #333;">${title}</h3>
-                    <p style="color: #555;">${desc}</p>
-                    <div style="color: #3cc6cb; font-weight: bold; margin-top: auto;">
-                        <span data-i18n="btn-more">${staticTranslations[currentLang]["btn-more"]}</span> →
-                    </div>
-                </div>
-            </a>
-        `;
-        container.innerHTML += itemHtml;
-    });
-
-}
-
-/* --- 6. UTILITIES --- */
-function getWeather() {
-    fetch("https://api.open-meteo.com/v1/forecast?latitude=34.68&longitude=33.04&current_weather=true")
-        .then(res => res.json())
-        .then(data => {
-            const temp = Math.round(data.current_weather.temperature);
-            const el = document.getElementById('weather-temp');
-            if (el) el.innerText = temp + "°C";
-        }).catch(err => console.log(err));
-}
-
-function filterSelection(category) {
-    const cards = document.getElementsByClassName("item-card");
-    for (let i = 0; i < cards.length; i++) {
-        cards[i].classList.remove("show");
-        if (category === "all" || cards[i].classList.contains(category)) cards[i].classList.add("show");
+    // 3. Εικόνα: Προσθέτει και το Cloudinary Optimization αν είναι link από εκεί
+    let imgUrl = place.image_url;
+    if (imgUrl && imgUrl.includes('cloudinary.com')) {
+        imgUrl = imgUrl.replace('/upload/', '/upload/f_auto,q_auto/');
     }
-    const btns = document.getElementsByClassName("filter-btn");
-    for (let i = 0; i < btns.length; i++) btns[i].classList.remove("active");
+
+    // Εμφάνιση των στοιχείων στη σελίδα
+    const headerEl = document.getElementById('details-header');
+    const titleEl = document.getElementById('place-title');
+    const descEl = document.getElementById('place-description');
+
+    if (headerEl) headerEl.style.backgroundImage = `url('${imgUrl}')`;
+    if (titleEl) titleEl.innerText = title;
+    if (descEl) descEl.innerHTML = description; // Χρησιμοποιούμε innerHTML για να πιάνει τυχόν αλλαγές γραμμής
+
+    // Στοιχεία επικοινωνίας (Τηλέφωνο)
+    if (place.phone) {
+        const phoneWrap = document.getElementById('phone-wrapper');
+        const phoneText = document.getElementById('place-phone');
+        if (phoneWrap) phoneWrap.style.display = 'block';
+        if (phoneText) phoneText.innerText = place.phone;
+    }
 }
 
+/* --- 6. UTILITIES (ΓΛΩΣΣΑ, ΚΑΙΡΟΣ κλπ) --- */
 function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('userLang', lang);
     
-    // Αυτό μεταφράζει όλα τα data-i18n αυτόματα
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (staticTranslations[lang] && staticTranslations[lang][key]) {
@@ -327,22 +308,25 @@ function setLanguage(lang) {
 }
 
 function refreshAllData() {
-    // 1. Ανανέωση των κατηγοριών στην αρχική σελίδα
-    if (document.getElementById('hotels-container')) loadCategory('hotels', 'hotels-container');
-    if (document.getElementById('restaurants-container')) loadCategory('restaurants', 'restaurants-container');
-    if (document.getElementById('views-container')) loadCategory('views', 'views-container');
-    if (document.getElementById('realestate-container')) loadCategory('realestate', 'realestate-container');
-    if (document.getElementById('things-container')) loadCategory('things', 'things-container');
-    if (document.getElementById('services-container')) loadCategory('services', 'services-container');
+    const categories = ['hotels', 'restaurants', 'views', 'realestate', 'things', 'services'];
+    categories.forEach(cat => {
+        if (document.getElementById(`${cat}-container`)) loadCategory(cat, `${cat}-container`);
+    });
     if (document.getElementById('month-recommendation')) loadBestOfMonth();
 
-    // 2. ΠΡΟΣΘΗΚΗ ΓΙΑ ΤΙΣ ΛΕΠΤΟΜΕΡΕΙΕΣ:
-    // Αν ο χρήστης είναι στη σελίδα details.html, ξαναφόρτωσε τα δεδομένα στη νέα γλώσσα
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
-    if (id && document.getElementById('place-title')) {
-        loadFullDetails(id);
-    }
+    if (id && document.getElementById('place-title')) loadFullDetails(id);
+}
+
+function getWeather() {
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=34.68&longitude=33.04&current_weather=true")
+        .then(res => res.json())
+        .then(data => {
+            const temp = Math.round(data.current_weather.temperature);
+            const el = document.getElementById('weather-temp');
+            if (el) el.innerText = temp + "°C";
+        }).catch(err => console.log(err));
 }
 
 function toggleMobileMenu() {
@@ -350,44 +334,9 @@ function toggleMobileMenu() {
     if (navLinks) navLinks.classList.toggle('active');
 }
 
-/* --- 7. STARTUP --- */
+/* --- 7. ΕΚΚΙΝΗΣΗ --- */
 document.addEventListener("DOMContentLoaded", () => {
     getWeather();
     const saved = localStorage.getItem('userLang') || 'en';
     setLanguage(saved);
-    
-    // Κάλεσε αυτή τη συνάρτηση για να φορτώσουν όλα ακαριαία
-    loadEverything(); 
 });
-
-// Αυτή η συνάρτηση "σχεδιάζει" τις κάρτες στην οθόνη
-function renderCategory(places, containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    
-    container.innerHTML = ''; // Καθαρισμός
-    
-    places.forEach(place => {
-        const title = place[`title_${currentLang}`] || place.title_en;
-        const description = place[`desc_${currentLang}`] || place.desc_en || '';
-        
-        // IQ 250 Trick: Αν η εικόνα είναι από Cloudinary, πρόσθεσε αυτόματα το f_auto,q_auto
-        let optimizedUrl = place.image_url;
-        if (optimizedUrl.includes('cloudinary.com')) {
-            optimizedUrl = optimizedUrl.replace('/upload/', '/upload/f_auto,q_auto/');
-        }
-
-        const cardHtml = `
-            <a href="details.html?id=${place.id}" class="item-card show" style="text-decoration: none; color: inherit;">
-                <img src="${optimizedUrl}" alt="${title}" loading="lazy">
-                <div class="item-info">
-                    <h3>${title}</h3>
-                    <p>${description}</p>
-                    <div style="margin-top: auto; color: #3cc6cb; font-weight: bold; font-size: 0.9rem;">
-                        <span>${staticTranslations[currentLang]["btn-more"]}</span> →
-                    </div>
-                </div>
-            </a>`;
-        container.innerHTML += cardHtml;
-    });
-}
