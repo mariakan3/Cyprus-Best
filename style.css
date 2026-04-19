@@ -124,6 +124,7 @@ section { padding: 3rem 2rem; text-align: center; }
 #hotels { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/hotels.png'); }
 #restaurants { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/restaurants.png'); }
 #views { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/view.jpg'); }
+#real-estate { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/real-estate.jpg'); }
 #realestate { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/real-estate.jpg'); }
 #thingstodo { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/paphos-castle.jpg'); }
 #services { background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('images/services.jpeg'); }
@@ -198,18 +199,18 @@ section { padding: 3rem 2rem; text-align: center; }
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     overflow: hidden;
     margin: 10px;
-    
+
     /* Responsive Διαστάσεις */
     width: 320px;
     height: auto;
     min-height: 420px;
-    
+
     flex-direction: column;
-    
+
     /* --- Η ΛΟΓΙΚΗ ΤΩΝ ΦΙΛΤΡΩΝ --- */
     /* Από προεπιλογή είναι ΚΡΥΜΜΕΝΟ */
     display: none; 
-    
+
     animation: fadeIn 0.5s;
 }
 
@@ -301,7 +302,7 @@ section { padding: 3rem 2rem; text-align: center; }
 
 @media (max-width: 768px) {
     .hamburger { display: flex; }
-    
+
     .nav-links {
         display: none;
         width: 100%;
@@ -312,9 +313,9 @@ section { padding: 3rem 2rem; text-align: center; }
         padding: 20px 0;
         z-index: 1000;
     }
-    
+
     .nav-links.active { display: flex; }
-    
+
     /* Fix για Τίτλους σε Κινητά (να μην κόβονται) */
     .page-header h1 {
         font-size: 1.8rem !important;
@@ -322,11 +323,11 @@ section { padding: 3rem 2rem; text-align: center; }
         word-wrap: break-word;
         padding: 0 10px;
     }
-    
+
     .page-header { height: 30vh; }
-    
+
     .hero h1 { font-size: 2rem; }
-    
+
     .filter-btn {
         padding: 8px 16px;
         font-size: 0.9rem;
@@ -383,7 +384,7 @@ section { padding: 3rem 2rem; text-align: center; }
         flex-direction: column; /* Η εικόνα πάνω, το κείμενο κάτω */
         text-align: center;
     }
-    
+
     .month-layout img {
         width: 100% !important; /* Να πιάνει όλο το πλάτος του κινητού */
         max-width: 100%;        /* Να μην βγαίνει ΠΟΤΕ έξω */
@@ -399,7 +400,7 @@ section { padding: 3rem 2rem; text-align: center; }
         align-items: center !important; /* Κεντράρει τα στοιχεία στη μέση της οθόνης */
         gap: 25px;                      /* Λίγο "αέρα" ανάμεσα στις λέξεις */
     }
-    
+
     .nav-links li {
         width: 100%;                    /* Πιάνει όλο το πλάτος για σίγουρο κεντράρισμα */
     }
@@ -407,7 +408,7 @@ section { padding: 3rem 2rem; text-align: center; }
 
 /* --- 🚑 ΤΕΛΙΚΗ ΕΠΙΔΙΟΡΘΩΣΗ ΚΙΝΗΤΟΥ (Ultimate Mobile Fix) 🚑 --- */
 @media (max-width: 768px) {
-    
+
     /* 1. Η ΛΕΥΚΗ ΜΠΑΡΑ (Πρέπει να είναι ΠΑΝΤΑ πάνω από όλα) */
     .navbar {
         height: 80px !important;       /* Σταθερό ύψος */
@@ -524,7 +525,7 @@ section { padding: 3rem 2rem; text-align: center; }
         flex-direction: column;
         height: auto; /* Στα κινητά αφήνουμε το ύψος να προσαρμοστεί */
     }
-    
+
     .month-layout img {
         width: 100% !important;
         height: 200px !important;
