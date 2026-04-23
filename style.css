@@ -676,3 +676,23 @@ section { padding: 3rem 2rem; text-align: center; }
 .item-card span, .item-card h3 {
     text-decoration: none !important;
 }
+
+/* Πλήρης ευθυγράμμιση για τις εικόνες στο Best of Month */
+.month-layout img {
+    width: 250px !important;
+    min-width: 250px !important; /* Δεν αφήνει την εικόνα να στενέψει */
+    max-width: 250px !important;
+    height: 180px !important;
+    min-height: 180px !important; /* Δεν αφήνει την εικόνα να κοντύνει */
+    max-height: 180px !important;
+    object-fit: cover !important; /* Κόβει τα περισσεύματα για να γεμίσει το πλαίσιο */
+    display: block !important;
+    border-radius: 10px;
+}
+
+/* Διόρθωση για το κείμενο δίπλα στην εικόνα */
+.month-layout {
+    display: flex !important;
+    align-items: center !important; /* Κεντράρει το κείμενο κάθετα με την εικόνα */
+    overflow: hidden !important;
+}

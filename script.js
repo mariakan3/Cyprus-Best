@@ -231,23 +231,26 @@ async function loadBestOfMonth() {
     if (!container || !dbClient) return;
 
     const { data: items, error } = await dbClient.from('places').select('*').eq('is_best_of_month', true);
-
     if (error || !items) return;
 
     container.innerHTML = '';
     items.forEach(place => {
         const title = place[`title_${currentLang}`] || place.title_en;
-        const desc = place[`description${currentLang}`] || place.desc_en;
+        const desc = place[`desc_${currentLang}`] || place.desc_en; // Διορθώθηκε το ID
+        
+        let finalUrl = place.image_url || "";
+        if (finalUrl.includes('cloudinary.com')) {
+            finalUrl = finalUrl.replace('/upload/', '/upload/f_auto,q_auto/');
+        }
 
-        const itemHtml = `
+        container.innerHTML += `
             <a href="details.html?id=${place.id}" class="month-layout" style="text-decoration: none; color: inherit; display: flex;">
-                <img src="${place.image_url}" alt="${title}" style="width: 250px; height: 180px; object-fit: cover; border-radius: 10px;">
+                <img src="${finalUrl}" alt="${title}">
                 <div style="padding: 20px;">
                     <h3>${title}</h3>
                     <p>${desc}</p>
                 </div>
             </a>`;
-        container.innerHTML += itemHtml;
     });
 }
 
