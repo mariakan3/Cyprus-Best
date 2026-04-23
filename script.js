@@ -283,13 +283,25 @@ async function loadFullDetails(id) {
     if (titleEl) titleEl.innerText = title;
     if (descEl) descEl.innerHTML = description; // Χρησιμοποιούμε innerHTML για να πιάνει τυχόν αλλαγές γραμμής
 
-    // Στοιχεία επικοινωνίας (Τηλέφωνο)
-    if (place.phone) {
-        const phoneWrap = document.getElementById('phone-wrapper');
-        const phoneText = document.getElementById('place-phone');
-        if (phoneWrap) phoneWrap.style.display = 'block';
-        if (phoneText) phoneText.innerText = place.phone;
-    }
+    /// Έλεγχος για Τηλέφωνο
+if (place.phone) {
+    document.getElementById('place-phone').innerText = place.phone;
+    document.getElementById('phone-wrapper').style.display = 'block';
+}
+
+// Έλεγχος για Website
+if (place.website) {
+    const webBtn = document.getElementById('web-link');
+    webBtn.href = place.website;
+    webBtn.style.display = 'inline-block'; // Το εμφανίζει
+}
+
+// Έλεγχος για Maps (πρόσεξε το όνομα της στήλης: map_link)
+if (place.map_link) {
+    const mapBtn = document.getElementById('map-link');
+    mapBtn.href = place.map_link;
+    mapBtn.style.display = 'inline-block'; // Το εμφανίζει
+}
 }
 
 /* --- 6. UTILITIES (ΓΛΩΣΣΑ, ΚΑΙΡΟΣ κλπ) --- */
