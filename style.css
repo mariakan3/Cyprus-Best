@@ -666,3 +666,13 @@ section { padding: 3rem 2rem; text-align: center; }
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
+
+/* Αφαιρεί την υπογράμμιση από όλα τα links μέσα στις κάρτες */
+.item-card {
+    text-decoration: none !important;
+}
+
+/* Αν θέλεις να αφαιρέσεις την υπογράμμιση συγκεκριμένα από το κείμενο "More Info" */
+.item-card span, .item-card h3 {
+    text-decoration: none !important;
+}

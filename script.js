@@ -203,16 +203,19 @@ async function loadCategory(categoryName, containerId) {
         // Χρήση των στηλών από το νέο SQL σου
         const title = place[`title_${currentLang}`] || place.title_en || "No Title";
         const description = place[`desc_${currentLang}`] || place.desc_en || "";
-        const img = place.image_url || "";
+        let finalUrl = place.image_url || "";
+        if (finalUrl.includes('cloudinary.com')) {
+            finalUrl = finalUrl.replace('/upload/', '/upload/f_auto,q_auto/');
+        }
 
         const cardHtml = `
-            <a href="details.html?id=${place.id}" class="item-card show" style="text-decoration: none; color: inherit;">
-                <img src="${img}" alt="${title}">
+            <a href="details.html?id=${place.id}" class="item-card show">
+                <img src="${finalUrl}" alt="${title}" loading="lazy">
                 <div class="item-info">
                     <h3>${title}</h3>
                     <p>${description}</p>
-                    <div style="margin-top: auto; color: #3cc6cb; font-weight: bold;">
-                        <span>Περισσότερα</span> →
+                    <div style="margin-top: auto; color: #3cc6cb; font-weight: bold; font-size: 0.9rem;">
+                        <span>${staticTranslations[currentLang]["btn-more"]}</span> →
                     </div>
                 </div>
             </a>`;
