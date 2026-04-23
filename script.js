@@ -208,17 +208,19 @@ async function loadCategory(categoryName, containerId) {
             finalUrl = finalUrl.replace('/upload/', '/upload/f_auto,q_auto/');
         }
 
+        const subCatClass = place.subcategory ? place.subcategory : ""; // Παίρνει την υποκατηγορία από τη Supabase
+
         const cardHtml = `
-            <a href="details.html?id=${place.id}" class="item-card show">
-                <img src="${finalUrl}" alt="${title}" loading="lazy">
-                <div class="item-info">
-                    <h3>${title}</h3>
-                    <p>${description}</p>
-                    <div style="margin-top: auto; color: #3cc6cb; font-weight: bold; font-size: 0.9rem;">
-                        <span>${staticTranslations[currentLang]["btn-more"]}</span> →
-                    </div>
-                </div>
-            </a>`;
+        <a href="details.html?id=${place.id}" class="item-card ${subCatClass} show"> 
+        <img src="${place.image_url}" alt="${title}">
+        <div class="item-info">
+            <h3>${title}</h3>
+            <p>${description}</p>
+            <div style="margin-top: auto; color: #3cc6cb; font-weight: bold;">
+                <span>${staticTranslations[currentLang]["btn-more"]}</span> →
+            </div>
+        </div>
+        </a>`;
         container.innerHTML += cardHtml;
     });
 }
@@ -332,6 +334,34 @@ function refreshAllData() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
     if (id && document.getElementById('place-title')) loadFullDetails(id);
+}
+
+/* --- ΠΡΟΣΘΗΚΗ ΦΙΛΤΡΩΝ --- */
+function filterSelection(category) {
+    const cards = document.getElementsByClassName("item-card");
+    
+    // Αν δεν υπάρχουν κάρτες ακόμα (λόγω καθυστέρησης της Supabase), σταμάτα
+    if (cards.length === 0) return;
+
+    for (let i = 0; i < cards.length; i++) {
+        // Αφαιρούμε την κλάση show για να "κλείσουν" όλες οι κάρτες
+        cards[i].classList.remove("show");
+        
+        // Αν επιλέξαμε 'all' ή αν η κάρτα έχει την κλάση της υποκατηγορίας
+        if (category === "all" || cards[i].classList.contains(category)) {
+            cards[i].classList.add("show");
+        }
+    }
+    
+    // Διαχείριση του "Active" κουμπιού για να ξέρει ο χρήστης τι πάτησε
+    const btns = document.querySelectorAll(".filter-btn");
+    btns.forEach(btn => {
+        btn.classList.remove("active");
+        // Αν το κείμενο ή το onclick του κουμπιού ταιριάζει με την κατηγορία
+        if (btn.getAttribute('onclick').includes(`'${category}'`)) {
+            btn.classList.add("active");
+        }
+    });
 }
 
 function getWeather() {
