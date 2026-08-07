@@ -4,10 +4,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Cyprus Best - Details</title>
+    <title>Cyprus Best - Favorites</title>
     <link rel="icon" type="image/png" href="logo2.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -42,31 +42,13 @@
         </ul>
     </nav>
 
-    <div class="details-container">
-        <div class="details-header-wrap">
-            <header id="details-header" class="details-header" style="height: 400px; background-size: cover; background-position: center; border-radius: 15px;"></header>
-            <div id="details-fav-slot" class="details-fav-slot"></div>
-        </div>
+    <header class="page-header" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/cyprus-holidays.jpg');">
+        <h1 data-i18n="fav-title">My Favorites</h1>
+    </header>
 
-        <section class="details-content" style="padding: 30px;">
-            <div class="details-title-row">
-                <h1 id="place-title" style="font-size: 2.5rem; color: #333; margin: 0;"></h1>
-            </div>
-            <hr>
-
-            <div id="place-description" class="long-text" style="font-size: 1.2rem; line-height: 1.8; margin: 25px 0;"></div>
-
-            <div class="contact-box" style="background: #f4f7f6; padding: 20px; border-radius: 10px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-                <div id="phone-wrapper" style="display:none;">
-                    <strong data-i18n="lbl-phone">📞 Phone:</strong> <span id="place-phone"></span>
-                </div>
-
-                <a id="web-link" href="#" target="_blank" class="filter-btn" style="display:none; text-decoration: none;" data-i18n="lbl-website">🌍 Website</a>
-
-                <a id="map-link" href="#" target="_blank" class="filter-btn" style="display:none; text-decoration: none; background-color: #3cc6cb; color: white;" data-i18n="lbl-map">📍 Open Map</a>
-            </div>
-        </section>
-    </div>
+    <section class="items-list" id="favorites-container">
+        <p style="text-align:center; width:100%;" data-i18n="loading">Loading...</p>
+    </section>
 
     <footer class="main-footer">
         <div class="footer-content">

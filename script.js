@@ -8,6 +8,8 @@ if (typeof supabase !== 'undefined') {
 }
 
 let currentLang = localStorage.getItem('userLang') || 'en';
+let currentUser = null;
+let favoritePlaceIds = new Set();
 
 /* --- 2. ΠΛΗΡΕΣ ΛΕΞΙΚΟ (ΟΛΕΣ ΟΙ ΓΛΩΣΣΕΣ - 100% COMPLETE) --- */
 const staticTranslations = {
@@ -52,7 +54,25 @@ const staticTranslations = {
         "filter-architects": "🏗️ Αρχιτέκτονες",
         "filter-flowers": "🌸 Λουλούδια", 
         "filter-taxi": "🚕 Ταξί", 
-        "filter-promenades": "🚶‍♂️ Περιπάτοι"
+        "filter-promenades": "🚶‍♂️ Περιπάτοι",
+        "nav-login": "Σύνδεση",
+        "nav-logout": "Αποσύνδεση",
+        "auth-title-login": "Σύνδεση",
+        "auth-title-signup": "Εγγραφή",
+        "auth-email": "Email",
+        "auth-password": "Κωδικός",
+        "auth-submit-login": "Σύνδεση",
+        "auth-submit-signup": "Δημιουργία λογαριασμού",
+        "auth-switch-to-signup": "Δεν έχετε λογαριασμό; Εγγραφή",
+        "auth-switch-to-login": "Έχετε ήδη λογαριασμό; Σύνδεση",
+        "auth-check-email": "Ελέγξτε το email σας για επιβεβαίωση.",
+        "auth-error": "Κάτι πήγε στραβά. Δοκιμάστε ξανά.",
+        "nav-favorites": "Αγαπημένα",
+        "fav-save": "Αποθήκευση",
+        "fav-saved": "Αποθηκευμένο",
+        "fav-login-required": "Συνδεθείτε για να αποθηκεύσετε αγαπημένα.",
+        "fav-empty": "Δεν έχετε αποθηκεύσει ακόμα μέρη.",
+        "fav-title": "Τα Αγαπημένα μου"
     },
     en: { 
         "nav-home": "Home", 
@@ -95,7 +115,25 @@ const staticTranslations = {
         "filter-architects": "🏗️ Architects",
         "filter-flowers": "🌸 Flowers", 
         "filter-taxi": "🚕 Taxi", 
-        "filter-promenades": "🚶‍♂️ Promenades"
+        "filter-promenades": "🚶‍♂️ Promenades",
+        "nav-login": "Login",
+        "nav-logout": "Logout",
+        "auth-title-login": "Log in",
+        "auth-title-signup": "Sign up",
+        "auth-email": "Email",
+        "auth-password": "Password",
+        "auth-submit-login": "Log in",
+        "auth-submit-signup": "Create account",
+        "auth-switch-to-signup": "No account? Sign up",
+        "auth-switch-to-login": "Already have an account? Log in",
+        "auth-check-email": "Check your email to confirm your account.",
+        "auth-error": "Something went wrong. Please try again.",
+        "nav-favorites": "Favorites",
+        "fav-save": "Save",
+        "fav-saved": "Saved",
+        "fav-login-required": "Log in to save favorites.",
+        "fav-empty": "You have not saved any places yet.",
+        "fav-title": "My Favorites"
     },
     ru: { 
         "nav-home": "Главная", 
@@ -138,7 +176,25 @@ const staticTranslations = {
         "filter-architects": "🏗️ Архитекторы",
         "filter-flowers": "🌸 Цветы", 
         "filter-taxi": "🚕 Такси", 
-        "filter-promenades": "🚶‍♂️ Прогулки"
+        "filter-promenades": "🚶‍♂️ Прогулки",
+        "nav-login": "Войти",
+        "nav-logout": "Выйти",
+        "auth-title-login": "Вход",
+        "auth-title-signup": "Регистрация",
+        "auth-email": "Email",
+        "auth-password": "Пароль",
+        "auth-submit-login": "Войти",
+        "auth-submit-signup": "Создать аккаунт",
+        "auth-switch-to-signup": "Нет аккаунта? Регистрация",
+        "auth-switch-to-login": "Уже есть аккаунт? Войти",
+        "auth-check-email": "Проверьте email для подтверждения.",
+        "auth-error": "Что-то пошло не так. Попробуйте снова.",
+        "nav-favorites": "Избранное",
+        "fav-save": "Сохранить",
+        "fav-saved": "Сохранено",
+        "fav-login-required": "Войдите, чтобы сохранять избранное.",
+        "fav-empty": "Вы ещё ничего не сохранили.",
+        "fav-title": "Моё избранное"
     },
     zh: { 
         "nav-home": "首页", 
@@ -181,9 +237,495 @@ const staticTranslations = {
         "filter-architects": "🏗️ 建筑师",
         "filter-flowers": "🌸 花卉", 
         "filter-taxi": "🚕 出租车", 
-        "filter-promenades": "🚶‍♂️ 散步"
+        "filter-promenades": "🚶‍♂️ 散步",
+        "nav-login": "登录",
+        "nav-logout": "退出",
+        "auth-title-login": "登录",
+        "auth-title-signup": "注册",
+        "auth-email": "邮箱",
+        "auth-password": "密码",
+        "auth-submit-login": "登录",
+        "auth-submit-signup": "创建账户",
+        "auth-switch-to-signup": "没有账户？注册",
+        "auth-switch-to-login": "已有账户？登录",
+        "auth-check-email": "请查收邮箱以确认账户。",
+        "auth-error": "出错了，请重试。",
+        "nav-favorites": "收藏",
+        "fav-save": "收藏",
+        "fav-saved": "已收藏",
+        "fav-login-required": "请登录后收藏。",
+        "fav-empty": "你还没有收藏任何地点。",
+        "fav-title": "我的收藏"
     }
-};/* --- 3. ΦΟΡΤΩΣΗ ΚΑΤΗΓΟΡΙΩΝ (ΟΛΕΣ ΟΙ ΕΙΚΟΝΕΣ & ΠΕΡΙΓΡΑΦΕΣ) --- */
+};
+
+/* --- 2b. AUTH (LOGIN / SIGN UP / LOGOUT) --- */
+function t(key) {
+    return (staticTranslations[currentLang] && staticTranslations[currentLang][key]) ||
+        (staticTranslations.en[key] || key);
+}
+
+function injectAuthUI() {
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks && !document.getElementById('favorites-nav-item')) {
+        const favLi = document.createElement('li');
+        favLi.id = 'favorites-nav-item';
+        favLi.innerHTML = `<a href="favorites.html" data-i18n="nav-favorites">${t('nav-favorites')}</a>`;
+        navLinks.appendChild(favLi);
+    }
+    if (navLinks && !document.getElementById('auth-nav-item')) {
+        const li = document.createElement('li');
+        li.id = 'auth-nav-item';
+        li.innerHTML = `
+            <button type="button" id="auth-nav-btn" class="auth-nav-btn" data-i18n="nav-login">${t('nav-login')}</button>
+            <span id="auth-user-email" class="auth-user-email" hidden></span>
+        `;
+        navLinks.appendChild(li);
+    }
+
+    if (document.getElementById('authModal')) return;
+
+    const modal = document.createElement('div');
+    modal.id = 'authModal';
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+        <div class="modal-content auth-modal-content">
+            <span class="close-btn" id="auth-close-btn">&times;</span>
+            <h2 id="auth-modal-title" data-i18n="auth-title-login">${t('auth-title-login')}</h2>
+            <form id="auth-form" class="auth-form">
+                <label for="auth-email">
+                    <span data-i18n="auth-email">${t('auth-email')}</span>
+                    <input type="email" id="auth-email" name="email" required autocomplete="email">
+                </label>
+                <label for="auth-password">
+                    <span data-i18n="auth-password">${t('auth-password')}</span>
+                    <div class="password-field">
+                        <input type="password" id="auth-password" name="password" required minlength="6" autocomplete="current-password">
+                        <button type="button" id="auth-password-toggle" class="password-toggle" aria-label="Show password" title="Show password">
+                            <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </label>
+                <button type="submit" id="auth-submit-btn" class="btn auth-submit-btn" data-i18n="auth-submit-login">${t('auth-submit-login')}</button>
+            </form>
+            <p id="auth-message" class="auth-message" hidden></p>
+            <button type="button" id="auth-switch-btn" class="auth-switch-btn" data-i18n="auth-switch-to-signup">${t('auth-switch-to-signup')}</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    document.getElementById('auth-nav-btn').addEventListener('click', handleAuthNavClick);
+    document.getElementById('auth-close-btn').addEventListener('click', closeAuthModal);
+    document.getElementById('auth-switch-btn').addEventListener('click', toggleAuthMode);
+    document.getElementById('auth-form').addEventListener('submit', handleAuthSubmit);
+    document.getElementById('auth-password-toggle').addEventListener('click', togglePasswordVisibility);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeAuthModal();
+    });
+}
+
+function openAuthModal(mode = 'login') {
+    const modal = document.getElementById('authModal');
+    if (!modal) return;
+    modal.dataset.mode = mode;
+    setAuthMode(mode);
+    clearAuthMessage();
+    modal.style.display = 'flex';
+}
+
+function closeAuthModal() {
+    const modal = document.getElementById('authModal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    const form = document.getElementById('auth-form');
+    if (form) form.reset();
+    const passwordInput = document.getElementById('auth-password');
+    if (passwordInput) passwordInput.type = 'password';
+    const toggleBtn = document.getElementById('auth-password-toggle');
+    if (toggleBtn) {
+        toggleBtn.setAttribute('aria-label', 'Show password');
+        toggleBtn.title = 'Show password';
+        const icon = toggleBtn.querySelector('i');
+        if (icon) icon.className = 'fa-regular fa-eye';
+    }
+    clearAuthMessage();
+}
+
+function setAuthMode(mode) {
+    const isSignup = mode === 'signup';
+    const title = document.getElementById('auth-modal-title');
+    const submit = document.getElementById('auth-submit-btn');
+    const switchBtn = document.getElementById('auth-switch-btn');
+    const password = document.getElementById('auth-password');
+
+    if (title) {
+        title.setAttribute('data-i18n', isSignup ? 'auth-title-signup' : 'auth-title-login');
+        title.innerText = t(isSignup ? 'auth-title-signup' : 'auth-title-login');
+    }
+    if (submit) {
+        submit.setAttribute('data-i18n', isSignup ? 'auth-submit-signup' : 'auth-submit-login');
+        submit.innerText = t(isSignup ? 'auth-submit-signup' : 'auth-submit-login');
+    }
+    if (switchBtn) {
+        switchBtn.setAttribute('data-i18n', isSignup ? 'auth-switch-to-login' : 'auth-switch-to-signup');
+        switchBtn.innerText = t(isSignup ? 'auth-switch-to-login' : 'auth-switch-to-signup');
+    }
+    if (password) {
+        password.autocomplete = isSignup ? 'new-password' : 'current-password';
+    }
+}
+
+function toggleAuthMode() {
+    const modal = document.getElementById('authModal');
+    if (!modal) return;
+    const next = modal.dataset.mode === 'signup' ? 'login' : 'signup';
+    modal.dataset.mode = next;
+    setAuthMode(next);
+    clearAuthMessage();
+}
+
+function showAuthMessage(text, type = 'error') {
+    const el = document.getElementById('auth-message');
+    if (!el) return;
+    el.hidden = false;
+    el.className = `auth-message auth-message-${type}`;
+    el.innerText = text;
+}
+
+function clearAuthMessage() {
+    const el = document.getElementById('auth-message');
+    if (!el) return;
+    el.hidden = true;
+    el.innerText = '';
+}
+
+function togglePasswordVisibility() {
+    const input = document.getElementById('auth-password');
+    const btn = document.getElementById('auth-password-toggle');
+    if (!input || !btn) return;
+
+    const showing = input.type === 'text';
+    input.type = showing ? 'password' : 'text';
+    btn.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
+    btn.title = showing ? 'Show password' : 'Hide password';
+    const icon = btn.querySelector('i');
+    if (icon) {
+        icon.className = showing ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
+    }
+}
+
+async function handleAuthNavClick() {
+    if (currentUser) {
+        await handleLogout();
+        return;
+    }
+    openAuthModal('login');
+}
+
+async function handleAuthSubmit(e) {
+    e.preventDefault();
+    if (!dbClient) return;
+
+    const modal = document.getElementById('authModal');
+    const mode = modal?.dataset.mode || 'login';
+    const email = document.getElementById('auth-email').value.trim();
+    const password = document.getElementById('auth-password').value;
+    const submitBtn = document.getElementById('auth-submit-btn');
+
+    if (submitBtn) submitBtn.disabled = true;
+    clearAuthMessage();
+
+    try {
+        if (mode === 'signup') {
+            const { data, error } = await dbClient.auth.signUp({
+                email,
+                password,
+                options: {
+                    emailRedirectTo: `${window.location.origin}/index.html`
+                }
+            });
+            if (error) throw error;
+
+            if (data.session) {
+                currentUser = data.user;
+                updateAuthUI();
+                closeAuthModal();
+            } else {
+                showAuthMessage(t('auth-check-email'), 'success');
+            }
+        } else {
+            const { data, error } = await dbClient.auth.signInWithPassword({ email, password });
+            if (error) throw error;
+            currentUser = data.user;
+            updateAuthUI();
+            closeAuthModal();
+        }
+    } catch (err) {
+        showAuthMessage(err.message || t('auth-error'), 'error');
+    } finally {
+        if (submitBtn) submitBtn.disabled = false;
+    }
+}
+
+async function handleLogout() {
+    if (!dbClient) return;
+    const { error } = await dbClient.auth.signOut();
+    if (error) {
+        console.error('Logout error:', error);
+        return;
+    }
+    currentUser = null;
+    updateAuthUI();
+}
+
+function updateAuthUI() {
+    const btn = document.getElementById('auth-nav-btn');
+    const emailEl = document.getElementById('auth-user-email');
+    if (!btn) return;
+
+    if (currentUser) {
+        btn.setAttribute('data-i18n', 'nav-logout');
+        btn.innerText = t('nav-logout');
+        btn.classList.add('is-logged-in');
+        if (emailEl) {
+            emailEl.hidden = false;
+            emailEl.innerText = currentUser.email || '';
+        }
+    } else {
+        btn.setAttribute('data-i18n', 'nav-login');
+        btn.innerText = t('nav-login');
+        btn.classList.remove('is-logged-in');
+        if (emailEl) {
+            emailEl.hidden = true;
+            emailEl.innerText = '';
+        }
+    }
+}
+
+async function initAuth() {
+    if (!dbClient) return;
+    injectAuthUI();
+
+    const { data: { session } } = await dbClient.auth.getSession();
+    currentUser = session?.user ?? null;
+    updateAuthUI();
+    await loadFavoriteIds();
+
+    // Clean auth tokens from the URL after email confirmation / magic link
+    if (window.location.hash && /access_token|refresh_token|type=/.test(window.location.hash)) {
+        window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
+    }
+
+    dbClient.auth.onAuthStateChange(async (_event, session) => {
+        currentUser = session?.user ?? null;
+        updateAuthUI();
+        await loadFavoriteIds();
+        refreshFavoriteButtons();
+        if (document.getElementById('favorites-container')) loadFavoritesPage();
+    });
+}
+
+/* --- 2c. FAVORITES --- */
+async function loadFavoriteIds() {
+    favoritePlaceIds = new Set();
+    if (!dbClient || !currentUser) return;
+
+    const { data, error } = await dbClient
+        .from('user_favorites')
+        .select('place_id');
+
+    if (error) {
+        console.error('Error loading favorites:', error);
+        return;
+    }
+
+    (data || []).forEach(row => favoritePlaceIds.add(row.place_id));
+}
+
+function isFavorite(placeId) {
+    return favoritePlaceIds.has(placeId);
+}
+
+function escapeHtml(value) {
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function getPlaceIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const fromQuery = params.get('id');
+    if (fromQuery) return fromQuery;
+
+    // Backup if clean-URL tools strip ?id= but keep the hash
+    const hash = window.location.hash.replace(/^#/, '');
+    if (hash && !hash.includes('access_token') && !hash.includes('type=')) {
+        return decodeURIComponent(hash);
+    }
+
+    // /details/amara style paths
+    const parts = window.location.pathname.replace(/\.html$/i, '').split('/').filter(Boolean);
+    if (parts[0] === 'details' && parts[1]) return decodeURIComponent(parts[1]);
+
+    return null;
+}
+
+function detailsUrl(placeId) {
+    const id = encodeURIComponent(placeId);
+    // Query for normal hosts + hash backup if ?id= gets stripped locally
+    return `details.html?id=${id}#${id}`;
+}
+
+function favoriteButtonHtml(placeId) {
+    const saved = isFavorite(placeId);
+    const iconClass = saved ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+    const label = saved ? t('fav-saved') : t('fav-save');
+    const safeId = escapeHtml(placeId);
+    return `
+        <button type="button"
+            class="fav-btn${saved ? ' is-saved' : ''}"
+            data-place-id="${safeId}"
+            aria-label="${escapeHtml(label)}"
+            title="${escapeHtml(label)}">
+            <i class="${iconClass}"></i>
+        </button>
+    `;
+}
+
+function refreshFavoriteButtons() {
+    document.querySelectorAll('.fav-btn[data-place-id]').forEach(btn => {
+        const placeId = btn.getAttribute('data-place-id');
+        const saved = isFavorite(placeId);
+        btn.classList.toggle('is-saved', saved);
+        btn.setAttribute('aria-label', saved ? t('fav-saved') : t('fav-save'));
+        btn.title = saved ? t('fav-saved') : t('fav-save');
+        const icon = btn.querySelector('i');
+        if (icon) {
+            icon.className = saved ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+        }
+    });
+}
+
+async function toggleFavorite(event, placeId) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    if (!placeId) {
+        const btn = event?.currentTarget || event?.target?.closest?.('.fav-btn');
+        placeId = btn?.getAttribute('data-place-id');
+    }
+    if (!placeId || !dbClient) return;
+
+    if (!currentUser) {
+        openAuthModal('login');
+        return;
+    }
+
+    const btn = event?.currentTarget?.classList?.contains('fav-btn')
+        ? event.currentTarget
+        : event?.target?.closest?.('.fav-btn');
+    if (btn) btn.disabled = true;
+
+    try {
+        if (isFavorite(placeId)) {
+            const { error } = await dbClient
+                .from('user_favorites')
+                .delete()
+                .eq('user_id', currentUser.id)
+                .eq('place_id', placeId);
+            if (error) throw error;
+            favoritePlaceIds.delete(placeId);
+        } else {
+            const { error } = await dbClient
+                .from('user_favorites')
+                .insert({ user_id: currentUser.id, place_id: placeId });
+            if (error) throw error;
+            favoritePlaceIds.add(placeId);
+        }
+
+        refreshFavoriteButtons();
+        if (document.getElementById('favorites-container')) loadFavoritesPage();
+    } catch (err) {
+        console.error('Favorite toggle failed:', err);
+        alert(err.message || t('auth-error'));
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+}
+
+function renderPlaceCard(place, { show = true } = {}) {
+    const title = place[`title_${currentLang}`] || place.title_en || "No Title";
+    const description = place[`desc_${currentLang}`] || place.desc_en || "";
+    let finalUrl = place.image_url || "";
+    if (finalUrl.includes('cloudinary.com')) {
+        finalUrl = finalUrl.replace('/upload/', '/upload/f_auto,q_auto/');
+    }
+
+    const subCatClass = place.subcategory ? escapeHtml(place.subcategory) : "";
+    const showClass = show ? "show" : "";
+    const safeTitle = escapeHtml(title);
+    const safeDesc = escapeHtml(description);
+    const safeImg = escapeHtml(finalUrl || place.image_url || "");
+
+    return `
+        <div class="item-card ${subCatClass} ${showClass}">
+            ${favoriteButtonHtml(place.id)}
+            <a href="${detailsUrl(place.id)}" class="item-card-link" data-place-id="${escapeHtml(place.id)}">
+                <img src="${safeImg}" alt="${safeTitle}">
+                <div class="item-info">
+                    <h3>${safeTitle}</h3>
+                    <p>${safeDesc}</p>
+                    <div style="margin-top: auto; color: #3cc6cb; font-weight: bold;">
+                        <span>${t('btn-more')}</span> →
+                    </div>
+                </div>
+            </a>
+        </div>
+    `;
+}
+
+async function loadFavoritesPage() {
+    const container = document.getElementById('favorites-container');
+    if (!container || !dbClient) return;
+
+    if (!currentUser) {
+        container.innerHTML = `
+            <div class="favorites-empty">
+                <p data-i18n="fav-login-required">${t('fav-login-required')}</p>
+                <button type="button" class="btn" onclick="openAuthModal('login')" data-i18n="nav-login">${t('nav-login')}</button>
+            </div>
+        `;
+        return;
+    }
+
+    const { data, error } = await dbClient
+        .from('user_favorites')
+        .select('place_id, created_at, places(*)')
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.error('Error loading favorites page:', error);
+        container.innerHTML = `<p class="favorites-empty">${t('auth-error')}</p>`;
+        return;
+    }
+
+    const places = (data || []).map(row => row.places).filter(Boolean);
+    favoritePlaceIds = new Set((data || []).map(row => row.place_id));
+
+    if (places.length === 0) {
+        container.innerHTML = `<p class="favorites-empty" data-i18n="fav-empty">${t('fav-empty')}</p>`;
+        return;
+    }
+
+    container.innerHTML = places.map(place => renderPlaceCard(place, { show: true })).join('');
+}
+
+/* --- 3. ΦΟΡΤΩΣΗ ΚΑΤΗΓΟΡΙΩΝ (ΟΛΕΣ ΟΙ ΕΙΚΟΝΕΣ & ΠΕΡΙΓΡΑΦΕΣ) --- */
 async function loadCategory(categoryName, containerId) {
     const container = document.getElementById(containerId);
     if (!container || !dbClient) return;
@@ -198,31 +740,7 @@ async function loadCategory(categoryName, containerId) {
         return;
     }
 
-    container.innerHTML = ''; 
-    places.forEach(place => {
-        // Χρήση των στηλών από το νέο SQL σου
-        const title = place[`title_${currentLang}`] || place.title_en || "No Title";
-        const description = place[`desc_${currentLang}`] || place.desc_en || "";
-        let finalUrl = place.image_url || "";
-        if (finalUrl.includes('cloudinary.com')) {
-            finalUrl = finalUrl.replace('/upload/', '/upload/f_auto,q_auto/');
-        }
-
-        const subCatClass = place.subcategory ? place.subcategory : ""; // Παίρνει την υποκατηγορία από τη Supabase
-
-        const cardHtml = `
-        <a href="details.html?id=${place.id}" class="item-card ${subCatClass} show"> 
-        <img src="${place.image_url}" alt="${title}">
-        <div class="item-info">
-            <h3>${title}</h3>
-            <p>${description}</p>
-            <div style="margin-top: auto; color: #3cc6cb; font-weight: bold;">
-                <span>${staticTranslations[currentLang]["btn-more"]}</span> →
-            </div>
-        </div>
-        </a>`;
-        container.innerHTML += cardHtml;
-    });
+    container.innerHTML = (places || []).map(place => renderPlaceCard(place, { show: true })).join('');
 }
 
 /* --- 4. BEST OF MONTH --- */
@@ -244,19 +762,35 @@ async function loadBestOfMonth() {
         }
 
         container.innerHTML += `
-            <a href="details.html?id=${place.id}" class="month-layout" style="text-decoration: none; color: inherit; display: flex;">
-                <img src="${finalUrl}" alt="${title}">
-                <div style="padding: 20px;">
-                    <h3>${title}</h3>
-                    <p>${desc}</p>
-                </div>
-            </a>`;
+            <div class="month-card">
+                ${favoriteButtonHtml(place.id)}
+                <a href="${detailsUrl(place.id)}" class="month-layout" data-place-id="${escapeHtml(place.id)}" style="text-decoration: none; color: inherit; display: flex;">
+                    <img src="${escapeHtml(finalUrl)}" alt="${escapeHtml(title)}">
+                    <div style="padding: 20px;">
+                        <h3>${escapeHtml(title)}</h3>
+                        <p>${escapeHtml(desc)}</p>
+                    </div>
+                </a>
+            </div>`;
     });
 }
 
 /* --- 5. ΣΕΛΙΔΑ ΛΕΠΤΟΜΕΡΕΙΩΝ (DETAILS) --- */
 async function loadFullDetails(id) {
-    if (!dbClient || !id) return;
+    if (!dbClient) return;
+    id = id || getPlaceIdFromUrl();
+    if (!id) {
+        const content = document.querySelector('.details-content');
+        const header = document.getElementById('details-header');
+        if (header) header.style.display = 'none';
+        if (content) {
+            content.innerHTML = `
+                <p>No place selected.</p>
+                <a class="btn" href="index.html">Home</a>
+            `;
+        }
+        return;
+    }
 
     // Τραβάμε τα δεδομένα για το συγκεκριμένο ID
     const { data: place, error } = await dbClient
@@ -286,30 +820,32 @@ async function loadFullDetails(id) {
     const headerEl = document.getElementById('details-header');
     const titleEl = document.getElementById('place-title');
     const descEl = document.getElementById('place-description');
+    const favSlot = document.getElementById('details-fav-slot');
 
     if (headerEl) headerEl.style.backgroundImage = `url('${imgUrl}')`;
     if (titleEl) titleEl.innerText = title;
     if (descEl) descEl.innerHTML = description; // Χρησιμοποιούμε innerHTML για να πιάνει τυχόν αλλαγές γραμμής
+    if (favSlot) favSlot.innerHTML = favoriteButtonHtml(place.id);
 
     /// Έλεγχος για Τηλέφωνο
-if (place.phone) {
-    document.getElementById('place-phone').innerText = place.phone;
-    document.getElementById('phone-wrapper').style.display = 'block';
-}
+    if (place.phone) {
+        document.getElementById('place-phone').innerText = place.phone;
+        document.getElementById('phone-wrapper').style.display = 'block';
+    }
 
-// Έλεγχος για Website
-if (place.website) {
-    const webBtn = document.getElementById('web-link');
-    webBtn.href = place.website;
-    webBtn.style.display = 'inline-block'; // Το εμφανίζει
-}
+    // Έλεγχος για Website
+    if (place.website) {
+        const webBtn = document.getElementById('web-link');
+        webBtn.href = place.website;
+        webBtn.style.display = 'inline-block'; // Το εμφανίζει
+    }
 
-// Έλεγχος για Maps (πρόσεξε το όνομα της στήλης: map_link)
-if (place.map_link) {
-    const mapBtn = document.getElementById('map-link');
-    mapBtn.href = place.map_link;
-    mapBtn.style.display = 'inline-block'; // Το εμφανίζει
-}
+    // Έλεγχος για Maps (πρόσεξε το όνομα της στήλης: map_link)
+    if (place.map_link) {
+        const mapBtn = document.getElementById('map-link');
+        mapBtn.href = place.map_link;
+        mapBtn.style.display = 'inline-block'; // Το εμφανίζει
+    }
 }
 
 /* --- 6. UTILITIES (ΓΛΩΣΣΑ, ΚΑΙΡΟΣ κλπ) --- */
@@ -333,10 +869,11 @@ function refreshAllData() {
         if (document.getElementById(`${cat}-container`)) loadCategory(cat, `${cat}-container`);
     });
     if (document.getElementById('month-recommendation')) loadBestOfMonth();
+    if (document.getElementById('favorites-container')) loadFavoritesPage();
 
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    if (id && document.getElementById('place-title')) loadFullDetails(id);
+    if (document.getElementById('place-title') || document.getElementById('details-header')) {
+        loadFullDetails(getPlaceIdFromUrl());
+    }
 }
 
 /* --- ΠΡΟΣΘΗΚΗ ΦΙΛΤΡΩΝ --- */
@@ -383,8 +920,16 @@ function toggleMobileMenu() {
 }
 
 /* --- 7. ΕΚΚΙΝΗΣΗ --- */
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("click", (event) => {
+    const favBtn = event.target.closest('.fav-btn');
+    if (favBtn) {
+        toggleFavorite(event, favBtn.getAttribute('data-place-id'));
+    }
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
     getWeather();
+    await initAuth();
     const saved = localStorage.getItem('userLang') || 'en';
     setLanguage(saved);
 });

@@ -199,6 +199,7 @@ section { padding: 3rem 2rem; text-align: center; }
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     overflow: hidden;
     margin: 10px;
+    position: relative;
 
     /* Responsive Διαστάσεις */
     width: 320px;
@@ -212,6 +213,98 @@ section { padding: 3rem 2rem; text-align: center; }
     display: none; 
 
     animation: fadeIn 0.5s;
+}
+
+.item-card-link {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    text-decoration: none !important;
+    color: inherit;
+    min-height: 100%;
+}
+
+.fav-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    color: #999;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-size: 1.1rem;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.fav-btn:hover {
+    transform: scale(1.08);
+    color: #e63946;
+}
+
+.fav-btn.is-saved {
+    color: #e63946;
+}
+
+.fav-btn:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.favorites-empty {
+    width: 100%;
+    text-align: center;
+    padding: 50px 20px;
+    color: #555;
+}
+
+.favorites-empty .btn {
+    display: inline-block;
+    margin-top: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.month-card {
+    position: relative;
+    width: 100%;
+}
+
+.month-card .fav-btn {
+    top: 16px;
+    right: 16px;
+}
+
+.details-header-wrap {
+    position: relative;
+}
+
+.details-fav-slot {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 5;
+}
+
+.details-fav-slot .fav-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1.35rem;
+}
+
+.details-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
 /* Εμφανίζεται ΜΟΝΟ αν έχει την κλάση 'show' */
@@ -278,6 +371,158 @@ section { padding: 3rem 2rem; text-align: center; }
     top: 10px; right: 15px;
     font-size: 25px;
     cursor: pointer;
+}
+
+.details-missing {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.details-missing .btn {
+    display: inline-block;
+    margin-top: 16px;
+}
+
+/* --- 9b. AUTH --- */
+.auth-nav-btn {
+    background: #e69500;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.auth-nav-btn.is-logged-in {
+    background: #333;
+}
+
+.auth-user-email {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 4px;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.auth-modal-content {
+    text-align: left;
+}
+
+.auth-modal-content h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.auth-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.auth-form input {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-field input {
+    width: 100%;
+    padding-right: 44px;
+    box-sizing: border-box;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #777;
+    cursor: pointer;
+    padding: 6px;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.password-toggle:hover {
+    color: #333;
+}
+
+.auth-submit-btn {
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.auth-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.auth-switch-btn {
+    background: none;
+    border: none;
+    color: #3cc6cb;
+    cursor: pointer;
+    margin-top: 16px;
+    width: 100%;
+    font-size: 0.95rem;
+    text-decoration: underline;
+}
+
+.auth-message {
+    margin: 12px 0 0;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.auth-message-error {
+    background: #fdecea;
+    color: #b71c1c;
+}
+
+.auth-message-success {
+    background: #e8f5e9;
+    color: #1b5e20;
+}
+
+@media (max-width: 768px) {
+    #auth-nav-item {
+        padding: 12px 20px;
+    }
+
+    .auth-nav-btn {
+        width: 100%;
+    }
+
+    .auth-user-email {
+        color: rgba(255, 255, 255, 0.9);
+        max-width: none;
+    }
 }
 
 /* --- 10. FOOTER --- */
@@ -642,8 +887,8 @@ section { padding: 3rem 2rem; text-align: center; }
     display: none; 
     flex-direction: column;
     overflow: hidden;
+    position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ομαλή κίνηση */
-    cursor: pointer;
 }
 
 /* Εφέ όταν ακουμπάμε την κάρτα (Hover) */
