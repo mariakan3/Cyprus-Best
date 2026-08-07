@@ -47,15 +47,26 @@ body.modal-open {
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px;
+    align-items: center;
+    gap: 6px;
     margin: 0;
     padding: 0;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: #333;
+    color: var(--cb-ink);
     font-weight: 500;
+    display: block;
+    padding: 10px 12px;
+    border-radius: 10px;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+    color: #178f94;
+    background: var(--cb-teal-soft);
 }
 
 /* --- 3. HERO SECTION (ΑΡΧΙΚΗ ΕΙΚΟΝΑ) --- */
@@ -102,18 +113,26 @@ body.modal-open {
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
     color: rgba(255, 255, 255, 0.9);
-    padding: 6px 10px;
+    padding: 6px 12px;
     margin-left: 0;
     cursor: pointer;
     font-size: 0.78rem;
     border-radius: 999px;
     font-family: inherit;
-    transition: background 0.2s ease, border-color 0.2s ease;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-.language-bar button:hover {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.22);
+.language-bar button:hover,
+.language-bar button:focus-visible {
+    background: var(--cb-teal-soft);
+    border-color: rgba(46, 184, 190, 0.45);
+    color: #178f94;
+}
+
+.language-bar button.is-active {
+    background: var(--cb-teal);
+    border-color: var(--cb-teal);
+    color: #fff;
 }
 
 .weather-bar {
@@ -975,21 +994,6 @@ section { padding: 3rem 2rem; text-align: center; }
 .quick-links a:hover {
     transform: translateY(-3px);
     color: #e69500 !important;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--cb-ink);
-    font-weight: 500;
-    display: block;
-    padding: 10px 12px;
-    border-radius: 10px;
-    transition: color 0.2s ease, background 0.2s ease;
-}
-
-.nav-links a:hover {
-    color: #178f94;
-    background: var(--cb-teal-soft);
 }
 
 .filter-btn {

@@ -855,6 +855,11 @@ async function loadFullDetails(id) {
 function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('userLang', lang);
+
+    document.querySelectorAll('.language-bar button').forEach(btn => {
+        const match = (btn.getAttribute('onclick') || '').includes(`'${lang}'`);
+        btn.classList.toggle('is-active', match);
+    });
     
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
