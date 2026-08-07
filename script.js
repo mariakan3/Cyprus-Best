@@ -327,16 +327,19 @@ function injectAuthUI() {
 function openAuthModal(mode = 'login') {
     const modal = document.getElementById('authModal');
     if (!modal) return;
+    closeMobileMenu();
     modal.dataset.mode = mode;
     setAuthMode(mode);
     clearAuthMessage();
     modal.style.display = 'flex';
+    document.body.classList.add('modal-open');
 }
 
 function closeAuthModal() {
     const modal = document.getElementById('authModal');
     if (!modal) return;
     modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
     const form = document.getElementById('auth-form');
     if (form) form.reset();
     const passwordInput = document.getElementById('auth-password');
@@ -914,9 +917,39 @@ function getWeather() {
         }).catch(err => console.log(err));
 }
 
+function ensureNavBackdrop() {
+    let backdrop = document.getElementById('nav-backdrop');
+    if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.id = 'nav-backdrop';
+        backdrop.className = 'nav-backdrop';
+        backdrop.addEventListener('click', closeMobileMenu);
+        document.body.appendChild(backdrop);
+    }
+    return backdrop;
+}
+
+function closeMobileMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    const hamburger = document.querySelector('.hamburger');
+    const backdrop = document.getElementById('nav-backdrop');
+    if (navLinks) navLinks.classList.remove('active');
+    if (hamburger) hamburger.classList.remove('is-open');
+    if (backdrop) backdrop.classList.remove('active');
+    document.body.classList.remove('menu-open');
+}
+
 function toggleMobileMenu() {
     const navLinks = document.querySelector('.nav-links');
-    if (navLinks) navLinks.classList.toggle('active');
+    const hamburger = document.querySelector('.hamburger');
+    if (!navLinks) return;
+
+    const backdrop = ensureNavBackdrop();
+    const willOpen = !navLinks.classList.contains('active');
+    navLinks.classList.toggle('active', willOpen);
+    if (hamburger) hamburger.classList.toggle('is-open', willOpen);
+    backdrop.classList.toggle('active', willOpen);
+    document.body.classList.toggle('menu-open', willOpen);
 }
 
 /* --- 7. ΕΚΚΙΝΗΣΗ --- */
@@ -932,4 +965,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     await initAuth();
     const saved = localStorage.getItem('userLang') || 'en';
     setLanguage(saved);
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
 });
