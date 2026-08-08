@@ -558,6 +558,12 @@ function escapeHtml(value) {
         .replace(/'/g, '&#39;');
 }
 
+function truncateText(value, maxLength = 110) {
+    const text = String(value ?? '').replace(/\s+/g, ' ').trim();
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength).trimEnd() + '…';
+}
+
 function getPlaceIdFromUrl() {
     const params = new URLSearchParams(window.location.search);
     const fromQuery = params.get('id');
@@ -672,7 +678,7 @@ function renderPlaceCard(place, { show = true } = {}) {
     const subCatClass = place.subcategory ? escapeHtml(place.subcategory) : "";
     const showClass = show ? "show" : "";
     const safeTitle = escapeHtml(title);
-    const safeDesc = escapeHtml(description);
+    const safeDesc = escapeHtml(truncateText(description, 110));
     const safeImg = escapeHtml(finalUrl || place.image_url || "");
 
     return `
@@ -729,6 +735,18 @@ async function loadFavoritesPage() {
 }
 
 /* --- 3. ΦΟΡΤΩΣΗ ΚΑΤΗΓΟΡΙΩΝ (ΟΛΕΣ ΟΙ ΕΙΚΟΝΕΣ & ΠΕΡΙΓΡΑΦΕΣ) --- */
+const PINNED_PLACE_IDS = ['melania', 'yoga'];
+
+function sortPlacesWithPinnedFirst(places) {
+    return [...(places || [])].sort((a, b) => {
+        const aPin = PINNED_PLACE_IDS.indexOf(a.id);
+        const bPin = PINNED_PLACE_IDS.indexOf(b.id);
+        const aRank = aPin === -1 ? Number.MAX_SAFE_INTEGER : aPin;
+        const bRank = bPin === -1 ? Number.MAX_SAFE_INTEGER : bPin;
+        return aRank - bRank;
+    });
+}
+
 async function loadCategory(categoryName, containerId) {
     const container = document.getElementById(containerId);
     if (!container || !dbClient) return;
@@ -743,7 +761,8 @@ async function loadCategory(categoryName, containerId) {
         return;
     }
 
-    container.innerHTML = (places || []).map(place => renderPlaceCard(place, { show: true })).join('');
+    const ordered = sortPlacesWithPinnedFirst(places);
+    container.innerHTML = ordered.map(place => renderPlaceCard(place, { show: true })).join('');
 }
 
 /* --- 4. BEST OF MONTH --- */
@@ -771,7 +790,7 @@ async function loadBestOfMonth() {
                     <img src="${escapeHtml(finalUrl)}" alt="${escapeHtml(title)}">
                     <div style="padding: 20px;">
                         <h3>${escapeHtml(title)}</h3>
-                        <p>${escapeHtml(desc)}</p>
+                        <p>${escapeHtml(truncateText(desc, 140))}</p>
                     </div>
                 </a>
             </div>`;
