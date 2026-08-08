@@ -737,13 +737,27 @@ async function loadFavoritesPage() {
 /* --- 3. ΦΟΡΤΩΣΗ ΚΑΤΗΓΟΡΙΩΝ (ΟΛΕΣ ΟΙ ΕΙΚΟΝΕΣ & ΠΕΡΙΓΡΑΦΕΣ) --- */
 const PINNED_PLACE_IDS = ['melania', 'yoga'];
 
+function placeSortTitle(place) {
+    return (place[`title_${currentLang}`] || place.title_en || place.id || '').toString().trim();
+}
+
 function sortPlacesWithPinnedFirst(places) {
     return [...(places || [])].sort((a, b) => {
         const aPin = PINNED_PLACE_IDS.indexOf(a.id);
         const bPin = PINNED_PLACE_IDS.indexOf(b.id);
-        const aRank = aPin === -1 ? Number.MAX_SAFE_INTEGER : aPin;
-        const bRank = bPin === -1 ? Number.MAX_SAFE_INTEGER : bPin;
-        return aRank - bRank;
+        const aPinned = aPin !== -1;
+        const bPinned = bPin !== -1;
+
+        // Pinned items stay first, in PINNED_PLACE_IDS order
+        if (aPinned && bPinned) return aPin - bPin;
+        if (aPinned) return -1;
+        if (bPinned) return 1;
+
+        // Everything else: alphabetical by current-language title
+        return placeSortTitle(a).localeCompare(placeSortTitle(b), currentLang || 'en', {
+            sensitivity: 'base',
+            numeric: true
+        });
     });
 }
 
