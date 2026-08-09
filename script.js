@@ -52,7 +52,7 @@ const staticTranslations = {
         "filter-medical": "🏥 Ιατρικά", 
         "filter-accounting": "📊 Λογιστικά", 
         "filter-architects": "🏗️ Αρχιτέκτονες",
-        "filter-flowers": "🌸 Λουλούδια", 
+        "filter-flowers": "🌸 Ανθοπωλεία", 
         "filter-taxi": "🚕 Ταξί", 
         "filter-promenades": "🚶‍♂️ Περιπάτοι",
         "nav-login": "Σύνδεση",
