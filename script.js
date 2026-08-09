@@ -10,6 +10,19 @@ if (typeof supabase !== 'undefined') {
 let currentLang = localStorage.getItem('userLang') || 'en';
 let currentUser = null;
 let favoritePlaceIds = new Set();
+let categoryMap = null;
+let categoryMarkerLayer = null;
+let categoryPlacesCache = [];
+let homeMap = null;
+let homeMarkerLayer = null;
+let homePlacesCache = [];
+let favoritesMap = null;
+let favoritesMarkerLayer = null;
+let favoritesPlacesCache = [];
+let detailsMap = null;
+let leafletLoader = null;
+let activeMapFilter = 'all';
+let markerIconCache = {};
 
 /* --- 2. ΠΛΗΡΕΣ ΛΕΞΙΚΟ (ΟΛΕΣ ΟΙ ΓΛΩΣΣΕΣ - 100% COMPLETE) --- */
 const staticTranslations = {
@@ -59,6 +72,15 @@ const staticTranslations = {
         "weather-label": "Καιρός Κύπρου:",
         "footer-tagline": "Τα καλύτερα του νησιού, προτεινόμενα από ντόπιους.",
         "footer-copyright": "© 2026 Cyprus Best. Με επιφύλαξη παντός δικαιώματος.",
+        "map-show": "Εμφάνιση χάρτη",
+        "map-hide": "Απόκρυψη χάρτη",
+        "map-title": "Χάρτης",
+        "map-empty": "Δεν υπάρχουν τοποθεσίες στον χάρτη.",
+        "home-map-title": "Εξερεύνησε την Κύπρο στον χάρτη",
+        "home-map-desc": "Όλα τα προτεινόμενα μέρη σε μία προβολή.",
+        "map-legend-places": "Μέρη",
+        "map-legend-favorites": "Τα αγαπημένα σου",
+        "fav-map-title": "Τα αγαπημένα σου στον χάρτη",
         "btn-more": "Περισσότερα", 
         "loading": "Φόρτωση δεδομένων...", 
         "lbl-phone": "📞 Τηλέφωνο:", 
@@ -149,6 +171,15 @@ const staticTranslations = {
         "weather-label": "Cyprus Weather:",
         "footer-tagline": "The best of the island, recommended by locals.",
         "footer-copyright": "© 2026 Cyprus Best. All rights reserved.",
+        "map-show": "Show map",
+        "map-hide": "Hide map",
+        "map-title": "Map",
+        "map-empty": "No locations to show on the map.",
+        "home-map-title": "Explore Cyprus on the Map",
+        "home-map-desc": "All recommended places in one view.",
+        "map-legend-places": "Places",
+        "map-legend-favorites": "Your favorites",
+        "fav-map-title": "Your favorites on the map",
         "btn-more": "More Info", 
         "loading": "Loading data...",
         "lbl-phone": "📞 Phone:", 
@@ -239,6 +270,15 @@ const staticTranslations = {
         "weather-label": "Погода на Кипре:",
         "footer-tagline": "Лучшее на острове, рекомендовано местными жителями.",
         "footer-copyright": "© 2026 Cyprus Best. Все права защищены.",
+        "map-show": "Показать карту",
+        "map-hide": "Скрыть карту",
+        "map-title": "Карта",
+        "map-empty": "Нет мест для отображения на карте.",
+        "home-map-title": "Исследуйте Кипр на карте",
+        "home-map-desc": "Все рекомендованные места на одном экране.",
+        "map-legend-places": "Места",
+        "map-legend-favorites": "Ваше избранное",
+        "fav-map-title": "Ваше избранное на карте",
         "btn-more": "Подробнее", 
         "loading": "Загрузка данных...",
         "lbl-phone": "📞 Телефон:", 
@@ -329,6 +369,15 @@ const staticTranslations = {
         "weather-label": "塞浦路斯天气：",
         "footer-tagline": "岛上最好的地方，由当地人推荐。",
         "footer-copyright": "© 2026 Cyprus Best. 版权所有。",
+        "map-show": "显示地图",
+        "map-hide": "隐藏地图",
+        "map-title": "地图",
+        "map-empty": "地图上暂无地点。",
+        "home-map-title": "在地图上探索塞浦路斯",
+        "home-map-desc": "一屏查看所有推荐地点。",
+        "map-legend-places": "地点",
+        "map-legend-favorites": "你的收藏",
+        "fav-map-title": "地图上的收藏",
         "btn-more": "更多信息", 
         "loading": "加载数据...",
         "lbl-phone": "📞 电话:", 
@@ -640,6 +689,7 @@ async function initAuth() {
         updateAuthUI();
         await loadFavoriteIds();
         refreshFavoriteButtons();
+        refreshMapFavoriteMarkers();
         if (document.getElementById('favorites-container')) loadFavoritesPage();
     });
 }
@@ -774,6 +824,7 @@ async function toggleFavorite(event, placeId) {
         }
 
         refreshFavoriteButtons();
+        refreshMapFavoriteMarkers();
         if (document.getElementById('favorites-container')) loadFavoritesPage();
     } catch (err) {
         console.error('Favorite toggle failed:', err);
@@ -814,11 +865,137 @@ function renderPlaceCard(place, { show = true } = {}) {
     `;
 }
 
+function setFavoritesSideMapVisible(visible) {
+    const layout = document.querySelector('.category-layout.favorites-layout');
+    const fab = document.querySelector('.show-map-fab');
+    if (layout) layout.classList.toggle('is-hidden', !visible);
+    if (fab) fab.classList.toggle('is-hidden', !visible);
+    if (!visible) document.body.classList.remove('map-open');
+}
+
+function ensureFavoritesMapLayout(listContainer) {
+    if (!listContainer) return;
+
+    let layout = document.querySelector('.category-layout.favorites-layout');
+    if (layout) return;
+
+    layout = document.createElement('div');
+    layout.className = 'category-layout favorites-layout';
+
+    const main = document.createElement('div');
+    main.className = 'category-main';
+
+    listContainer.parentNode.insertBefore(layout, listContainer);
+    main.appendChild(listContainer);
+    layout.appendChild(main);
+
+    const panel = document.createElement('aside');
+    panel.className = 'category-map-panel';
+    panel.innerHTML = `
+        <div class="category-map-toolbar">
+            <strong data-i18n="fav-map-title">${t('fav-map-title')}</strong>
+            <button type="button" class="map-panel-close" aria-label="${t('map-hide')}" data-i18n="map-hide">${t('map-hide')}</button>
+        </div>
+        <div class="map-legend map-legend--panel">
+            <span class="map-legend-item">
+                <i class="map-legend-dot map-legend-dot--fav"></i>
+                <span data-i18n="map-legend-favorites">${t('map-legend-favorites')}</span>
+            </span>
+        </div>
+        <div id="favorites-map" class="places-map" role="region" aria-label="${t('fav-map-title')}"></div>
+        <p class="map-empty-msg" id="favorites-map-empty" hidden data-i18n="map-empty">${t('map-empty')}</p>
+    `;
+    layout.appendChild(panel);
+
+    if (!document.querySelector('.show-map-fab')) {
+        const fab = document.createElement('button');
+        fab.type = 'button';
+        fab.className = 'show-map-fab';
+        fab.setAttribute('data-i18n', 'map-show');
+        fab.innerText = t('map-show');
+        fab.addEventListener('click', () => {
+            document.body.classList.add('map-open');
+            setTimeout(() => {
+                (favoritesMap || categoryMap)?.invalidateSize();
+            }, 50);
+        });
+        document.body.appendChild(fab);
+    }
+
+    panel.querySelector('.map-panel-close')?.addEventListener('click', () => {
+        document.body.classList.remove('map-open');
+    });
+}
+
+async function renderFavoritesMap(places) {
+    const listContainer = document.getElementById('favorites-container');
+    if (!listContainer) return;
+
+    const mappable = (places || []).filter(hasCoords);
+    favoritesPlacesCache = mappable;
+
+    if (!mappable.length) {
+        setFavoritesSideMapVisible(false);
+        return;
+    }
+
+    ensureFavoritesMapLayout(listContainer);
+    setFavoritesSideMapVisible(true);
+
+    const mapEl = document.getElementById('favorites-map');
+    const emptyEl = document.getElementById('favorites-map-empty');
+    if (!mapEl) return;
+
+    const titleEl = document.querySelector('.favorites-layout [data-i18n="fav-map-title"]');
+    if (titleEl) titleEl.innerText = t('fav-map-title');
+
+    try {
+        await loadLeaflet();
+    } catch (err) {
+        console.error('Leaflet failed to load:', err);
+        return;
+    }
+
+    if (!favoritesMap) {
+        favoritesMap = L.map(mapEl, { scrollWheelZoom: true }).setView(CYPRUS_CENTER, 8);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(favoritesMap);
+        favoritesMarkerLayer = L.layerGroup().addTo(favoritesMap);
+        setTimeout(() => favoritesMap.invalidateSize(), 100);
+    }
+
+    favoritesMarkerLayer.clearLayers();
+    const markers = mappable.map(place => {
+        const marker = createPlaceMarker(place, {
+            forceFavorite: true,
+            onClick: () => {
+                document.querySelectorAll('.item-card.is-map-active').forEach(el => el.classList.remove('is-map-active'));
+                const card = [...document.querySelectorAll('.item-card-link[data-place-id]')]
+                    .find(el => el.getAttribute('data-place-id') === place.id)
+                    ?.closest('.item-card');
+                if (card) {
+                    card.classList.add('is-map-active');
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+        });
+        favoritesMarkerLayer.addLayer(marker);
+        return marker;
+    });
+
+    if (emptyEl) emptyEl.hidden = markers.length > 0;
+    fitMapToMarkers(favoritesMap, markers);
+    setTimeout(() => favoritesMap.invalidateSize(), 80);
+}
+
 async function loadFavoritesPage() {
     const container = document.getElementById('favorites-container');
     if (!container || !dbClient) return;
 
     if (!currentUser) {
+        setFavoritesSideMapVisible(false);
         container.innerHTML = `
             <div class="favorites-empty">
                 <p data-i18n="fav-login-required">${t('fav-login-required')}</p>
@@ -835,6 +1012,7 @@ async function loadFavoritesPage() {
 
     if (error) {
         console.error('Error loading favorites page:', error);
+        setFavoritesSideMapVisible(false);
         container.innerHTML = `<p class="favorites-empty">${t('auth-error')}</p>`;
         return;
     }
@@ -843,15 +1021,18 @@ async function loadFavoritesPage() {
     favoritePlaceIds = new Set((data || []).map(row => row.place_id));
 
     if (places.length === 0) {
+        setFavoritesSideMapVisible(false);
         container.innerHTML = `<p class="favorites-empty" data-i18n="fav-empty">${t('fav-empty')}</p>`;
         return;
     }
 
     container.innerHTML = places.map(place => renderPlaceCard(place, { show: true })).join('');
+    renderFavoritesMap(places);
 }
 
 /* --- 3. ΦΟΡΤΩΣΗ ΚΑΤΗΓΟΡΙΩΝ (ΟΛΕΣ ΟΙ ΕΙΚΟΝΕΣ & ΠΕΡΙΓΡΑΦΕΣ) --- */
 const PINNED_PLACE_IDS = ['melania', 'yoga'];
+const CYPRUS_CENTER = [34.9, 33.0];
 
 function placeSortTitle(place) {
     return (place[`title_${currentLang}`] || place.title_en || place.id || '').toString().trim();
@@ -877,6 +1058,361 @@ function sortPlacesWithPinnedFirst(places) {
     });
 }
 
+function hasCoords(place) {
+    return place && Number.isFinite(Number(place.lat)) && Number.isFinite(Number(place.lng));
+}
+
+function getMarkerIcon(isFavoriteMarker = false) {
+    if (!window.L) return null;
+    const key = isFavoriteMarker ? 'fav' : 'place';
+    if (markerIconCache[key]) return markerIconCache[key];
+
+    markerIconCache[key] = L.divIcon({
+        className: `cb-marker${isFavoriteMarker ? ' cb-marker--fav' : ''}`,
+        html: `<span class="cb-marker-pin" aria-hidden="true"></span>`,
+        iconSize: [28, 36],
+        iconAnchor: [14, 34],
+        popupAnchor: [0, -30]
+    });
+    return markerIconCache[key];
+}
+
+function createPlaceMarker(place, { onClick, forceFavorite = false } = {}) {
+    const fav = forceFavorite || isFavorite(place.id);
+    const marker = L.marker([Number(place.lat), Number(place.lng)], {
+        icon: getMarkerIcon(fav),
+        zIndexOffset: fav ? 200 : 0
+    });
+    marker.bindPopup(placePopupHtml(place));
+    if (onClick) marker.on('click', onClick);
+    return marker;
+}
+
+function configureLeafletIcons() {
+    if (!window.L) return;
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
+    });
+}
+
+function loadLeaflet() {
+    if (window.L) {
+        configureLeafletIcons();
+        return Promise.resolve(window.L);
+    }
+    if (leafletLoader) return leafletLoader;
+
+    leafletLoader = new Promise((resolve, reject) => {
+        if (!document.querySelector('link[data-leaflet]')) {
+            const css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+            css.setAttribute('data-leaflet', '1');
+            document.head.appendChild(css);
+        }
+
+        const finish = () => {
+            configureLeafletIcons();
+            resolve(window.L);
+        };
+
+        const existing = document.querySelector('script[data-leaflet]');
+        if (existing) {
+            if (window.L) return finish();
+            existing.addEventListener('load', finish);
+            existing.addEventListener('error', reject);
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+        script.setAttribute('data-leaflet', '1');
+        script.onload = finish;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+
+    return leafletLoader;
+}
+
+function ensureCategoryMapLayout(listContainer) {
+    if (!listContainer || document.querySelector('.category-layout')) return;
+
+    const layout = document.createElement('div');
+    layout.className = 'category-layout';
+
+    const main = document.createElement('div');
+    main.className = 'category-main';
+
+    const filters = document.getElementById('myBtnContainer');
+    if (filters && filters.parentNode) {
+        filters.parentNode.insertBefore(layout, filters);
+        main.appendChild(filters);
+    } else {
+        listContainer.parentNode.insertBefore(layout, listContainer);
+    }
+
+    main.appendChild(listContainer);
+    layout.appendChild(main);
+
+    const panel = document.createElement('aside');
+    panel.className = 'category-map-panel';
+    panel.innerHTML = `
+        <div class="category-map-toolbar">
+            <strong data-i18n="map-title">${t('map-title')}</strong>
+            <button type="button" class="map-panel-close" aria-label="${t('map-hide')}" data-i18n="map-hide">${t('map-hide')}</button>
+        </div>
+        <div class="map-legend map-legend--panel">
+            <span class="map-legend-item">
+                <i class="map-legend-dot map-legend-dot--place"></i>
+                <span data-i18n="map-legend-places">${t('map-legend-places')}</span>
+            </span>
+            <span class="map-legend-item">
+                <i class="map-legend-dot map-legend-dot--fav"></i>
+                <span data-i18n="map-legend-favorites">${t('map-legend-favorites')}</span>
+            </span>
+        </div>
+        <div id="category-map" class="places-map" role="region" aria-label="${t('map-title')}"></div>
+        <p class="map-empty-msg" id="category-map-empty" hidden data-i18n="map-empty">${t('map-empty')}</p>
+    `;
+    layout.appendChild(panel);
+
+    if (!document.querySelector('.show-map-fab')) {
+        const fab = document.createElement('button');
+        fab.type = 'button';
+        fab.className = 'show-map-fab';
+        fab.setAttribute('data-i18n', 'map-show');
+        fab.innerText = t('map-show');
+        fab.addEventListener('click', () => {
+            document.body.classList.add('map-open');
+            setTimeout(() => {
+                (categoryMap || favoritesMap)?.invalidateSize();
+            }, 50);
+        });
+        document.body.appendChild(fab);
+    }
+
+    panel.querySelector('.map-panel-close')?.addEventListener('click', () => {
+        document.body.classList.remove('map-open');
+    });
+}
+
+function categoryLabel(category) {
+    const map = {
+        hotels: 'nav-hotels',
+        restaurants: 'nav-restaurants',
+        views: 'nav-views',
+        realestate: 'nav-realestate',
+        things: 'nav-things',
+        services: 'nav-services'
+    };
+    return map[category] ? t(map[category]) : '';
+}
+
+function placePopupHtml(place) {
+    const title = place[`title_${currentLang}`] || place.title_en || place.id;
+    const img = place.image_url || '';
+    const thumb = img.includes('cloudinary.com')
+        ? img.replace('/upload/', '/upload/f_auto,q_auto,w_120,h_80,c_fill/')
+        : img;
+    const cat = categoryLabel(place.category);
+    const favBadge = isFavorite(place.id)
+        ? `<span class="map-popup-fav">${escapeHtml(t('map-legend-favorites'))}</span>`
+        : '';
+    return `
+        <div class="map-popup">
+            ${thumb ? `<img src="${escapeHtml(thumb)}" alt="">` : ''}
+            ${cat ? `<span class="map-popup-cat">${escapeHtml(cat)}</span>` : ''}
+            <strong>${escapeHtml(title)}</strong>
+            ${favBadge}
+            <a href="${detailsUrl(place.id)}">${escapeHtml(t('btn-more'))} →</a>
+        </div>
+    `;
+}
+
+function fitMapToMarkers(map, markers) {
+    if (!map || !markers.length) {
+        map?.setView(CYPRUS_CENTER, 8);
+        return;
+    }
+    if (markers.length === 1) {
+        map.setView(markers[0].getLatLng(), 13);
+        return;
+    }
+    const group = L.featureGroup(markers);
+    map.fitBounds(group.getBounds().pad(0.18));
+}
+
+async function renderCategoryMap(places) {
+    const listContainer = document.querySelector('.items-list[id$="-container"]');
+    if (!listContainer) return;
+
+    ensureCategoryMapLayout(listContainer);
+    const mapEl = document.getElementById('category-map');
+    const emptyEl = document.getElementById('category-map-empty');
+    if (!mapEl) return;
+
+    try {
+        await loadLeaflet();
+    } catch (err) {
+        console.error('Leaflet failed to load:', err);
+        return;
+    }
+
+    if (!categoryMap) {
+        categoryMap = L.map(mapEl, { scrollWheelZoom: true }).setView(CYPRUS_CENTER, 8);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(categoryMap);
+        categoryMarkerLayer = L.layerGroup().addTo(categoryMap);
+        setTimeout(() => categoryMap.invalidateSize(), 100);
+    }
+
+    updateCategoryMapMarkers(activeMapFilter || 'all');
+    if (emptyEl) emptyEl.hidden = places.some(hasCoords);
+}
+
+function updateCategoryMapMarkers(filter = 'all') {
+    activeMapFilter = filter;
+    if (!categoryMap || !categoryMarkerLayer) return;
+
+    categoryMarkerLayer.clearLayers();
+    const markers = [];
+
+    categoryPlacesCache.forEach(place => {
+        if (!hasCoords(place)) return;
+        if (filter !== 'all' && place.subcategory !== filter) return;
+
+        const marker = createPlaceMarker(place, {
+            onClick: () => {
+                document.querySelectorAll('.item-card.is-map-active').forEach(el => el.classList.remove('is-map-active'));
+                const card = [...document.querySelectorAll('.item-card-link[data-place-id]')]
+                    .find(el => el.getAttribute('data-place-id') === place.id)
+                    ?.closest('.item-card');
+                if (card) {
+                    card.classList.add('is-map-active');
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+        });
+        categoryMarkerLayer.addLayer(marker);
+        markers.push(marker);
+    });
+
+    const emptyEl = document.getElementById('category-map-empty');
+    if (emptyEl) emptyEl.hidden = markers.length > 0;
+    fitMapToMarkers(categoryMap, markers);
+    setTimeout(() => categoryMap.invalidateSize(), 50);
+}
+
+function updateHomeMapMarkers() {
+    if (!homeMap || !homeMarkerLayer) return;
+
+    homeMarkerLayer.clearLayers();
+    const markers = [];
+
+    homePlacesCache.forEach(place => {
+        if (!hasCoords(place)) return;
+        const marker = createPlaceMarker(place);
+        homeMarkerLayer.addLayer(marker);
+        markers.push(marker);
+    });
+
+    fitMapToMarkers(homeMap, markers);
+    setTimeout(() => homeMap.invalidateSize(), 50);
+}
+
+async function loadHomeMap() {
+    const mapEl = document.getElementById('home-map');
+    if (!mapEl || !dbClient) return;
+
+    try {
+        await loadLeaflet();
+    } catch (err) {
+        console.error('Leaflet failed to load:', err);
+        return;
+    }
+
+    const { data: places, error } = await dbClient
+        .from('places')
+        .select('id, category, image_url, lat, lng, title_en, title_el, title_ru, title_zh, subcategory');
+
+    if (error) {
+        console.error('Error loading home map places:', error);
+        return;
+    }
+
+    homePlacesCache = (places || []).filter(hasCoords);
+
+    if (!homeMap) {
+        homeMap = L.map(mapEl, { scrollWheelZoom: false }).setView(CYPRUS_CENTER, 8);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(homeMap);
+        homeMarkerLayer = L.layerGroup().addTo(homeMap);
+        homeMap.on('focus', () => homeMap.scrollWheelZoom.enable());
+        homeMap.on('blur', () => homeMap.scrollWheelZoom.disable());
+        mapEl.addEventListener('mouseenter', () => homeMap.scrollWheelZoom.enable());
+        mapEl.addEventListener('mouseleave', () => homeMap.scrollWheelZoom.disable());
+    }
+
+    updateHomeMapMarkers();
+}
+
+function refreshMapFavoriteMarkers() {
+    if (homeMap) updateHomeMapMarkers();
+    if (categoryMap) updateCategoryMapMarkers(activeMapFilter || 'all');
+    if (favoritesMap && document.getElementById('favorites-map')) {
+        renderFavoritesMap(favoritesPlacesCache.filter(place => isFavorite(place.id)));
+    }
+}
+
+async function renderDetailsMap(place) {
+    const wrap = document.getElementById('details-map-wrap');
+    const mapEl = document.getElementById('details-map');
+    if (!wrap || !mapEl) return;
+
+    if (!hasCoords(place)) {
+        wrap.style.display = 'none';
+        if (detailsMap) {
+            detailsMap.remove();
+            detailsMap = null;
+        }
+        return;
+    }
+
+    wrap.style.display = 'block';
+    const titleEl = wrap.querySelector('[data-i18n="map-title"]');
+    if (titleEl) titleEl.innerText = t('map-title');
+
+    try {
+        await loadLeaflet();
+    } catch (err) {
+        console.error('Leaflet failed to load:', err);
+        return;
+    }
+
+    if (detailsMap) {
+        detailsMap.remove();
+        detailsMap = null;
+    }
+
+    detailsMap = L.map(mapEl, { scrollWheelZoom: false }).setView([Number(place.lat), Number(place.lng)], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(detailsMap);
+
+    const marker = L.marker([Number(place.lat), Number(place.lng)]).addTo(detailsMap);
+    marker.bindPopup(escapeHtml(place[`title_${currentLang}`] || place.title_en || place.id));
+    setTimeout(() => detailsMap.invalidateSize(), 100);
+}
+
 async function loadCategory(categoryName, containerId) {
     const container = document.getElementById(containerId);
     if (!container || !dbClient) return;
@@ -892,7 +1428,10 @@ async function loadCategory(categoryName, containerId) {
     }
 
     const ordered = sortPlacesWithPinnedFirst(places);
+    categoryPlacesCache = ordered;
+    activeMapFilter = 'all';
     container.innerHTML = ordered.map(place => renderPlaceCard(place, { show: true })).join('');
+    renderCategoryMap(ordered);
 }
 
 /* --- 4. BEST OF MONTH --- */
@@ -993,11 +1532,17 @@ async function loadFullDetails(id) {
     }
 
     // Έλεγχος για Maps (πρόσεξε το όνομα της στήλης: map_link)
-    if (place.map_link) {
-        const mapBtn = document.getElementById('map-link');
-        mapBtn.href = place.map_link;
-        mapBtn.style.display = 'inline-block'; // Το εμφανίζει
+    const mapBtn = document.getElementById('map-link');
+    if (mapBtn) {
+        if (place.map_link && /maps\.|goo\.gl|2gis/i.test(place.map_link)) {
+            mapBtn.href = place.map_link;
+            mapBtn.style.display = 'inline-block';
+        } else {
+            mapBtn.style.display = 'none';
+        }
     }
+
+    renderDetailsMap(place);
 }
 
 /* --- 6. UTILITIES (ΓΛΩΣΣΑ, ΚΑΙΡΟΣ κλπ) --- */
@@ -1034,6 +1579,7 @@ function refreshAllData() {
     });
     if (document.getElementById('month-recommendation')) loadBestOfMonth();
     if (document.getElementById('favorites-container')) loadFavoritesPage();
+    if (document.getElementById('home-map')) loadHomeMap();
 
     if (document.getElementById('place-title') || document.getElementById('details-header')) {
         loadFullDetails(getPlaceIdFromUrl());
@@ -1066,6 +1612,8 @@ function filterSelection(category) {
             btn.classList.add("active");
         }
     });
+
+    updateCategoryMapMarkers(category);
 }
 
 function getWeather() {
