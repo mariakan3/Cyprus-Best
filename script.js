@@ -113,7 +113,7 @@ const staticTranslations = {
         "filter-medical": "🏥 Medical", 
         "filter-accounting": "📊 Accounting", 
         "filter-architects": "🏗️ Architects",
-        "filter-florists": "🌸 Florists", 
+        "filter-flowers": "🌸 Florists", 
         "filter-taxi": "🚕 Taxi", 
         "filter-promenades": "🚶‍♂️ Promenades",
         "nav-login": "Login",
