@@ -44,31 +44,31 @@
 
     <div class="details-container">
         <div class="details-header-wrap">
-            <header id="details-header" class="details-header" style="height: 400px; background-size: cover; background-position: center; border-radius: 15px;"></header>
+            <header id="details-header" class="details-header" style="height: 400px; background-size: cover; background-position: center;"></header>
             <div id="details-fav-slot" class="details-fav-slot"></div>
         </div>
 
-        <section class="details-content" style="padding: 30px;">
+        <section class="details-content">
             <div class="details-title-row">
-                <h1 id="place-title" style="font-size: 2.5rem; color: #333; margin: 0;"></h1>
+                <h1 id="place-title"></h1>
             </div>
-            <hr>
 
-            <div id="place-description" class="long-text" style="font-size: 1.2rem; line-height: 1.8; margin: 25px 0;"></div>
-
-            <div class="contact-box" style="background: #f4f7f6; padding: 20px; border-radius: 10px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-                <div id="phone-wrapper" style="display:none;">
-                    <strong data-i18n="lbl-phone">📞 Phone:</strong> <span id="place-phone"></span>
-                </div>
-
-                <a id="web-link" href="#" target="_blank" class="filter-btn" style="display:none; text-decoration: none;" data-i18n="lbl-website">🌍 Website</a>
-
-                <a id="map-link" href="#" target="_blank" class="filter-btn" style="display:none; text-decoration: none; background-color: #3cc6cb; color: white;" data-i18n="lbl-map">📍 Open Map</a>
+            <div class="details-quick-actions">
+                <a id="map-link" href="#" target="_blank" class="filter-btn details-map-cta" style="display:none;" data-i18n="lbl-map">📍 Open Map</a>
+                <a id="web-link" href="#" target="_blank" class="filter-btn" style="display:none;" data-i18n="lbl-website">🌍 Website</a>
             </div>
 
             <div id="details-map-wrap" class="details-map-wrap" style="display:none;">
                 <h3 data-i18n="map-title">Map</h3>
                 <div id="details-map" class="places-map details-map"></div>
+            </div>
+
+            <hr class="details-divider">
+
+            <div id="place-description" class="long-text"></div>
+
+            <div id="phone-wrapper" class="contact-box" style="display:none;">
+                <strong data-i18n="lbl-phone">📞 Phone:</strong> <span id="place-phone"></span>
             </div>
         </section>
     </div>

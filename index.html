@@ -20,7 +20,7 @@
 }
 </script>
 </head>
-    <body>
+<body class="page-home">
 
     <div class="language-bar">
         <button onclick="setLanguage('el')">🇬🇷 ΕΛ</button>
@@ -32,10 +32,10 @@
     <nav class="navbar">
         <div class="logo">
             <a href="index.html">
-            <img src="logo1.png" alt="Cyprus Best" class="main-logo">
+                <img src="logo1.png" alt="Cyprus Best" class="main-logo">
             </a>
         </div>
-        
+
         <div class="hamburger" onclick="toggleMobileMenu()">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -52,60 +52,92 @@
         </ul>
     </nav>
 
-    <div class="hero">
-    <div class="hero-content">
-        <h1 data-i18n="hero-title">Discover Cyprus</h1>
-        <p data-i18n="hero-desc">The best of the island, recommended by locals.</p>
-        <a href="#categories" class="btn" data-i18n="explore-btn">Explore Now</a>
-    </div>
-    </div>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-brand">Cyprus Best</p>
+            <h1 data-i18n="hero-title">Discover Cyprus</h1>
+            <p data-i18n="hero-desc">The best of the island, recommended by locals.</p>
+            <div class="hero-actions">
+                <a href="#best-of-month" class="btn" data-i18n="explore-btn">Explore Now</a>
+                <a href="#home-map-section" class="btn btn-secondary" data-i18n="map-show">Show map</a>
+            </div>
+        </div>
+        <a href="#best-of-month" class="hero-scroll" aria-label="Scroll to Best of Month">
+            <span></span>
+        </a>
+    </section>
 
-    </header> 
-   </div> <div class="weather-bar">
-        <span data-i18n="weather-label">Cyprus Weather:</span>
-        <span id="weather-temp">--°C</span> ☀️
+    <div class="weather-bar">
+        <span class="weather-chip">
+            <span data-i18n="weather-label">Cyprus Weather:</span>
+            <span id="weather-temp">--°C</span>
+            <span class="weather-icon" aria-hidden="true">☀️</span>
+        </span>
     </div>
 
     <section id="best-of-month" class="monthly-section">
-        <h2><span data-i18n="best-of">Best of</span> <span id="current-month-name">Month</span></h2>
+        <div class="section-intro">
+            <p class="section-eyebrow">Locals pick</p>
+            <h2><span data-i18n="best-of">Best of</span> <span id="current-month-name">Month</span></h2>
+            <p class="section-subtitle" data-i18n="hero-desc">The best of the island, recommended by locals.</p>
+        </div>
         <div class="month-content" id="month-recommendation">
             <p data-i18n="loading">Loading data...</p>
         </div>
     </section>
 
     <section id="categories" class="categories-section">
-        <h2 data-i18n="categories-title">Our Categories</h2>        
+        <div class="section-intro">
+            <p class="section-eyebrow">Browse</p>
+            <h2 data-i18n="categories-title">Our Categories</h2>
+            <p class="section-subtitle" data-i18n="footer-tagline">The best of the island, recommended by locals.</p>
+        </div>
         <div class="grid-container" id="categories-grid">
             <a href="hotels.html" class="card" id="hotels">
-                <h3 data-i18n="card-hotels-title">Best Hotels</h3>
-                <p data-i18n="card-hotels">Luxury and hospitality.</p>
+                <div class="card-body">
+                    <h3 data-i18n="card-hotels-title">Best Hotels</h3>
+                    <p data-i18n="card-hotels">Luxury and hospitality.</p>
+                </div>
             </a>
             <a href="restaurants.html" class="card" id="restaurants">
-                <h3 data-i18n="card-restaurants-title">Best Restaurants</h3>
-                <p data-i18n="card-restaurants">Flavors that captivate.</p>
+                <div class="card-body">
+                    <h3 data-i18n="card-restaurants-title">Best Restaurants</h3>
+                    <p data-i18n="card-restaurants">Flavors that captivate.</p>
+                </div>
             </a>
-            <a href="views.html" class="card" id="views">                
-                <h3 data-i18n="card-views-title">Best Views</h3>
-                <p data-i18n="card-views">The most beautiful sunsets.</p>                                               
+            <a href="views.html" class="card" id="views">
+                <div class="card-body">
+                    <h3 data-i18n="card-views-title">Best Views</h3>
+                    <p data-i18n="card-views">The most beautiful sunsets.</p>
+                </div>
             </a>
             <a href="realestate.html" class="card" id="realestate">
-                <h3 data-i18n="card-realestate-title">Best Real Estate</h3>
-                <p data-i18n="card-realestate">The best properties.</p>
+                <div class="card-body">
+                    <h3 data-i18n="card-realestate-title">Best Real Estate</h3>
+                    <p data-i18n="card-realestate">The best properties.</p>
+                </div>
             </a>
             <a href="thingstodo.html" class="card" id="thingstodo">
-                <h3 data-i18n="card-things-title">Best Things to Do</h3>
-                <p data-i18n="card-things">Activities and experiences.</p>
+                <div class="card-body">
+                    <h3 data-i18n="card-things-title">Best Things to Do</h3>
+                    <p data-i18n="card-things">Activities and experiences.</p>
+                </div>
             </a>
             <a href="services.html" class="card" id="services">
-                <h3 data-i18n="card-services-title">Best Services</h3>
-                <p data-i18n="card-services">Services locals trust.</p>
+                <div class="card-body">
+                    <h3 data-i18n="card-services-title">Best Services</h3>
+                    <p data-i18n="card-services">Services locals trust.</p>
+                </div>
             </a>
-            </div>
+        </div>
     </section>
 
     <section id="home-map-section" class="home-map-section">
-        <h2 data-i18n="home-map-title">Explore Cyprus on the Map</h2>
-        <p class="home-map-subtitle" data-i18n="home-map-desc">All recommended places in one view.</p>
+        <div class="section-intro">
+            <p class="section-eyebrow">Explore</p>
+            <h2 data-i18n="home-map-title">Explore Cyprus on the Map</h2>
+            <p class="home-map-subtitle section-subtitle" data-i18n="home-map-desc">All recommended places in one view.</p>
+        </div>
         <div class="map-legend" aria-label="Map legend">
             <span class="map-legend-item">
                 <i class="map-legend-dot map-legend-dot--place"></i>
@@ -123,12 +155,12 @@
     <div class="footer-content">
         <h3>Cyprus Best</h3>
         <p data-i18n="footer-tagline">The best of the island, recommended by locals.</p>
-        
+
         <div class="social-icons">
             <a href="https://www.instagram.com/cyprusbest.official" target="_blank" title="Instagram">
                 <i class="fab fa-instagram"></i>
             </a>
-            
+
             <a href="https://www.tiktok.com/@cyprusbest.official" target="_blank" title="TikTok">
                 <i class="fab fa-tiktok"></i>
             </a>

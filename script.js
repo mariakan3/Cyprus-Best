@@ -1453,16 +1453,20 @@ async function loadBestOfMonth() {
         }
 
         container.innerHTML += `
-            <div class="month-card">
+            <article class="month-card">
                 ${favoriteButtonHtml(place.id)}
-                <a href="${detailsUrl(place.id)}" class="month-layout" data-place-id="${escapeHtml(place.id)}" style="text-decoration: none; color: inherit; display: flex;">
-                    <img src="${escapeHtml(finalUrl)}" alt="${escapeHtml(title)}">
-                    <div style="padding: 20px;">
+                <a href="${detailsUrl(place.id)}" class="month-layout" data-place-id="${escapeHtml(place.id)}">
+                    <div class="month-media">
+                        <img src="${escapeHtml(finalUrl)}" alt="${escapeHtml(title)}" loading="lazy">
+                    </div>
+                    <div class="month-info">
+                        <span class="month-badge" data-i18n="best-of">${t('best-of')}</span>
                         <h3>${escapeHtml(title)}</h3>
-                        <p>${escapeHtml(truncateText(desc, 140))}</p>
+                        <p>${escapeHtml(truncateText(desc, 160))}</p>
+                        <span class="month-cta">${t('btn-more')} →</span>
                     </div>
                 </a>
-            </div>`;
+            </article>`;
     });
 }
 
