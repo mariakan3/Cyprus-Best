@@ -36,6 +36,7 @@
             <li><a href="hotels.html" data-i18n="nav-hotels">Hotels</a></li>
             <li><a href="restaurants.html" data-i18n="nav-restaurants">Restaurants</a></li>
             <li><a href="views.html" data-i18n="nav-views">Views</a></li>
+            <li><a href="beaches.html" data-i18n="nav-beaches">Beaches</a></li>
             <li><a href="realestate.html" data-i18n="nav-realestate">Real Estate</a></li>
             <li><a href="thingstodo.html" data-i18n="nav-things">Things to Do</a></li>
             <li><a href="services.html" data-i18n="nav-services">Services</a></li>
@@ -61,7 +62,22 @@
 </div>
 
 
-    <section class="items-list" id="services-container">
+    
+<div class="filter-block">
+    <p class="filter-label" data-i18n="filter-towns">Town</p>
+    <div id="townFilterContainer" class="filter-row">
+        <button class="filter-btn active" onclick="setTownFilter('all')" data-i18n="filter-all">All</button>
+        <button class="filter-btn" onclick="setTownFilter('paphos')" data-i18n="town-paphos">Paphos</button>
+        <button class="filter-btn" onclick="setTownFilter('limassol')" data-i18n="town-limassol">Limassol</button>
+        <button class="filter-btn" onclick="setTownFilter('larnaca')" data-i18n="town-larnaca">Larnaca</button>
+        <button class="filter-btn" onclick="setTownFilter('nicosia')" data-i18n="town-nicosia">Nicosia</button>
+        <button class="filter-btn" onclick="setTownFilter('ayia_napa')" data-i18n="town-ayia_napa">Ayia Napa</button>
+        <button class="filter-btn" onclick="setTownFilter('protaras')" data-i18n="town-protaras">Protaras</button>
+        <button class="filter-btn" onclick="setTownFilter('famagusta')" data-i18n="town-famagusta">Famagusta</button>
+        <button class="filter-btn" onclick="setTownFilter('other')" data-i18n="town-other">Other</button>
+    </div>
+</div>
+<section class="items-list" id="services-container">
         <p style="text-align:center; width:100%;" data-i18n="loading">Loading data...</p>
     </section>
 

@@ -586,6 +586,7 @@ section { padding: 2rem 1rem; text-align: center; }
 #hotels { background-image: url('images/hotels.png'); }
 #restaurants { background-image: url('images/restaurants.png'); }
 #views { background-image: url('images/view.jpg'); }
+#beaches { background-image: url('images/foinikoudes.jpg'); }
 #real-estate { background-image: url('images/real-estate.jpg'); }
 #realestate { background-image: url('images/real-estate.jpg'); }
 #thingstodo { background-image: url('images/paphos-castle.jpg'); }
@@ -629,14 +630,48 @@ section { padding: 2rem 1rem; text-align: center; }
 
 /* --- 7. FILTER BUTTONS (ΚΟΥΜΠΙΑ ΦΙΛΤΡΩΝ) --- */
 #filter-container,
-#myBtnContainer {
+#myBtnContainer,
+.filter-row {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 8px;
-    margin: 16px auto 12px;
+    margin: 0 auto;
     max-width: 960px;
     padding: 0 12px;
+}
+
+.filter-block {
+    margin: 14px auto 8px;
+    max-width: 960px;
+    padding: 0 4px;
+    text-align: center;
+}
+
+.filter-block + .filter-block {
+    margin-top: 6px;
+}
+
+.filter-label {
+    margin: 0 0 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cb-muted);
+}
+
+#myBtnContainer {
+    margin: 16px auto 8px;
+}
+
+#townFilterContainer {
+    margin-bottom: 10px;
+}
+
+.category-main .filter-block {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .filter-btn {
@@ -2138,8 +2173,9 @@ body.map-open .show-map-fab {
 
 /* --- 2026 polish: listing pages + motion safety --- */
 .page-header + #myBtnContainer,
+.page-header + .filter-block,
 .page-header + .items-list {
-    margin-top: 28px;
+    margin-top: 20px;
 }
 
 .items-list {

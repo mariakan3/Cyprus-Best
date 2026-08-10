@@ -22,6 +22,8 @@ let favoritesPlacesCache = [];
 let detailsMap = null;
 let leafletLoader = null;
 let activeMapFilter = 'all';
+let activeTypeFilter = 'all';
+let activeTownFilter = 'all';
 let markerIconCache = {};
 
 /* --- 2. ΠΛΗΡΕΣ ΛΕΞΙΚΟ (ΟΛΕΣ ΟΙ ΓΛΩΣΣΕΣ - 100% COMPLETE) --- */
@@ -31,6 +33,7 @@ const staticTranslations = {
         "nav-hotels": "Ξενοδοχεία", 
         "nav-restaurants": "Εστιατόρια", 
         "nav-views": "Θέα", 
+        "nav-beaches": "Παραλίες",
         "nav-realestate": "Ακίνητα", 
         "nav-things": "Δραστηριότητες", 
         "nav-services": "Υπηρεσίες",
@@ -41,18 +44,21 @@ const staticTranslations = {
         "card-hotels-title": "Καλύτερα Ξενοδοχεία",
         "card-restaurants-title": "Καλύτερα Εστιατόρια",
         "card-views-title": "Καλύτερες Θέες",
+        "card-beaches-title": "Καλύτερες Παραλίες",
         "card-realestate-title": "Καλύτερα Ακίνητα",
         "card-things-title": "Καλύτερες Δραστηριότητες",
         "card-services-title": "Καλύτερες Υπηρεσίες",
         "card-hotels": "Πολυτέλεια και φιλοξενία.",
         "card-restaurants": "Γεύσεις που μαγεύουν.",
         "card-views": "Τα ωραιότερα ηλιοβασιλέματα.",
+        "card-beaches": "Κρυστάλλινα νερά και χρυσή άμμος.",
         "card-realestate": "Τα καλύτερα ακίνητα.",
         "card-things": "Δραστηριότητες και εμπειρίες.",
         "card-services": "Υπηρεσίες που εμπιστεύονται οι ντόπιοι.",
         "cat-hotels-title": "Καλύτερα Ξενοδοχεία",
         "cat-restaurants-title": "Καλύτερα Εστιατόρια",
         "cat-views-title": "Καλύτερες Θέες",
+        "cat-beaches-title": "Καλύτερες Παραλίες",
         "cat-realestate-title": "Καλύτερα Ακίνητα",
         "cat-things-title": "Δραστηριότητες",
         "cat-services-title": "Καλύτερες Υπηρεσίες",
@@ -87,7 +93,16 @@ const staticTranslations = {
         "lbl-website": "🌍 Website", 
         "lbl-map": "📍 Άνοιγμα Χάρτη", 
         "btn-back": "Πίσω",
-        "filter-all": "Όλα", 
+        "filter-all": "Όλα",
+        "filter-towns": "Πόλη",
+        "town-paphos": "Πάφος",
+        "town-limassol": "Λεμεσός",
+        "town-larnaca": "Λάρνακα",
+        "town-nicosia": "Λευκωσία",
+        "town-ayia_napa": "Αγία Νάπα",
+        "town-protaras": "Πρωταράς",
+        "town-famagusta": "Αμμόχωστος",
+        "town-other": "Άλλο",
         "filter-safari": "🚙 Σαφάρι", 
         "filter-boat": "🛥️ Σκάφος", 
         "filter-diving": "🤿 Κατάδυση",
@@ -130,6 +145,7 @@ const staticTranslations = {
         "nav-hotels": "Hotels", 
         "nav-restaurants": "Restaurants", 
         "nav-views": "Views", 
+        "nav-beaches": "Beaches",
         "nav-realestate": "Real Estate", 
         "nav-things": "Things to Do", 
         "nav-services": "Services",
@@ -140,18 +156,21 @@ const staticTranslations = {
         "card-hotels-title": "Best Hotels",
         "card-restaurants-title": "Best Restaurants",
         "card-views-title": "Best Views",
+        "card-beaches-title": "Best Beaches",
         "card-realestate-title": "Best Real Estate",
         "card-things-title": "Best Things to Do",
         "card-services-title": "Best Services",
         "card-hotels": "Luxury and hospitality.",
         "card-restaurants": "Flavors that captivate.",
         "card-views": "The most beautiful sunsets.",
+        "card-beaches": "Crystal waters and golden sand.",
         "card-realestate": "The best properties.",
         "card-things": "Activities and experiences.",
         "card-services": "Services locals trust.",
         "cat-hotels-title": "Best Hotels",
         "cat-restaurants-title": "Best Restaurants",
         "cat-views-title": "Best Views",
+        "cat-beaches-title": "Best Beaches",
         "cat-realestate-title": "Best Real Estate",
         "cat-things-title": "Things to Do",
         "cat-services-title": "Best Services",
@@ -186,7 +205,16 @@ const staticTranslations = {
         "lbl-website": "🌍 Website", 
         "lbl-map": "📍 Open Map", 
         "btn-back": "Back",
-        "filter-all": "All", 
+        "filter-all": "All",
+        "filter-towns": "Town",
+        "town-paphos": "Paphos",
+        "town-limassol": "Limassol",
+        "town-larnaca": "Larnaca",
+        "town-nicosia": "Nicosia",
+        "town-ayia_napa": "Ayia Napa",
+        "town-protaras": "Protaras",
+        "town-famagusta": "Famagusta",
+        "town-other": "Other",
         "filter-safari": "🚙 Safari", 
         "filter-boat": "🛥️ Boat Trips", 
         "filter-diving": "🤿 Diving",
@@ -229,6 +257,7 @@ const staticTranslations = {
         "nav-hotels": "Отели", 
         "nav-restaurants": "Рестораны", 
         "nav-views": "Виды", 
+        "nav-beaches": "Пляжи",
         "nav-realestate": "Недвижимость", 
         "nav-things": "Развлечения", 
         "nav-services": "Услуги",
@@ -239,18 +268,21 @@ const staticTranslations = {
         "card-hotels-title": "Лучшие отели",
         "card-restaurants-title": "Лучшие рестораны",
         "card-views-title": "Лучшие виды",
+        "card-beaches-title": "Лучшие пляжи",
         "card-realestate-title": "Лучшая недвижимость",
         "card-things-title": "Лучшие развлечения",
         "card-services-title": "Лучшие услуги",
         "card-hotels": "Роскошь и гостеприимство.",
         "card-restaurants": "Вкусы, которые покоряют.",
         "card-views": "Самые красивые закаты.",
+        "card-beaches": "Лазурное море и золотой песок.",
         "card-realestate": "Лучшая недвижимость.",
         "card-things": "Активности и впечатления.",
         "card-services": "Услуги, которым доверяют местные.",
         "cat-hotels-title": "Лучшие отели",
         "cat-restaurants-title": "Лучшие рестораны",
         "cat-views-title": "Лучшие виды",
+        "cat-beaches-title": "Лучшие пляжи",
         "cat-realestate-title": "Лучшая недвижимость",
         "cat-things-title": "Развлечения",
         "cat-services-title": "Лучшие услуги",
@@ -285,7 +317,16 @@ const staticTranslations = {
         "lbl-website": "🌍 Веб-сайт", 
         "lbl-map": "📍 Открыть карту", 
         "btn-back": "Назад",
-        "filter-all": "Все", 
+        "filter-all": "Все",
+        "filter-towns": "Город",
+        "town-paphos": "Пафос",
+        "town-limassol": "Лимассол",
+        "town-larnaca": "Ларнака",
+        "town-nicosia": "Никосия",
+        "town-ayia_napa": "Айя-Напа",
+        "town-protaras": "Протарас",
+        "town-famagusta": "Фамагуста",
+        "town-other": "Другое",
         "filter-safari": "🚙 Сафари", 
         "filter-boat": "🛥️ Лодки", 
         "filter-diving": "🤿 Дайвинг",
@@ -328,6 +369,7 @@ const staticTranslations = {
         "nav-hotels": "酒店", 
         "nav-restaurants": "餐厅", 
         "nav-views": "景色", 
+        "nav-beaches": "海滩",
         "nav-realestate": "房地产", 
         "nav-things": "休闲活动", 
         "nav-services": "服务",
@@ -338,18 +380,21 @@ const staticTranslations = {
         "card-hotels-title": "最佳酒店",
         "card-restaurants-title": "最佳餐厅",
         "card-views-title": "最佳景色",
+        "card-beaches-title": "最佳海滩",
         "card-realestate-title": "最佳房产",
         "card-things-title": "最佳活动",
         "card-services-title": "最佳服务",
         "card-hotels": "奢华与款待。",
         "card-restaurants": "令人着迷的美味。",
         "card-views": "最美的日落。",
+        "card-beaches": "碧海与金色沙滩。",
         "card-realestate": "精选优质房产。",
         "card-things": "活动与体验。",
         "card-services": "当地人信赖的服务。",
         "cat-hotels-title": "最佳酒店",
         "cat-restaurants-title": "最佳餐厅",
         "cat-views-title": "最佳景色",
+        "cat-beaches-title": "最佳海滩",
         "cat-realestate-title": "最佳房产",
         "cat-things-title": "休闲活动",
         "cat-services-title": "最佳服务",
@@ -384,7 +429,16 @@ const staticTranslations = {
         "lbl-website": "🌍 网站", 
         "lbl-map": "📍 打开地图", 
         "btn-back": "返回",
-        "filter-all": "全部", 
+        "filter-all": "全部",
+        "filter-towns": "城镇",
+        "town-paphos": "帕福斯",
+        "town-limassol": "利马索尔",
+        "town-larnaca": "拉纳卡",
+        "town-nicosia": "尼科西亚",
+        "town-ayia_napa": "阿亚纳帕",
+        "town-protaras": "普罗塔拉斯",
+        "town-famagusta": "法马古斯塔",
+        "town-other": "其他",
         "filter-safari": "🚙 野生动物园", 
         "filter-boat": "🛥️ 乘船游览", 
         "filter-diving": "🤿 潜水",
@@ -842,14 +896,17 @@ function renderPlaceCard(place, { show = true } = {}) {
         finalUrl = finalUrl.replace('/upload/', '/upload/f_auto,q_auto/');
     }
 
-    const subCatClass = place.subcategory ? escapeHtml(place.subcategory) : "";
+    const subCat = place.subcategory ? String(place.subcategory) : "";
+    const town = place.town ? String(place.town) : "";
+    const subCatClass = subCat ? escapeHtml(subCat) : "";
+    const townClass = town ? `town-${escapeHtml(town)}` : "";
     const showClass = show ? "show" : "";
     const safeTitle = escapeHtml(title);
     const safeDesc = escapeHtml(truncateText(description, 110));
     const safeImg = escapeHtml(finalUrl || place.image_url || "");
 
     return `
-        <div class="item-card ${subCatClass} ${showClass}">
+        <div class="item-card ${subCatClass} ${townClass} ${showClass}" data-subcategory="${escapeHtml(subCat)}" data-town="${escapeHtml(town)}">
             ${favoriteButtonHtml(place.id)}
             <a href="${detailsUrl(place.id)}" class="item-card-link" data-place-id="${escapeHtml(place.id)}">
                 <img src="${safeImg}" alt="${safeTitle}">
@@ -1147,13 +1204,18 @@ function ensureCategoryMapLayout(listContainer) {
     const main = document.createElement('div');
     main.className = 'category-main';
 
-    const filters = document.getElementById('myBtnContainer');
-    if (filters && filters.parentNode) {
-        filters.parentNode.insertBefore(layout, filters);
-        main.appendChild(filters);
+    const typeFilters = document.getElementById('myBtnContainer');
+    const townFilters = document.getElementById('townFilterContainer');
+    const firstFilter = typeFilters || townFilters;
+
+    if (firstFilter && firstFilter.parentNode) {
+        firstFilter.parentNode.insertBefore(layout, firstFilter);
     } else {
         listContainer.parentNode.insertBefore(layout, listContainer);
     }
+
+    if (typeFilters) main.appendChild(typeFilters);
+    if (townFilters) main.appendChild(townFilters);
 
     main.appendChild(listContainer);
     layout.appendChild(main);
@@ -1205,6 +1267,7 @@ function categoryLabel(category) {
         hotels: 'nav-hotels',
         restaurants: 'nav-restaurants',
         views: 'nav-views',
+        beaches: 'nav-beaches',
         realestate: 'nav-realestate',
         things: 'nav-things',
         services: 'nav-services'
@@ -1272,12 +1335,18 @@ async function renderCategoryMap(places) {
         setTimeout(() => categoryMap.invalidateSize(), 100);
     }
 
-    updateCategoryMapMarkers(activeMapFilter || 'all');
+    updateCategoryMapMarkers();
     if (emptyEl) emptyEl.hidden = places.some(hasCoords);
 }
 
-function updateCategoryMapMarkers(filter = 'all') {
-    activeMapFilter = filter;
+function placeMatchesActiveFilters(place) {
+    const typeOk = activeTypeFilter === 'all' || place.subcategory === activeTypeFilter;
+    const townOk = activeTownFilter === 'all' || place.town === activeTownFilter;
+    return typeOk && townOk;
+}
+
+function updateCategoryMapMarkers() {
+    activeMapFilter = activeTypeFilter;
     if (!categoryMap || !categoryMarkerLayer) return;
 
     categoryMarkerLayer.clearLayers();
@@ -1285,7 +1354,7 @@ function updateCategoryMapMarkers(filter = 'all') {
 
     categoryPlacesCache.forEach(place => {
         if (!hasCoords(place)) return;
-        if (filter !== 'all' && place.subcategory !== filter) return;
+        if (!placeMatchesActiveFilters(place)) return;
 
         const marker = createPlaceMarker(place, {
             onClick: () => {
@@ -1366,7 +1435,7 @@ async function loadHomeMap() {
 
 function refreshMapFavoriteMarkers() {
     if (homeMap) updateHomeMapMarkers();
-    if (categoryMap) updateCategoryMapMarkers(activeMapFilter || 'all');
+    if (categoryMap) updateCategoryMapMarkers();
     if (favoritesMap && document.getElementById('favorites-map')) {
         renderFavoritesMap(favoritesPlacesCache.filter(place => isFavorite(place.id)));
     }
@@ -1429,9 +1498,12 @@ async function loadCategory(categoryName, containerId) {
 
     const ordered = sortPlacesWithPinnedFirst(places);
     categoryPlacesCache = ordered;
+    activeTypeFilter = 'all';
+    activeTownFilter = 'all';
     activeMapFilter = 'all';
     container.innerHTML = ordered.map(place => renderPlaceCard(place, { show: true })).join('');
     renderCategoryMap(ordered);
+    applyFilters();
 }
 
 /* --- 4. BEST OF MONTH --- */
@@ -1577,7 +1649,7 @@ function setLanguage(lang) {
 }
 
 function refreshAllData() {
-    const categories = ['hotels', 'restaurants', 'views', 'realestate', 'things', 'services'];
+    const categories = ['hotels', 'restaurants', 'views', 'beaches', 'realestate', 'things', 'services'];
     categories.forEach(cat => {
         if (document.getElementById(`${cat}-container`)) loadCategory(cat, `${cat}-container`);
     });
@@ -1590,34 +1662,45 @@ function refreshAllData() {
     }
 }
 
-/* --- ΠΡΟΣΘΗΚΗ ΦΙΛΤΡΩΝ --- */
+/* --- ΠΡΟΣΘΗΚΗ ΦΙΛΤΡΩΝ (type + town) --- */
+function setTypeFilter(value) {
+    activeTypeFilter = value || 'all';
+    applyFilters();
+}
+
+function setTownFilter(value) {
+    activeTownFilter = value || 'all';
+    applyFilters();
+}
+
 function filterSelection(category) {
-    const cards = document.getElementsByClassName("item-card");
-    
-    // Αν δεν υπάρχουν κάρτες ακόμα (λόγω καθυστέρησης της Supabase), σταμάτα
+    setTypeFilter(category);
+}
+
+function syncFilterButtonState(containerSelector, activeValue) {
+    document.querySelectorAll(`${containerSelector} .filter-btn`).forEach(btn => {
+        const onclick = btn.getAttribute('onclick') || '';
+        const isActive = onclick.includes(`'${activeValue}'`) || onclick.includes(`"${activeValue}"`);
+        btn.classList.toggle('active', isActive);
+    });
+}
+
+function applyFilters() {
+    const cards = document.getElementsByClassName('item-card');
     if (cards.length === 0) return;
 
     for (let i = 0; i < cards.length; i++) {
-        // Αφαιρούμε την κλάση show για να "κλείσουν" όλες οι κάρτες
-        cards[i].classList.remove("show");
-        
-        // Αν επιλέξαμε 'all' ή αν η κάρτα έχει την κλάση της υποκατηγορίας
-        if (category === "all" || cards[i].classList.contains(category)) {
-            cards[i].classList.add("show");
-        }
+        const card = cards[i];
+        const type = card.getAttribute('data-subcategory') || '';
+        const town = card.getAttribute('data-town') || '';
+        const typeOk = activeTypeFilter === 'all' || type === activeTypeFilter || card.classList.contains(activeTypeFilter);
+        const townOk = activeTownFilter === 'all' || town === activeTownFilter;
+        card.classList.toggle('show', typeOk && townOk);
     }
-    
-    // Διαχείριση του "Active" κουμπιού για να ξέρει ο χρήστης τι πάτησε
-    const btns = document.querySelectorAll(".filter-btn");
-    btns.forEach(btn => {
-        btn.classList.remove("active");
-        // Αν το κείμενο ή το onclick του κουμπιού ταιριάζει με την κατηγορία
-        if (btn.getAttribute('onclick').includes(`'${category}'`)) {
-            btn.classList.add("active");
-        }
-    });
 
-    updateCategoryMapMarkers(category);
+    syncFilterButtonState('#myBtnContainer', activeTypeFilter);
+    syncFilterButtonState('#townFilterContainer', activeTownFilter);
+    updateCategoryMapMarkers();
 }
 
 function getWeather() {
