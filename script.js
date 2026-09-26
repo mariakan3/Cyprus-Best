@@ -1127,15 +1127,16 @@ let extraPlacesCache = EXTRA_PLACES;
 
 async function ensureExtraPlaces() {
     if (extraPlacesCache.length > EXTRA_PLACES.length) return extraPlacesCache;
-    try {
-        const res = await fetch('extra-beaches.json');
-        if (res.ok) {
-            const extra = await res.json();
-            extraPlacesCache = [...EXTRA_PLACES, ...extra];
+    const extras = [];
+    for (const file of ['extra-beaches.json', 'extra-views.json']) {
+        try {
+            const res = await fetch(file);
+            if (res.ok) extras.push(...await res.json());
+        } catch (err) {
+            console.warn(file + ' not loaded', err);
         }
-    } catch (err) {
-        console.warn('extra-beaches.json not loaded', err);
     }
+    extraPlacesCache = [...EXTRA_PLACES, ...extras];
     return extraPlacesCache;
 }
 
@@ -1148,6 +1149,9 @@ function applyExtraGeo(place) {
         place.lng = extra.lng;
     }
     if (extra.map_link) place.map_link = extra.map_link;
+    ['title_en', 'title_el', 'title_ru', 'title_zh', 'desc_en', 'desc_el', 'desc_ru', 'desc_zh', 'image_url'].forEach((key) => {
+        if (extra[key]) place[key] = extra[key];
+    });
     return place;
 }
 
