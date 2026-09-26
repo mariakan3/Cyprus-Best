@@ -1139,6 +1139,18 @@ async function ensureExtraPlaces() {
     return extraPlacesCache;
 }
 
+function applyExtraGeo(place) {
+    if (!place) return place;
+    const extra = extraPlacesCache.find(item => item.id === place.id);
+    if (!extra) return place;
+    if (hasCoords(extra)) {
+        place.lat = extra.lat;
+        place.lng = extra.lng;
+    }
+    if (extra.map_link) place.map_link = extra.map_link;
+    return place;
+}
+
 function mergeExtraPlaces(places, categoryName) {
     const list = [...(places || [])];
     const ids = new Set(list.map(place => place.id));
@@ -1147,7 +1159,7 @@ function mergeExtraPlaces(places, categoryName) {
         if (categoryName && place.category !== categoryName) return;
         list.push(place);
     });
-    return list;
+    return list.map(applyExtraGeo);
 }
 
 function placeSortTitle(place) {
@@ -1641,7 +1653,7 @@ async function loadFullDetails(id) {
         .single();
 
     await ensureExtraPlaces();
-    const place = data || extraPlacesCache.find(item => item.id === id) || null;
+    const place = applyExtraGeo(data || extraPlacesCache.find(item => item.id === id) || null);
 
     if (!place) {
         console.error("Place not found:", error);
