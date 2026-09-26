@@ -7,6 +7,18 @@ if (typeof supabase !== 'undefined') {
     dbClient = supabase.createClient(PROJECT_URL, PROJECT_KEY);
 }
 
+function resolvePlaceImage(url) {
+    let finalUrl = (url || '').trim();
+    if (!finalUrl) return '';
+    if (finalUrl.includes('cloudinary.com')) {
+        finalUrl = finalUrl.replace('/upload/', '/upload/f_auto,q_auto/');
+    }
+    if (!/^https?:\/\//i.test(finalUrl) && !finalUrl.startsWith('data:')) {
+        finalUrl = '/' + finalUrl.replace(/^\/+/, '');
+    }
+    return finalUrl;
+}
+
 let currentLang = localStorage.getItem('userLang') || 'en';
 let currentUser = null;
 let favoritePlaceIds = new Set();
@@ -891,10 +903,7 @@ async function toggleFavorite(event, placeId) {
 function renderPlaceCard(place, { show = true } = {}) {
     const title = place[`title_${currentLang}`] || place.title_en || "No Title";
     const description = place[`desc_${currentLang}`] || place.desc_en || "";
-    let finalUrl = place.image_url || "";
-    if (finalUrl.includes('cloudinary.com')) {
-        finalUrl = finalUrl.replace('/upload/', '/upload/f_auto,q_auto/');
-    }
+    let finalUrl = resolvePlaceImage(place.image_url);
 
     const subCat = place.subcategory ? String(place.subcategory) : "";
     const town = place.town ? String(place.town) : "";
@@ -1090,6 +1099,56 @@ async function loadFavoritesPage() {
 /* --- 3. ΦΟΡΤΩΣΗ ΚΑΤΗΓΟΡΙΩΝ (ΟΛΕΣ ΟΙ ΕΙΚΟΝΕΣ & ΠΕΡΙΓΡΑΦΕΣ) --- */
 const PINNED_PLACE_IDS = ['melania', 'yoga'];
 const CYPRUS_CENTER = [34.9, 33.0];
+const EXTRA_PLACES = [
+    {
+        id: 'coralbay',
+        category: 'beaches',
+        image_url: 'images/coralbay.jpg',
+        phone: null,
+        website: null,
+        map_link: 'https://maps.google.com/?q=Coral+Bay+Beach,+Peyia,+Paphos',
+        title_en: 'Coral Bay',
+        desc_en: 'Located in Peyia near Paphos, Coral Bay is a stunning crescent-shaped cove renowned for its soft golden sand and calm, shallow turquoise waters. Sheltered by dramatic limestone headlands, it holds a prestigious Blue Flag certification and offers a complete array of sunbeds, beach bars, and water sports, making it the perfect destination for both families and sunseekers.',
+        title_el: 'Κόλπος των Κοραλλίων (Coral Bay)',
+        desc_el: 'Στην Πέγεια της Πάφου, ο Κόλπος των Κοραλλίων (Coral Bay) είναι ένας πανέμορφος ημικυκλικός όρμος, διάσημος για την απαλή χρυσή άμμο και τα ήρεμα, ρηχά τιρκουάζ νερά του. Προστατευμένη από επιβλητικά ασβεστολιθικά ακρωτήρια και βραβευμένη με Γαλάζια Σημαία, η παραλία προσφέρει οργανωμένες ξαπλώστρες, beach bars και θαλάσσια σπορ, αποτελώντας ιδανική επιλογή για οικογένειες και χαλάρωση.',
+        title_ru: 'Коралловый залив (Coral Bay)',
+        desc_ru: 'Коралловый залив (Coral Bay), расположенный в Пейе близ Пафоса, представляет собой великолепную полукруглую бухту с мелким золотистым песком и спокойными мелководными бирюзовыми водами. Защищенный живописными скалами и отмеченный Голубым флагом, пляж предлагает развитую инфраструктуру с шезлонгами, пляжными барами и водными видами спорта, что делает его отличным выбором как для семейного отдыха, так и для любителей солнца.',
+        title_zh: '珊瑚湾 (Coral Bay)',
+        desc_zh: '珊瑚湾 (Coral Bay) 位于帕福斯附近的佩亚 (Peyia)，是一处令人叹为观止的新月形海湾，以柔软细腻的金色沙滩和平静清澈的浅海绿松石色水域而闻名。海湾受壮丽的石灰岩海岬庇护，荣获“蓝旗”殊荣，配有完善的日光浴躺椅、海滩酒吧和丰富的水上运动，是家庭出游与海滨度假者的完美目的地。',
+        subcategory: null,
+        is_best_of_month: false,
+        lat: 34.8540839,
+        lng: 32.3693757,
+        town: 'paphos'
+    }
+];
+
+let extraPlacesCache = EXTRA_PLACES;
+
+async function ensureExtraPlaces() {
+    if (extraPlacesCache.length > EXTRA_PLACES.length) return extraPlacesCache;
+    try {
+        const res = await fetch('extra-beaches.json');
+        if (res.ok) {
+            const extra = await res.json();
+            extraPlacesCache = [...EXTRA_PLACES, ...extra];
+        }
+    } catch (err) {
+        console.warn('extra-beaches.json not loaded', err);
+    }
+    return extraPlacesCache;
+}
+
+function mergeExtraPlaces(places, categoryName) {
+    const list = [...(places || [])];
+    const ids = new Set(list.map(place => place.id));
+    extraPlacesCache.forEach(place => {
+        if (ids.has(place.id)) return;
+        if (categoryName && place.category !== categoryName) return;
+        list.push(place);
+    });
+    return list;
+}
 
 function placeSortTitle(place) {
     return (place[`title_${currentLang}`] || place.title_en || place.id || '').toString().trim();
@@ -1116,7 +1175,13 @@ function sortPlacesWithPinnedFirst(places) {
 }
 
 function hasCoords(place) {
-    return place && Number.isFinite(Number(place.lat)) && Number.isFinite(Number(place.lng));
+    if (!place || place.lat == null || place.lng == null || place.lat === '' || place.lng === '') {
+        return false;
+    }
+    const lat = Number(place.lat);
+    const lng = Number(place.lng);
+    // Reject Null Island / missing coords (Number(null) === 0)
+    return Number.isFinite(lat) && Number.isFinite(lng) && !(lat === 0 && lng === 0);
 }
 
 function getMarkerIcon(isFavoriteMarker = false) {
@@ -1277,7 +1342,7 @@ function categoryLabel(category) {
 
 function placePopupHtml(place) {
     const title = place[`title_${currentLang}`] || place.title_en || place.id;
-    const img = place.image_url || '';
+    const img = resolvePlaceImage(place.image_url);
     const thumb = img.includes('cloudinary.com')
         ? img.replace('/upload/', '/upload/f_auto,q_auto,w_120,h_80,c_fill/')
         : img;
@@ -1398,6 +1463,7 @@ function updateHomeMapMarkers() {
 async function loadHomeMap() {
     const mapEl = document.getElementById('home-map');
     if (!mapEl || !dbClient) return;
+    await ensureExtraPlaces();
 
     try {
         await loadLeaflet();
@@ -1415,7 +1481,7 @@ async function loadHomeMap() {
         return;
     }
 
-    homePlacesCache = (places || []).filter(hasCoords);
+    homePlacesCache = mergeExtraPlaces(places).filter(hasCoords);
 
     if (!homeMap) {
         homeMap = L.map(mapEl, { scrollWheelZoom: false }).setView(CYPRUS_CENTER, 8);
@@ -1485,6 +1551,7 @@ async function renderDetailsMap(place) {
 async function loadCategory(categoryName, containerId) {
     const container = document.getElementById(containerId);
     if (!container || !dbClient) return;
+    await ensureExtraPlaces();
 
     const { data: places, error } = await dbClient
         .from('places')
@@ -1496,7 +1563,7 @@ async function loadCategory(categoryName, containerId) {
         return;
     }
 
-    const ordered = sortPlacesWithPinnedFirst(places);
+    const ordered = sortPlacesWithPinnedFirst(mergeExtraPlaces(places, categoryName));
     categoryPlacesCache = ordered;
     activeTypeFilter = 'all';
     activeTownFilter = 'all';
@@ -1519,10 +1586,7 @@ async function loadBestOfMonth() {
         const title = place[`title_${currentLang}`] || place.title_en;
         const desc = place[`desc_${currentLang}`] || place.desc_en; // Διορθώθηκε το ID
         
-        let finalUrl = place.image_url || "";
-        if (finalUrl.includes('cloudinary.com')) {
-            finalUrl = finalUrl.replace('/upload/', '/upload/f_auto,q_auto/');
-        }
+        let finalUrl = resolvePlaceImage(place.image_url);
 
         container.innerHTML += `
             <article class="month-card">
@@ -1560,13 +1624,16 @@ async function loadFullDetails(id) {
     }
 
     // Τραβάμε τα δεδομένα για το συγκεκριμένο ID
-    const { data: place, error } = await dbClient
+    const { data, error } = await dbClient
         .from('places')
         .select('*')
         .eq('id', id)
         .single();
 
-    if (error || !place) {
+    await ensureExtraPlaces();
+    const place = data || extraPlacesCache.find(item => item.id === id) || null;
+
+    if (!place) {
         console.error("Place not found:", error);
         return;
     }
@@ -1578,10 +1645,7 @@ async function loadFullDetails(id) {
     const description = place[`desc_${currentLang}`] || place.desc_en || "";
 
     // 3. Εικόνα: Προσθέτει και το Cloudinary Optimization αν είναι link από εκεί
-    let imgUrl = place.image_url;
-    if (imgUrl && imgUrl.includes('cloudinary.com')) {
-        imgUrl = imgUrl.replace('/upload/', '/upload/f_auto,q_auto/');
-    }
+    let imgUrl = resolvePlaceImage(place.image_url);
 
     // Εμφάνιση των στοιχείων στη σελίδα
     const headerEl = document.getElementById('details-header');
