@@ -1106,7 +1106,7 @@ const EXTRA_PLACES = [
         image_url: 'images/coralbay.jpg',
         phone: null,
         website: null,
-        map_link: 'https://maps.google.com/?q=Coral+Bay+Beach,+Peyia,+Paphos',
+        map_link: 'https://maps.google.com/?q=34.8540839,32.3693757',
         title_en: 'Coral Bay',
         desc_en: 'Located in Peyia near Paphos, Coral Bay is a stunning crescent-shaped cove renowned for its soft golden sand and calm, shallow turquoise waters. Sheltered by dramatic limestone headlands, it holds a prestigious Blue Flag certification and offers a complete array of sunbeds, beach bars, and water sports, making it the perfect destination for both families and sunseekers.',
         title_el: 'Κόλπος των Κοραλλίων (Coral Bay)',
@@ -1182,6 +1182,16 @@ function hasCoords(place) {
     const lng = Number(place.lng);
     // Reject Null Island / missing coords (Number(null) === 0)
     return Number.isFinite(lat) && Number.isFinite(lng) && !(lat === 0 && lng === 0);
+}
+
+function googleMapsHref(place) {
+    if (hasCoords(place)) {
+        return `https://maps.google.com/?q=${Number(place.lat)},${Number(place.lng)}`;
+    }
+    if (place.map_link && /maps\.|goo\.gl|2gis/i.test(place.map_link)) {
+        return place.map_link;
+    }
+    return '';
 }
 
 function getMarkerIcon(isFavoriteMarker = false) {
@@ -1674,8 +1684,9 @@ async function loadFullDetails(id) {
     // Έλεγχος για Maps (πρόσεξε το όνομα της στήλης: map_link)
     const mapBtn = document.getElementById('map-link');
     if (mapBtn) {
-        if (place.map_link && /maps\.|goo\.gl|2gis/i.test(place.map_link)) {
-            mapBtn.href = place.map_link;
+        const mapsHref = googleMapsHref(place);
+        if (mapsHref) {
+            mapBtn.href = mapsHref;
             mapBtn.style.display = 'inline-block';
         } else {
             mapBtn.style.display = 'none';
