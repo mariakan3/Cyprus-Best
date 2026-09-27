@@ -97,22 +97,16 @@ body.modal-open {
 
 /* --- 3. HERO SECTION (ΑΡΧΙΚΗ ΕΙΚΟΝΑ) --- */
 .hero {
-    background-image:
-        linear-gradient(180deg, rgba(10, 18, 26, 0.28) 0%, rgba(10, 18, 26, 0.58) 100%),
-        url('images/cyprus-holidays.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: #14202b;
     color: white;
-    min-height: min(42vh, 420px);
+    min-height: 420px;
     height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-align: center;
-    padding: 2.75rem 1.25rem 2.5rem;
+    padding: 0;
     position: relative;
     isolation: isolate;
+    overflow: hidden;
+    touch-action: pan-y;
 }
 
 .hero::before {
@@ -130,7 +124,6 @@ body.modal-open {
     z-index: 1;
     max-width: 680px;
     margin: 0 auto;
-    animation: fadeIn 0.7s ease;
 }
 
 .hero-brand {
@@ -197,6 +190,169 @@ body.modal-open {
 @keyframes scrollPulse {
     0%, 100% { opacity: 0.35; transform: translateY(0); }
     50% { opacity: 1; transform: translateY(8px); }
+}
+
+.hero-slider::before {
+    display: none;
+}
+
+.hero-slides,
+.hero-slide {
+    position: absolute;
+    inset: 0;
+}
+
+.hero-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.4rem 1.15rem 4.8rem;
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity 0.65s ease;
+}
+
+.hero-slide.is-active {
+    opacity: 1;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+.hero-slide-bg {
+    position: absolute;
+    inset: -3%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.08);
+    transition: transform 5.6s ease;
+}
+
+.hero-slide.is-active .hero-slide-bg {
+    transform: scale(1);
+}
+
+.hero-slide-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 70% 55% at 50% 70%, rgba(46, 184, 190, 0.18), transparent 70%),
+        linear-gradient(180deg, rgba(10, 18, 26, 0.28) 0%, rgba(10, 18, 26, 0.62) 100%);
+}
+
+.hero-slide-bg--hotels { background-image: url('images/hotels.png'); }
+.hero-slide-bg--restaurants { background-image: url('images/restaurants.png'); }
+.hero-slide-bg--views { background-image: url('images/view.jpg'); }
+.hero-slide-bg--beaches { background-image: url('images/blue-lagoon.jpg'); }
+.hero-slide-bg--realestate { background-image: url('images/real-estate.jpg'); }
+.hero-slide-bg--things { background-image: url('images/paphos-castle.jpg'); }
+.hero-slide-bg--services { background-image: url('images/services.jpeg'); }
+
+.hero-slide .hero-content {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease 0.08s, transform 0.5s ease 0.08s;
+}
+
+.hero-slide.is-active .hero-content {
+    opacity: 1;
+    transform: none;
+}
+
+.hero-content h1 {
+    text-wrap: balance;
+}
+
+.hero-controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.85rem;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.hero-arrow,
+.hero-dot {
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.hero-arrow {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.hero-arrow:hover,
+.hero-arrow:focus-visible {
+    background: rgba(255, 255, 255, 0.28);
+    transform: translateY(-1px);
+}
+
+.hero-dots {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.hero-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.45);
+    transition: width 0.25s ease, background 0.25s ease;
+}
+
+.hero-dot.is-active {
+    width: 22px;
+    background: #fff;
+}
+
+@media (min-width: 769px) {
+    .hero-slide {
+        padding: 3.2rem 4.5rem 5.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-slide {
+        padding: 1.8rem 1rem 4.6rem;
+    }
+
+    .hero-arrow {
+        width: 40px;
+        height: 40px;
+    }
+
+    .hero-actions .btn {
+        padding: 11px 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-slide,
+    .hero-slide-bg,
+    .hero-slide .hero-content,
+    .hero-dot {
+        transition: none;
+    }
 }
 
 .btn {
@@ -395,11 +551,8 @@ body.modal-open {
     }
 
     .hero {
-        min-height: min(48vh, 480px);
-        padding: 3.5rem 2rem 3rem;
-        background-image:
-            linear-gradient(180deg, rgba(10, 18, 26, 0.22) 0%, rgba(10, 18, 26, 0.55) 100%),
-            url('images/cyprus-holidays.jpg');
+        min-height: min(54vh, 520px);
+        padding: 0;
     }
 
     .hero-content h1 {
@@ -1286,8 +1439,8 @@ section { padding: 2rem 1rem; text-align: center; }
     }
 
     .hero {
-        min-height: 36vh;
-        padding: 2.25rem 1rem 2rem;
+        min-height: 420px;
+        padding: 0;
     }
 
     .hero h1,
