@@ -1,4 +1,4 @@
-delete from public.places where id in ('cyprusmuseum', 'liopetri');
+delete from public.places where id in ('cyprusmuseum', 'liopetri', 'dodekapente', 'omodos', 'troodosjeep');
 
 update public.places
 set town = 'famagusta'
@@ -335,7 +335,7 @@ insert into public.places (
   'paphos'
 ),
 (
-  'troodosjeep',
+  'sunshine',
   'things',
   'images/troodosjeep.jpg',
   null,
@@ -356,7 +356,7 @@ insert into public.places (
   'limassol'
 ),
 (
-  'omodos',
+  'wine',
   'things',
   'images/omodos.jpg',
   null,
@@ -650,7 +650,7 @@ insert into public.places (
   'nicosia'
 ),
 (
-  'dodekapente',
+  'nicosia-walk',
   'things',
   'images/dodekapente.jpg',
   null,
