@@ -77,7 +77,7 @@
   },
   {
     "is_best_of_month": false,
-    "id": "troodosjeep",
+    "id": "sunshine",
     "category": "things",
     "image_url": "images/troodosjeep.jpg",
     "title_en": "Troodos Mountain Jeep Safari Adventure",
@@ -96,7 +96,7 @@
   },
   {
     "is_best_of_month": false,
-    "id": "omodos",
+    "id": "wine",
     "category": "things",
     "image_url": "images/omodos.jpg",
     "title_en": "Omodos Village Cultural Walk",
@@ -362,7 +362,7 @@
   },
   {
     "is_best_of_month": false,
-    "id": "dodekapente",
+    "id": "nicosia-walk",
     "category": "things",
     "image_url": "images/dodekapente.jpg",
     "title_en": "Dodeka Pente Local Food & Art Quarter Walk",
