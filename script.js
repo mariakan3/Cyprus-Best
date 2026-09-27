@@ -125,7 +125,8 @@ const staticTranslations = {
         "filter-yoga": "🧘🏻‍♀️ Γιόγκα",
         "filter-trad": "🍲 Παραδοσιακά", 
         "filter-fine": "🍷 Πολυτελή", 
-        "filter-asian": "🥢 Ασιατικά", 
+        "filter-asian": "🥢 Ασιατικά",
+        "filter-mexican": "🌮 Μεξικάνικα", 
         "filter-law": "⚖️ Νομικά",
         "filter-medical": "🏥 Ιατρικά", 
         "filter-accounting": "📊 Λογιστικά", 
@@ -237,7 +238,8 @@ const staticTranslations = {
         "filter-yoga": "🧘🏻‍♀️ Yoga",
         "filter-trad": "🍲 Traditional", 
         "filter-fine": "🍷 Fine Dining", 
-        "filter-asian": "🥢 Asian", 
+        "filter-asian": "🥢 Asian",
+        "filter-mexican": "🌮 Mexican", 
         "filter-law": "⚖️ Legal",
         "filter-medical": "🏥 Medical", 
         "filter-accounting": "📊 Accounting", 
@@ -349,7 +351,8 @@ const staticTranslations = {
         "filter-yoga": "🧘🏻‍♀️ Йога",
         "filter-trad": "🍲 Традиционные", 
         "filter-fine": "🍷 Изысканные", 
-        "filter-asian": "🥢 Азиатские", 
+        "filter-asian": "🥢 Азиатские",
+        "filter-mexican": "🌮 Мексиканские", 
         "filter-law": "⚖️ Юридические",
         "filter-medical": "🏥 Медицинские", 
         "filter-accounting": "📊 Бухгалтерские", 
@@ -461,7 +464,8 @@ const staticTranslations = {
         "filter-yoga": "🧘🏻‍♀️ 瑜伽",
         "filter-trad": "🍲 传统", 
         "filter-fine": "🍷 高级餐饮", 
-        "filter-asian": "🥢 亚洲", 
+        "filter-asian": "🥢 亚洲",
+        "filter-mexican": "🌮 墨西哥", 
         "filter-law": "⚖️ 法律",
         "filter-medical": "🏥 医疗", 
         "filter-accounting": "📊 财务", 
@@ -1128,7 +1132,7 @@ let extraPlacesCache = EXTRA_PLACES;
 async function ensureExtraPlaces() {
     if (extraPlacesCache.length > EXTRA_PLACES.length) return extraPlacesCache;
     const extras = [];
-    for (const file of ['extra-beaches.json', 'extra-views.json']) {
+    for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json']) {
         try {
             const res = await fetch(file);
             if (res.ok) extras.push(...await res.json());
@@ -1149,7 +1153,7 @@ function applyExtraGeo(place) {
         place.lng = extra.lng;
     }
     if (extra.map_link) place.map_link = extra.map_link;
-    ['title_en', 'title_el', 'title_ru', 'title_zh', 'desc_en', 'desc_el', 'desc_ru', 'desc_zh', 'image_url'].forEach((key) => {
+    ['title_en', 'title_el', 'title_ru', 'title_zh', 'desc_en', 'desc_el', 'desc_ru', 'desc_zh', 'image_url', 'phone', 'website', 'subcategory', 'town'].forEach((key) => {
         if (extra[key]) place[key] = extra[key];
     });
     return place;
