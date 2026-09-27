@@ -661,11 +661,20 @@ function closeAuthModal() {
     clearAuthMessage();
 }
 
+function authLang() {
+    return staticTranslations[currentLang] ? currentLang : 'en';
+}
+
 function authRedirectUrl() {
     const url = new URL('index.html', window.location.href);
-    url.search = '';
+    url.search = `lang=${authLang()}`;
     url.hash = '';
     return url.href;
+}
+
+function applyLangFromUrl() {
+    const lang = new URLSearchParams(window.location.search).get('lang');
+    if (lang && staticTranslations[lang] && lang !== currentLang) setLanguage(lang);
 }
 
 function setAuthText(el, key) {
@@ -828,7 +837,8 @@ async function handleAuthSubmit(e) {
                 email,
                 password,
                 options: {
-                    emailRedirectTo: authRedirectUrl()
+                    emailRedirectTo: authRedirectUrl(),
+                    data: { lang: authLang() }
                 }
             });
             if (error) throw error;
@@ -947,6 +957,7 @@ async function consumeEmailLink() {
 async function initAuth() {
     if (!dbClient) return;
     injectAuthUI();
+    applyLangFromUrl();
 
     const authCallbackType = new URLSearchParams(window.location.hash.replace(/^#/, '')).get('type');
     const emailLink = await consumeEmailLink();
