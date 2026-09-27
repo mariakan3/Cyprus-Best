@@ -111,7 +111,7 @@
     "id": "profitisilias",
     "category": "views",
     "image_url": "images/profitisilias.jpg",
-    "map_link": "https://maps.google.com/?q=35.0162,34.0458",
+    "map_link": "https://maps.google.com/?q=35.01849,34.0411776",
     "title_en": "Profitis Ilias Church",
     "desc_en": "Perched on a steep rocky outcrop 100 meters above town, this 14th-century chapel requires climbing over 150 steps. The reward is arguably the best vantage point in the region, offering breathtaking daytime and nighttime views of the entire Protaras coastline.",
     "title_el": "Εκκλησία Προφήτη Ηλία",
@@ -121,8 +121,8 @@
     "title_zh": "圣伊莱亚斯教堂 (Profitis Ilias)",
     "desc_zh": "这座建于 14 世纪的教堂坐落在高出城镇 100 米的陡峭岩石上，需要攀登 150 多级台阶。但您将获得该地区最好的观景台作为回报，日夜都能欣赏到整个普罗塔拉斯海岸线令人叹为观止的景色。",
     "is_best_of_month": false,
-    "lat": 35.0162,
-    "lng": 34.0458,
+    "lat": 35.01849,
+    "lng": 34.0411776,
     "town": "famagusta"
   },
   {
