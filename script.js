@@ -666,14 +666,12 @@ function authLang() {
 }
 
 function authRedirectUrl() {
-    const url = new URL('index.html', window.location.href);
-    url.search = `lang=${authLang()}`;
-    url.hash = '';
-    return url.href;
+    return `https://www.cyprusbest.com/?l=${authLang()}`;
 }
 
 function applyLangFromUrl() {
-    const lang = new URLSearchParams(window.location.search).get('lang');
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get('l') || params.get('lang');
     if (lang && staticTranslations[lang] && lang !== currentLang) setLanguage(lang);
 }
 
