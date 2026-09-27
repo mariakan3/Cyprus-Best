@@ -252,7 +252,7 @@
     "is_best_of_month": false,
     "lat": 35.0201,
     "lng": 33.9859,
-    "town": "ayia_napa"
+    "town": "famagusta"
   },
   {
     "id": "karmagroup",
@@ -272,7 +272,7 @@
     "is_best_of_month": false,
     "lat": 35.0528895,
     "lng": 34.0113793,
-    "town": "protaras"
+    "town": "famagusta"
   },
   {
     "id": "skyprime",
@@ -292,6 +292,6 @@
     "is_best_of_month": false,
     "lat": 34.9889204,
     "lng": 33.9814395,
-    "town": "ayia_napa"
+    "town": "famagusta"
   }
 ]
