@@ -1146,7 +1146,7 @@ async function ensureExtraPlaces() {
     const extras = [];
         for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json', 'extra-things.json']) {
         try {
-            const res = await fetch(file + '?v=list19');
+            const res = await fetch(file + '?v=list20');
             if (res.ok) extras.push(...await res.json());
         } catch (err) {
             console.warn(file + ' not loaded', err);
@@ -1173,33 +1173,79 @@ function normalizeTown(place) {
     return 'larnaca';
 }
 
+const PLACE_ID_ALIASES = {
+    cyprusmuseum: 'museum-nic',
+    liopetri: 'liopetri-river'
+};
+
+function canonicalPlaceId(id) {
+    return PLACE_ID_ALIASES[id] || id;
+}
+
+function listingTitleKey(place) {
+    return String(place && (place.title_en || place.title_el) || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .replace(/\b(the|and|a|an|tour|visit|walk|exploration|experience|archaeological|municipal)\b/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function isSameListing(a, b) {
+    if (!a || !b) return false;
+    if (canonicalPlaceId(a.id) === canonicalPlaceId(b.id)) return true;
+    if (a.category && b.category && a.category !== b.category) return false;
+    const ka = listingTitleKey(a);
+    const kb = listingTitleKey(b);
+    if (!ka || !kb) return false;
+    return ka === kb || ka.includes(kb) || kb.includes(ka);
+}
+
+function overlayExtraFields(place, extra) {
+    if (!place || !extra) return place;
+    if (hasCoords(extra)) {
+        place.lat = extra.lat;
+        place.lng = extra.lng;
+    }
+    if (extra.map_link) place.map_link = extra.map_link;
+    ['title_en', 'title_el', 'title_ru', 'title_zh', 'desc_en', 'desc_el', 'desc_ru', 'desc_zh', 'image_url', 'phone', 'website', 'subcategory', 'town'].forEach((key) => {
+        if (extra[key]) place[key] = extra[key];
+    });
+    return place;
+}
+
 function applyExtraGeo(place) {
     if (!place) return place;
-    const extra = extraPlacesCache.find(item => item.id === place.id && (!place.category || item.category === place.category))
-        || extraPlacesCache.find(item => item.id === place.id);
-    if (extra) {
-        if (hasCoords(extra)) {
-            place.lat = extra.lat;
-            place.lng = extra.lng;
-        }
-        if (extra.map_link) place.map_link = extra.map_link;
-        ['title_en', 'title_el', 'title_ru', 'title_zh', 'desc_en', 'desc_el', 'desc_ru', 'desc_zh', 'image_url', 'phone', 'website', 'subcategory', 'town'].forEach((key) => {
-            if (extra[key]) place[key] = extra[key];
-        });
-    }
+    const extra = extraPlacesCache.find(item => canonicalPlaceId(item.id) === canonicalPlaceId(place.id) && (!place.category || item.category === place.category))
+        || extraPlacesCache.find(item => canonicalPlaceId(item.id) === canonicalPlaceId(place.id))
+        || extraPlacesCache.find(item => isSameListing(item, place) && (!place.category || item.category === place.category));
+    overlayExtraFields(place, extra);
     place.town = normalizeTown(place);
     return place;
 }
 
 function mergeExtraPlaces(places, categoryName) {
     const list = [...(places || [])];
-    const ids = new Set(list.map(place => place.id));
     extraPlacesCache.forEach(place => {
-        if (ids.has(place.id)) return;
         if (categoryName && place.category !== categoryName) return;
-        list.push(place);
+        if (list.some(existing => isSameListing(existing, place))) return;
+        list.push({ ...place, id: canonicalPlaceId(place.id) });
     });
-    return list.map(applyExtraGeo);
+
+    const deduped = [];
+    list.forEach((place) => {
+        const idx = deduped.findIndex(existing => isSameListing(existing, place));
+        if (idx === -1) {
+            deduped.push(place);
+            return;
+        }
+        const extra = extraPlacesCache.find(item => isSameListing(item, deduped[idx]) || isSameListing(item, place));
+        overlayExtraFields(deduped[idx], extra || place);
+        if (PLACE_ID_ALIASES[deduped[idx].id]) {
+            deduped[idx].id = canonicalPlaceId(deduped[idx].id);
+        }
+    });
+    return deduped.map(applyExtraGeo);
 }
 
 function placeSortTitle(place) {
