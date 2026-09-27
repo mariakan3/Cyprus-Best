@@ -1961,7 +1961,7 @@ function initHeroSlider() {
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const hoverPause = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const DELAY = 5000;
+    const DELAY = 4000;
     let index = Math.max(0, slides.findIndex(slide => slide.classList.contains('is-active')));
     let timer = null;
 
