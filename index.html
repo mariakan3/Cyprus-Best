@@ -10,7 +10,7 @@
     <meta property="og:description" content="Discover the best of Cyprus with our locals' top recommendations for hotels, restaurants, views, beaches, real estate, things to do, and services. Your ultimate guide to the island's hidden gems and must-visit spots.">
     <meta property="og:image" content="https://mariakan3.github.io/Cyprus-Best/images/cyprus-holidays.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20260927">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -53,19 +53,103 @@
         </ul>
     </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <p class="hero-brand">Cyprus Best</p>
-            <h1 data-i18n="hero-title">Discover Cyprus</h1>
-            <p data-i18n="hero-desc">The best of the island, recommended by locals.</p>
-            <div class="hero-actions">
-                <a href="#best-of-month" class="btn" data-i18n="explore-btn">Explore Now</a>
-                <a href="#home-map-section" class="btn btn-secondary" data-i18n="map-show">Show map</a>
-            </div>
+    <section class="hero hero-slider" id="hero-slider" aria-roledescription="carousel" data-i18n-aria="slider-label" aria-label="Categories">
+        <div class="hero-slides">
+            <article class="hero-slide is-active" aria-hidden="false">
+                <div class="hero-slide-bg hero-slide-bg--hotels"></div>
+                <div class="hero-content">
+                    <p class="hero-brand">Cyprus Best</p>
+                    <h1 data-i18n="card-hotels-title">Best Hotels</h1>
+                    <p data-i18n="card-hotels">Luxury and hospitality.</p>
+                    <div class="hero-actions">
+                        <a href="hotels.html" class="btn" data-i18n="explore-btn">Explore Now</a>
+                    </div>
+                </div>
+            </article>
+            <article class="hero-slide" aria-hidden="true" inert>
+                <div class="hero-slide-bg hero-slide-bg--restaurants"></div>
+                <div class="hero-content">
+                    <p class="hero-brand">Cyprus Best</p>
+                    <h1 data-i18n="card-restaurants-title">Best Restaurants</h1>
+                    <p data-i18n="card-restaurants">Flavors that captivate.</p>
+                    <div class="hero-actions">
+                        <a href="restaurants.html" class="btn" data-i18n="explore-btn">Explore Now</a>
+                    </div>
+                </div>
+            </article>
+            <article class="hero-slide" aria-hidden="true" inert>
+                <div class="hero-slide-bg hero-slide-bg--views"></div>
+                <div class="hero-content">
+                    <p class="hero-brand">Cyprus Best</p>
+                    <h1 data-i18n="card-views-title">Best Views</h1>
+                    <p data-i18n="card-views">The most beautiful sunsets.</p>
+                    <div class="hero-actions">
+                        <a href="views.html" class="btn" data-i18n="explore-btn">Explore Now</a>
+                    </div>
+                </div>
+            </article>
+            <article class="hero-slide" aria-hidden="true" inert>
+                <div class="hero-slide-bg hero-slide-bg--beaches"></div>
+                <div class="hero-content">
+                    <p class="hero-brand">Cyprus Best</p>
+                    <h1 data-i18n="card-beaches-title">Best Beaches</h1>
+                    <p data-i18n="card-beaches">Crystal waters and golden sand.</p>
+                    <div class="hero-actions">
+                        <a href="beaches.html" class="btn" data-i18n="explore-btn">Explore Now</a>
+                    </div>
+                </div>
+            </article>
+            <article class="hero-slide" aria-hidden="true" inert>
+                <div class="hero-slide-bg hero-slide-bg--realestate"></div>
+                <div class="hero-content">
+                    <p class="hero-brand">Cyprus Best</p>
+                    <h1 data-i18n="card-realestate-title">Best Real Estate</h1>
+                    <p data-i18n="card-realestate">The best properties.</p>
+                    <div class="hero-actions">
+                        <a href="realestate.html" class="btn" data-i18n="explore-btn">Explore Now</a>
+                    </div>
+                </div>
+            </article>
+            <article class="hero-slide" aria-hidden="true" inert>
+                <div class="hero-slide-bg hero-slide-bg--things"></div>
+                <div class="hero-content">
+                    <p class="hero-brand">Cyprus Best</p>
+                    <h1 data-i18n="card-things-title">Best Things to Do</h1>
+                    <p data-i18n="card-things">Activities and experiences.</p>
+                    <div class="hero-actions">
+                        <a href="thingstodo.html" class="btn" data-i18n="explore-btn">Explore Now</a>
+                    </div>
+                </div>
+            </article>
+            <article class="hero-slide" aria-hidden="true" inert>
+                <div class="hero-slide-bg hero-slide-bg--services"></div>
+                <div class="hero-content">
+                    <p class="hero-brand">Cyprus Best</p>
+                    <h1 data-i18n="card-services-title">Best Services</h1>
+                    <p data-i18n="card-services">Services locals trust.</p>
+                    <div class="hero-actions">
+                        <a href="services.html" class="btn" data-i18n="explore-btn">Explore Now</a>
+                    </div>
+                </div>
+            </article>
         </div>
-        <a href="#best-of-month" class="hero-scroll" aria-label="Scroll to Best of Month">
-            <span></span>
-        </a>
+        <div class="hero-controls">
+            <button type="button" class="hero-arrow hero-prev" data-i18n-aria="slider-prev" aria-label="Previous category">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <div class="hero-dots">
+                <button type="button" class="hero-dot is-active" data-i18n-aria="card-hotels-title" aria-label="Best Hotels" aria-current="true"></button>
+                <button type="button" class="hero-dot" data-i18n-aria="card-restaurants-title" aria-label="Best Restaurants"></button>
+                <button type="button" class="hero-dot" data-i18n-aria="card-views-title" aria-label="Best Views"></button>
+                <button type="button" class="hero-dot" data-i18n-aria="card-beaches-title" aria-label="Best Beaches"></button>
+                <button type="button" class="hero-dot" data-i18n-aria="card-realestate-title" aria-label="Best Real Estate"></button>
+                <button type="button" class="hero-dot" data-i18n-aria="card-things-title" aria-label="Best Things to Do"></button>
+                <button type="button" class="hero-dot" data-i18n-aria="card-services-title" aria-label="Best Services"></button>
+            </div>
+            <button type="button" class="hero-arrow hero-next" data-i18n-aria="slider-next" aria-label="Next category">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </button>
+        </div>
     </section>
 
     <div class="weather-bar">
@@ -186,6 +270,6 @@
         <p class="copyright" data-i18n="footer-copyright">&copy; 2026 Cyprus Best. All rights reserved.</p>
     </div>
 </footer>
-<script src="script.js"></script>
+<script src="script.js?v=20260927"></script>
 </body>
 </html>
