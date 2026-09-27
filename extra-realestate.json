@@ -2,7 +2,7 @@
   {
     "id": "cyfield",
     "category": "realestate",
-    "image_url": "images/cyfield.jpg",
+    "image_url": "images/cyfield.jpg?v=work",
     "phone": "+357 22 427230",
     "website": "https://www.cyfieldgroup.com/",
     "map_link": "https://maps.google.com/?q=35.1427979,33.3738718",
@@ -22,7 +22,7 @@
   {
     "id": "psaras",
     "category": "realestate",
-    "image_url": "images/psaras.jpg",
+    "image_url": "images/psaras.jpg?v=work",
     "phone": "+357 22 330084",
     "website": "https://npsaras.com/",
     "map_link": "https://maps.google.com/?q=35.1550048,33.3929264",
@@ -42,7 +42,7 @@
   {
     "id": "leda",
     "category": "realestate",
-    "image_url": "images/leda.jpg",
+    "image_url": "images/leda.jpg?v=work",
     "map_link": "https://maps.google.com/?q=35.117,33.315",
     "title_en": "Leda Properties",
     "desc_en": "Leda Properties is a boutique developer based in Nicosia, specializing in contemporary apartments and elegant townhouses across prime suburban areas. Their commitment to minimalist design, functional layouts, and transparent customer service offers excellent opportunities for homeowners and investors alike.",
@@ -60,7 +60,7 @@
   {
     "id": "primeproperty",
     "category": "realestate",
-    "image_url": "images/primeproperty.jpg",
+    "image_url": "images/primeproperty.jpg?v=work",
     "phone": "+357 25 315300",
     "website": "https://www.prime-property.com/",
     "map_link": "https://maps.google.com/?q=34.706,33.087",
@@ -80,7 +80,7 @@
   {
     "id": "dta",
     "category": "realestate",
-    "image_url": "images/dta.jpg",
+    "image_url": "images/dta.jpg?v=work",
     "phone": "+357 8000 8383",
     "website": "https://dtagroup.com/",
     "map_link": "https://maps.google.com/?q=34.6977175,33.090854",
@@ -100,7 +100,7 @@
   {
     "id": "qualitygroup",
     "category": "realestate",
-    "image_url": "images/qualitygroup.jpg",
+    "image_url": "images/qualitygroup.jpg?v=work",
     "website": "https://www.qualitygroup.com.cy/",
     "map_link": "https://maps.google.com/?q=34.685,33.045",
     "title_en": "Quality Group (Limassol Division)",
@@ -119,7 +119,7 @@
   {
     "id": "occonstruction",
     "category": "realestate",
-    "image_url": "images/occonstruction.jpg",
+    "image_url": "images/occonstruction.jpg?v=work",
     "map_link": "https://maps.google.com/?q=34.8905288,33.6381178",
     "title_en": "O&C Construction",
     "desc_en": "O&C Construction is a premier developer in Larnaca, famous for delivering stylish residential projects, seafront residences, and luxury apartments around Mackenzie and the new Marina district with superior craftmanship.",
@@ -137,7 +137,7 @@
   {
     "id": "africanos",
     "category": "realestate",
-    "image_url": "images/africanos.jpg",
+    "image_url": "images/africanos.jpg?v=work",
     "phone": "+357 24 828161",
     "website": "https://africanosproperties.com/",
     "map_link": "https://maps.google.com/?q=34.9225,33.629",
@@ -157,7 +157,7 @@
   {
     "id": "plusproperties",
     "category": "realestate",
-    "image_url": "images/plusproperties.jpg",
+    "image_url": "images/plusproperties.jpg?v=work",
     "phone": "+357 24 642464",
     "website": "https://www.pluspropertiescyprus.com/",
     "map_link": "https://maps.google.com/?q=34.9163,33.6378",
@@ -177,7 +177,7 @@
   {
     "id": "karmadevelopers",
     "category": "realestate",
-    "image_url": "images/karmadevelopers.jpg",
+    "image_url": "images/karmadevelopers.jpg?v=work",
     "phone": "+357 23 730777",
     "website": "https://karmadevelopers.com/",
     "map_link": "https://maps.google.com/?q=34.756,32.4165",
@@ -197,7 +197,7 @@
   {
     "id": "domenica",
     "category": "realestate",
-    "image_url": "images/domenica.jpg",
+    "image_url": "images/domenica.jpg?v=work",
     "phone": "+357 26 600700",
     "website": "https://www.domenicagroup.com/",
     "map_link": "https://maps.google.com/?q=34.7607,32.4068",
@@ -217,7 +217,7 @@
   {
     "id": "giovanihomes",
     "category": "realestate",
-    "image_url": "images/giovanihomes.jpg",
+    "image_url": "images/giovanihomes.jpg?v=work",
     "phone": "+357 23 833780",
     "website": "https://www.giovani.com.cy/",
     "map_link": "https://maps.google.com/?q=34.748,32.428",
@@ -237,7 +237,7 @@
   {
     "id": "giovanigroup",
     "category": "realestate",
-    "image_url": "images/giovanigroup.jpg",
+    "image_url": "images/giovanigroup.jpg?v=work",
     "phone": "+357 23 833780",
     "website": "https://www.giovani.com.cy/",
     "map_link": "https://maps.google.com/?q=35.0201,33.9859",
@@ -257,7 +257,7 @@
   {
     "id": "karmagroup",
     "category": "realestate",
-    "image_url": "images/karmagroup.jpg",
+    "image_url": "images/karmagroup.jpg?v=work",
     "phone": "+357 23 730777",
     "website": "https://karmadevelopers.com/",
     "map_link": "https://maps.google.com/?q=35.0528895,34.0113793",
@@ -277,7 +277,7 @@
   {
     "id": "skyprime",
     "category": "realestate",
-    "image_url": "images/skyprime.jpg",
+    "image_url": "images/skyprime.jpg?v=work",
     "phone": "+357 23 722026",
     "website": "https://www.skyprimegroup.com/",
     "map_link": "https://maps.google.com/?q=34.9889204,33.9814395",
