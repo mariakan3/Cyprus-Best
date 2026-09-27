@@ -52,6 +52,9 @@ const staticTranslations = {
         "hero-title": "Ανακάλυψε την Κύπρο", 
         "hero-desc": "Τα καλύτερα του νησιού, προτεινόμενα από ντόπιους.",
         "explore-btn": "Εξερεύνηση",
+        "slider-label": "Κατηγορίες",
+        "slider-prev": "Προηγούμενη κατηγορία",
+        "slider-next": "Επόμενη κατηγορία",
         "categories-title": "Οι Κατηγορίες Μας",
         "card-hotels-title": "Καλύτερα Ξενοδοχεία",
         "card-restaurants-title": "Καλύτερα Εστιατόρια",
@@ -165,6 +168,9 @@ const staticTranslations = {
         "hero-title": "Explore Cyprus", 
         "hero-desc": "The best of the island, recommended by locals.",
         "explore-btn": "Explore Now",
+        "slider-label": "Categories",
+        "slider-prev": "Previous category",
+        "slider-next": "Next category",
         "categories-title": "Our Categories",
         "card-hotels-title": "Best Hotels",
         "card-restaurants-title": "Best Restaurants",
@@ -278,6 +284,9 @@ const staticTranslations = {
         "hero-title": "Исследуйте Кипр", 
         "hero-desc": "Лучшее на острове, рекомендовано местными жителями.",
         "explore-btn": "Исследовать",
+        "slider-label": "Категории",
+        "slider-prev": "Предыдущая категория",
+        "slider-next": "Следующая категория",
         "categories-title": "Наши категории",
         "card-hotels-title": "Лучшие отели",
         "card-restaurants-title": "Лучшие рестораны",
@@ -391,6 +400,9 @@ const staticTranslations = {
         "hero-title": "探索塞浦路斯", 
         "hero-desc": "岛上最好的地方，由当地人推荐。",
         "explore-btn": "立即探索",
+        "slider-label": "类别",
+        "slider-prev": "上一类别",
+        "slider-next": "下一类别",
         "categories-title": "我们的类别",
         "card-hotels-title": "最佳酒店",
         "card-restaurants-title": "最佳餐厅",
@@ -1739,6 +1751,12 @@ function setLanguage(lang) {
         }
     });
 
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+        const key = el.getAttribute('data-i18n-aria');
+        const label = staticTranslations[lang] && staticTranslations[lang][key];
+        if (label) el.setAttribute('aria-label', label);
+    });
+
     updateMonthHeading();
     refreshAllData();
 }
@@ -1851,7 +1869,109 @@ document.addEventListener("click", (event) => {
     }
 });
 
+function initHeroSlider() {
+    const root = document.getElementById('hero-slider');
+    if (!root) return;
+
+    const slides = Array.from(root.querySelectorAll('.hero-slide'));
+    const dots = Array.from(root.querySelectorAll('.hero-dot'));
+    const prev = root.querySelector('.hero-prev');
+    const next = root.querySelector('.hero-next');
+    if (!slides.length) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hoverPause = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const DELAY = 5000;
+    let index = Math.max(0, slides.findIndex(slide => slide.classList.contains('is-active')));
+    let timer = null;
+
+    function render(nextIndex) {
+        index = (nextIndex + slides.length) % slides.length;
+        slides.forEach((slide, i) => {
+            const active = i === index;
+            slide.classList.toggle('is-active', active);
+            slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+            slide.toggleAttribute('inert', !active);
+        });
+        dots.forEach((dot, i) => {
+            const active = i === index;
+            dot.classList.toggle('is-active', active);
+            if (active) dot.setAttribute('aria-current', 'true');
+            else dot.removeAttribute('aria-current');
+        });
+    }
+
+    function stop() {
+        if (timer) {
+            clearInterval(timer);
+            timer = null;
+        }
+    }
+
+    function shouldPause() {
+        if (document.hidden) return true;
+        if (hoverPause && root.matches(':hover')) return true;
+        const active = document.activeElement;
+        if (!active || active === document.body || !root.contains(active)) return false;
+        return active.matches(':focus-visible');
+    }
+
+    function sync() {
+        if (reduceMotion || shouldPause()) {
+            stop();
+            return;
+        }
+        if (timer) return;
+        timer = setInterval(() => render(index + 1), DELAY);
+    }
+
+    function userGo(deltaOrIndex, absolute) {
+        render(absolute ? deltaOrIndex : index + deltaOrIndex);
+        stop();
+        sync();
+    }
+
+    prev?.addEventListener('click', () => userGo(-1));
+    next?.addEventListener('click', () => userGo(1));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => userGo(i, true)));
+
+    root.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        userGo(event.key === 'ArrowRight' ? 1 : -1);
+    });
+
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
+    root.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        if (event.target.closest('a, button')) return;
+        tracking = true;
+        startX = event.clientX;
+        startY = event.clientY;
+    });
+    root.addEventListener('pointerup', (event) => {
+        if (!tracking) return;
+        tracking = false;
+        const dx = event.clientX - startX;
+        const dy = event.clientY - startY;
+        if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
+        userGo(dx < 0 ? 1 : -1);
+    });
+    root.addEventListener('pointercancel', () => { tracking = false; });
+
+    ['mouseenter', 'mouseleave', 'focusin', 'focusout'].forEach((name) => {
+        root.addEventListener(name, sync);
+    });
+    document.addEventListener('visibilitychange', sync);
+
+    render(index);
+    sync();
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
+    initHeroSlider();
     getWeather();
     await initAuth();
     const saved = localStorage.getItem('userLang') || 'en';
