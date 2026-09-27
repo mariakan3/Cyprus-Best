@@ -342,5 +342,25 @@
     "lat": 35.0177417,
     "lng": 34.0515821,
     "town": "famagusta"
+  },
+  {
+    "id": "nissibeachresort",
+    "category": "hotels",
+    "image_url": "images/nissibeachresort.jpg?v=hotel2",
+    "phone": "+357 23 72 10 21",
+    "website": "https://nissibeach.com/",
+    "map_link": "https://maps.google.com/?q=34.9890828,33.9729097",
+    "title_en": "Nissi Beach Resort (Ayia Napa)",
+    "desc_en": "Located in the vibrant heart of Ayia Napa, Nissi Beach Resort is set along one of Cyprus's most famous and breathtaking stretches of coastline. Featuring fine white sands, shallow turquoise waters, and a picturesque islet just a short wade away, it offers a legendary tropical paradise experience. Surrounded by lush subtropical gardens, this iconic resort combines relaxed beachside luxury with vibrant energy, making it a must-visit destination on the island.",
+    "title_el": "Nissi Beach Resort (Αγία Νάπα)",
+    "desc_el": "Στην καρδιά της Αγίας Νάπας, το Nissi Beach Resort βρίσκεται κατά μήκος μιας από τις πιο διάσημες και εντυπωσιακές ακτογραμμές της Κύπρου. Διαθέτοντας ψιλή λευκή άμμο, ρηχά τιρκουάζ νερά και ένα γραφικό νησάκι σε κοντινή απόσταση, προσφέρει μια θρυλική, τροπική εμπειρία. Περιτριγυρισμένο από καταπράσινους υποτροπικούς κήπους, αυτό το εμβληματικό θέρετρο συνδυάζει τη χαλαρή παραθαλάσσια πολυτέλεια με τη ζωντανή ενέργεια, καθιστώντας το έναν προορισμό που πρέπει οπωσδήποτε να επισκεφθείτε.",
+    "title_ru": "Nissi Beach Resort (Айя-Напа)",
+    "desc_ru": "Курортный отель Nissi Beach Resort, расположенный в самом сердце Айя-Напы, простирается вдоль одного из самых известных и потрясающих побережий Кипра. Обладая мелким белым песком, мелководной бирюзовой водой и живописным островком, до которого можно легко добраться вброд, он предлагает легендарный тропический отдых. Окруженный пышными субтропическими садами, этот культовый курорт сочетает в себе расслабленную роскошь у моря и оживленную атмосферу, что делает его обязательным местом для посещения на острове.",
+    "title_zh": "尼斯海滩度假村 (Nissi Beach Resort)",
+    "desc_zh": "尼斯海滩度假村 (Nissi Beach Resort) 位于充满活力的圣纳帕 (Ayia Napa) 中心，坐落在塞浦路斯最著名、最迷人的海岸线之一。这里拥有细腻的白沙、浅浅的绿松石般海水以及步行即可到达风景如画的小岛，为您带来传奇般的热带天堂体验。这家标志性的度假村四周环绕着郁郁葱葱的亚热带花园，将轻松的海滨奢华与充满活力的氛围完美结合，是岛上绝对不容错过的目的地。",
+    "is_best_of_month": false,
+    "lat": 34.9890828,
+    "lng": 33.9729097,
+    "town": "famagusta"
   }
 ]
