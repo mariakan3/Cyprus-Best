@@ -63,7 +63,7 @@
     "image_url": "images/primeproperty.jpg?v=work",
     "phone": "+357 25 315300",
     "website": "https://www.prime-property.com/",
-    "map_link": "https://maps.google.com/?q=34.706,33.087",
+    "map_link": "https://maps.google.com/?q=34.701512,33.0908436",
     "title_en": "Prime Property Group",
     "desc_en": "Prime Property Group is a major full-service real estate company in Limassol, delivering high-end coastal towers, beachfront villas, and luxury residential complexes. They provide 360-degree services covering project development, property management, and residency advisory for international buyers.",
     "title_el": "Prime Property Group",
@@ -73,8 +73,8 @@
     "title_zh": "Prime Property Group",
     "desc_zh": "Prime Property Group 是利马索尔一家大型全方位房地产公司，致力于开发高端海岸大楼、海滨别墅和奢华住宅区。他们提供涵盖项目开发、物业管理和居留咨询的一站式服务，深得国际买家青睐。",
     "is_best_of_month": false,
-    "lat": 34.706,
-    "lng": 33.087,
+    "lat": 34.701512,
+    "lng": 33.0908436,
     "town": "limassol"
   },
   {
@@ -101,7 +101,7 @@
     "id": "qualitygroup",
     "category": "realestate",
     "image_url": "images/qualitygroup.jpg?v=work",
-    "website": "https://www.qualitygroup.com.cy/",
+    "website": "https://www.qualitygroupcyprus.com/",
     "map_link": "https://maps.google.com/?q=34.685,33.045",
     "title_en": "Quality Group (Limassol Division)",
     "desc_en": "Recognized across the island, Quality Group brings decades of development prestige to Limassol with visionary boutique apartments, commercial centers, and hospitality-linked residences designed to elevate contemporary urban living.",
@@ -293,5 +293,11 @@
     "lat": 34.9889204,
     "lng": 33.9814395,
     "town": "famagusta"
+  },
+  {
+    "id": "korantina",
+    "category": "realestate",
+    "phone": "+357 26 623536",
+    "website": "https://www.korantinahomes.com/"
   }
 ]
