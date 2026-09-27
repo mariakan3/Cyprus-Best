@@ -106,7 +106,7 @@ insert into public.places (
 (
   'pyxida',
   'restaurants',
-  'images/pyxida.jpg?v=rest2',
+  'images/pyxida.jpg?v=rest3',
   '+357 22 671129',
   'https://www.pyxidafishtavern.com/',
   'https://maps.google.com/?q=35.1698,33.3602',
@@ -148,7 +148,7 @@ insert into public.places (
 (
   'militzis',
   'restaurants',
-  'images/militzis.jpg?v=rest2',
+  'images/militzis.jpg?v=rest3',
   '+357 24 655867',
   'https://militzis.com/',
   'https://maps.google.com/?q=34.9118,33.6379',
