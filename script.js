@@ -1146,7 +1146,7 @@ async function ensureExtraPlaces() {
     const extras = [];
         for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json', 'extra-things.json']) {
         try {
-            const res = await fetch(file + '?v=list18');
+            const res = await fetch(file + '?v=list19');
             if (res.ok) extras.push(...await res.json());
         } catch (err) {
             console.warn(file + ' not loaded', err);
@@ -1175,7 +1175,8 @@ function normalizeTown(place) {
 
 function applyExtraGeo(place) {
     if (!place) return place;
-    const extra = extraPlacesCache.find(item => item.id === place.id);
+    const extra = extraPlacesCache.find(item => item.id === place.id && (!place.category || item.category === place.category))
+        || extraPlacesCache.find(item => item.id === place.id);
     if (extra) {
         if (hasCoords(extra)) {
             place.lat = extra.lat;
