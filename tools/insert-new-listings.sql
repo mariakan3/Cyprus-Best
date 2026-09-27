@@ -22,7 +22,7 @@ insert into public.places (
 (
   'tocayo',
   'restaurants',
-  'images/tocayo.jpg',
+  'images/tocayo.jpg?v=rest2',
   '+357 22 100800',
   'https://tocayo.com.cy/',
   'https://maps.google.com/?q=35.1694,33.3618',
@@ -43,7 +43,7 @@ insert into public.places (
 (
   'dionysusmansion',
   'restaurants',
-  'images/dionysusmansion.jpg',
+  'images/dionysusmansion.jpg?v=rest2',
   '+357 25 222210',
   'https://dionysusmansion.com/',
   'https://maps.google.com/?q=34.6756,33.0448',
@@ -64,7 +64,7 @@ insert into public.places (
 (
   'maqamalsultan',
   'restaurants',
-  'images/maqamalsultan.jpg',
+  'images/maqamalsultan.jpg?v=rest2',
   '+357 24 628282',
   'https://www.maqamalsultan.com/',
   'https://maps.google.com/?q=34.9163,33.6378',
@@ -85,7 +85,7 @@ insert into public.places (
 (
   'glasshouse',
   'restaurants',
-  'images/glasshouse.jpg',
+  'images/glasshouse.jpg?v=rest2',
   '+357 23 724000',
   'https://www.adams.com.cy/',
   'https://maps.google.com/?q=34.9874,33.9597',
@@ -106,7 +106,7 @@ insert into public.places (
 (
   'pyxida',
   'restaurants',
-  'images/pyxida.jpg',
+  'images/pyxida.jpg?v=rest2',
   '+357 22 671129',
   'https://www.pyxidafishtavern.com/',
   'https://maps.google.com/?q=35.1698,33.3602',
@@ -127,7 +127,7 @@ insert into public.places (
 (
   'epsilon',
   'restaurants',
-  'images/epsilon.jpg',
+  'images/epsilon.jpg?v=rest2',
   '+357 25 020200',
   'https://www.limassolmarina.com/dining/epsilon',
   'https://maps.google.com/?q=34.6729,33.0436',
@@ -148,7 +148,7 @@ insert into public.places (
 (
   'militzis',
   'restaurants',
-  'images/militzis.jpg',
+  'images/militzis.jpg?v=rest2',
   '+357 24 655867',
   'https://militzis.com/',
   'https://maps.google.com/?q=34.9118,33.6379',
@@ -169,7 +169,7 @@ insert into public.places (
 (
   'kalamiesrestaurant',
   'restaurants',
-  'images/kalamiesrestaurant.jpg',
+  'images/kalamiesrestaurant.jpg?v=rest2',
   '+357 23 831370',
   'https://www.kalamiesrestaurant.com/',
   'https://maps.google.com/?q=35.0124,34.0582',
