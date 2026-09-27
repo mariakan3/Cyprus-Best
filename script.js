@@ -1613,7 +1613,8 @@ function ensureCategoryMapLayout(listContainer) {
 
     const typeFilters = document.getElementById('myBtnContainer');
     const townFilters = document.getElementById('townFilterContainer');
-    const firstFilter = typeFilters || townFilters;
+    const townBlock = townFilters && townFilters.closest('.filter-block');
+    const firstFilter = typeFilters || townBlock || townFilters;
 
     if (firstFilter && firstFilter.parentNode) {
         firstFilter.parentNode.insertBefore(layout, firstFilter);
@@ -1622,7 +1623,8 @@ function ensureCategoryMapLayout(listContainer) {
     }
 
     if (typeFilters) main.appendChild(typeFilters);
-    if (townFilters) main.appendChild(townFilters);
+    if (townBlock) main.appendChild(townBlock);
+    else if (townFilters) main.appendChild(townFilters);
 
     main.appendChild(listContainer);
     layout.appendChild(main);
