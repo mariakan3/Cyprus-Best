@@ -1,3 +1,5 @@
+delete from public.places where id in ('cyprusmuseum', 'liopetri');
+
 update public.places
 set town = 'famagusta'
 where lower(coalesce(town, '')) in ('ayia_napa', 'protaras', 'paralimni', 'ammochostos');
@@ -543,7 +545,7 @@ insert into public.places (
   'famagusta'
 ),
 (
-  'liopetri',
+  'liopetri-river',
   'things',
   'images/liopetri.jpg',
   null,
@@ -627,7 +629,7 @@ insert into public.places (
   'nicosia'
 ),
 (
-  'cyprusmuseum',
+  'museum-nic',
   'things',
   'images/cyprusmuseum.jpg',
   null,
