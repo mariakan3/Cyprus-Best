@@ -929,18 +929,42 @@ function updateAuthUI() {
     }
 }
 
+async function consumeEmailLink() {
+    const params = new URLSearchParams(window.location.search);
+    const tokenHash = params.get('token_hash');
+    const otpType = params.get('type');
+    const allowed = ['recovery', 'signup', 'email', 'invite', 'magiclink'];
+    if (!tokenHash || !allowed.includes(otpType)) return null;
+
+    const { data, error } = await dbClient.auth.verifyOtp({
+        token_hash: tokenHash,
+        type: otpType
+    });
+    window.history.replaceState({}, document.title, window.location.pathname);
+    return { data, error, otpType };
+}
+
 async function initAuth() {
     if (!dbClient) return;
     injectAuthUI();
 
     const authCallbackType = new URLSearchParams(window.location.hash.replace(/^#/, '')).get('type');
+    const emailLink = await consumeEmailLink();
 
     const { data: { session } } = await dbClient.auth.getSession();
     currentUser = session?.user ?? null;
     updateAuthUI();
     await loadFavoriteIds();
 
-    if (authCallbackType === 'recovery') {
+    if (emailLink) {
+        const recovery = emailLink.otpType === 'recovery';
+        if (emailLink.error || (recovery && !session?.user)) {
+            openAuthModal(recovery ? 'forgot' : 'login');
+            showAuthMessage(t(recovery ? 'auth-reset-link-invalid' : 'auth-error'), 'error');
+        } else if (recovery) {
+            openAuthModal('recovery');
+        }
+    } else if (authCallbackType === 'recovery') {
         if (session?.user) {
             openAuthModal('recovery');
         } else {
@@ -1334,7 +1358,7 @@ async function ensureExtraPlaces() {
     const extras = [];
         for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json', 'extra-things.json']) {
         try {
-            const res = await fetch(file + '?v=list28');
+            const res = await fetch(file + '?v=list29');
             if (res.ok) extras.push(...(await res.json()).filter(place => !isRemovedPlace(place)));
         } catch (err) {
             console.warn(file + ' not loaded', err);
