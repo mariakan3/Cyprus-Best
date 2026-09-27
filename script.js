@@ -1146,7 +1146,7 @@ async function ensureExtraPlaces() {
     const extras = [];
         for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json', 'extra-things.json']) {
         try {
-            const res = await fetch(file + '?v=list20');
+            const res = await fetch(file + '?v=list21');
             if (res.ok) extras.push(...await res.json());
         } catch (err) {
             console.warn(file + ' not loaded', err);
@@ -1175,7 +1175,10 @@ function normalizeTown(place) {
 
 const PLACE_ID_ALIASES = {
     cyprusmuseum: 'museum-nic',
-    liopetri: 'liopetri-river'
+    liopetri: 'liopetri-river',
+    dodekapente: 'nicosia-walk',
+    omodos: 'wine',
+    troodosjeep: 'sunshine'
 };
 
 function canonicalPlaceId(id) {
@@ -1225,11 +1228,15 @@ function applyExtraGeo(place) {
 }
 
 function mergeExtraPlaces(places, categoryName) {
-    const list = [...(places || [])];
+    const list = (places || [])
+        .filter(place => !PLACE_ID_ALIASES[place.id])
+        .map(place => ({ ...place, id: canonicalPlaceId(place.id) }));
+
     extraPlacesCache.forEach(place => {
         if (categoryName && place.category !== categoryName) return;
-        if (list.some(existing => isSameListing(existing, place))) return;
-        list.push({ ...place, id: canonicalPlaceId(place.id) });
+        const extra = { ...place, id: canonicalPlaceId(place.id) };
+        if (list.some(existing => isSameListing(existing, extra))) return;
+        list.push(extra);
     });
 
     const deduped = [];
@@ -1239,11 +1246,9 @@ function mergeExtraPlaces(places, categoryName) {
             deduped.push(place);
             return;
         }
-        const extra = extraPlacesCache.find(item => isSameListing(item, deduped[idx]) || isSameListing(item, place));
+        const extra = extraPlacesCache.find(item => isSameListing({ ...item, id: canonicalPlaceId(item.id) }, deduped[idx]));
         overlayExtraFields(deduped[idx], extra || place);
-        if (PLACE_ID_ALIASES[deduped[idx].id]) {
-            deduped[idx].id = canonicalPlaceId(deduped[idx].id);
-        }
+        deduped[idx].id = canonicalPlaceId(deduped[idx].id);
     });
     return deduped.map(applyExtraGeo);
 }
