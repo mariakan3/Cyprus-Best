@@ -1,4 +1,4 @@
-delete from public.places where id in ('cyprusmuseum', 'liopetri', 'dodekapente', 'omodos', 'troodosjeep');
+delete from public.places where id in ('cyprusmuseum', 'liopetri', 'dodekapente', 'omodos', 'troodosjeep', 'duomo', 'musecafe');
 
 update public.places
 set town = 'famagusta'
@@ -83,27 +83,6 @@ insert into public.places (
   'larnaca'
 ),
 (
-  'duomo',
-  'restaurants',
-  'images/duomo.jpg',
-  '+357 26 930123',
-  'https://www.duomo.com.cy/',
-  'https://maps.google.com/?q=34.7728,32.4079',
-  $duomoen_t$Duomo Ristorante Italiano$duomoen_t$,
-  $duomoen$Located near the Tombs of the Kings in Paphos, Duomo is a highly acclaimed Italian restaurant known for its elegance and exceptional quality. From handmade pastas and wood-fired pizzas to gourmet meat and seafood dishes, this sophisticated venue promises a truly romantic and authentic taste of Italy.$duomoen$,
-  $duomoel_t$Duomo Ristorante Italiano$duomoel_t$,
-  $duomoel$Κοντά στους Τάφους των Βασιλέων στην Πάφο, το Duomo είναι ένα πολυβραβευμένο ιταλικό εστιατόριο γνωστό για την κομψότητα και την εξαιρετική του ποιότητα. Από χειροποίητα ζυμαρικά και πίτσες στον ξυλόφουρνο μέχρι γκουρμέ πιάτα με κρέας και θαλασσινά, αυτός ο εκλεπτυσμένος χώρος υπόσχεται μια πραγματικά ρομαντική και αυθεντική γεύση της Ιταλίας.$duomoel$,
-  $duomoru_t$Duomo Ristorante Italiano$duomoru_t$,
-  $duomoru$Расположенный недалеко от Царских гробниц в Пафосе, Duomo — это высоко оцененный итальянский ресторан, известный своей элегантностью и исключительным качеством. От домашней пасты и пиццы в дровяной печи до изысканных мясных блюд и морепродуктов — это утонченное заведение обещает по-настоящему романтичный и подлинный вкус Италии.$duomoru$,
-  $duomozh_t$Duomo Ristorante Italiano$duomozh_t$,
-  $duomozh$Duomo 位于帕福斯国王陵墓附近，是一家备受赞誉的意大利餐厅，以其优雅和卓越的品质而闻名。从手工意大利面和燃木烤薄饼到美味的肉类和海鲜菜肴，这个精致的场所保证为您带来真正浪漫和正宗的意大利风味。$duomozh$,
-  'fine_dining',
-  false,
-  34.7728,
-  32.4079,
-  'paphos'
-),
-(
   'glasshouse',
   'restaurants',
   'images/glasshouse.jpg',
@@ -186,27 +165,6 @@ insert into public.places (
   34.9118,
   33.6379,
   'larnaca'
-),
-(
-  'musecafe',
-  'restaurants',
-  'images/musecafe.jpg',
-  '+357 26 941227',
-  'https://www.musepaphos.com/',
-  'https://maps.google.com/?q=34.7758,32.4247',
-  $musecafeen_t$Muse Cafe Kitchen Bar$musecafeen_t$,
-  $musecafeen$Perched on a hill in Paphos Old Town, Muse offers one of the most spectacular panoramic sunset views in the city. With a diverse international menu, expertly crafted cocktails, and a stylish open-air terrace, it is the perfect place to dine while overlooking the entire coastal area.$musecafeen$,
-  $musecafeel_t$Muse Cafe Kitchen Bar$musecafeel_t$,
-  $musecafeel$Σκαρφαλωμένο σε έναν λόφο στην Παλιά Πόλη της Πάφου, το Muse προσφέρει μία από τις πιο θεαματικές πανοραμικές θέες του ηλιοβασιλέματος στην πόλη. Με ένα ποικίλο διεθνές μενού, εξαιρετικά κοκτέιλ και μια κομψή υπαίθρια βεράντα, είναι το τέλειο μέρος για φαγητό με θέα όλη την ακτογραμμή.$musecafeel$,
-  $musecaferu_t$Muse Cafe Kitchen Bar$musecaferu_t$,
-  $musecaferu$Расположенный на холме в Старом городе Пафоса, Muse предлагает один из самых захватывающих панорамных видов на закат в городе. Разнообразное международное меню, искусно приготовленные коктейли и стильная открытая терраса делают его идеальным местом для ужина.$musecaferu$,
-  $musecafezh_t$Muse Cafe Kitchen Bar$musecafezh_t$,
-  $musecafezh$Muse 坐落于帕福斯老城区的一座小山上，享有全市最壮观的日落全景之一。它拥有多样化的国际菜单、精心调制的鸡尾酒和时尚的露天露台，是俯瞰整个沿海地区用餐的理想场所。$musecafezh$,
-  'fine_dining',
-  false,
-  34.7758,
-  32.4247,
-  'paphos'
 ),
 (
   'kalamiesrestaurant',
