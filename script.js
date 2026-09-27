@@ -1132,7 +1132,7 @@ let extraPlacesCache = EXTRA_PLACES;
 async function ensureExtraPlaces() {
     if (extraPlacesCache.length > EXTRA_PLACES.length) return extraPlacesCache;
     const extras = [];
-        for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json']) {
+        for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json']) {
         try {
             const res = await fetch(file);
             if (res.ok) extras.push(...await res.json());
