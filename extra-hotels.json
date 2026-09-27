@@ -246,7 +246,7 @@
     "is_best_of_month": false,
     "lat": 34.9883841,
     "lng": 33.9666124,
-    "town": "ayia_napa"
+    "town": "famagusta"
   },
   {
     "id": "grecianbay",
@@ -265,7 +265,7 @@
     "is_best_of_month": false,
     "lat": 34.9851455,
     "lng": 34.0081791,
-    "town": "ayia_napa"
+    "town": "famagusta"
   },
   {
     "id": "amarande",
@@ -284,7 +284,7 @@
     "is_best_of_month": false,
     "lat": 34.9861,
     "lng": 34.013,
-    "town": "ayia_napa"
+    "town": "famagusta"
   },
   {
     "id": "capobay",
@@ -303,7 +303,7 @@
     "is_best_of_month": false,
     "lat": 35.0127161,
     "lng": 34.0569744,
-    "town": "protaras"
+    "town": "famagusta"
   },
   {
     "id": "grecianpark",
@@ -322,7 +322,7 @@
     "is_best_of_month": false,
     "lat": 34.9854314,
     "lng": 34.0680222,
-    "town": "protaras"
+    "town": "famagusta"
   },
   {
     "id": "constantinosthegreat",
@@ -341,6 +341,6 @@
     "is_best_of_month": false,
     "lat": 35.0177417,
     "lng": 34.0515821,
-    "town": "protaras"
+    "town": "famagusta"
   }
 ]
