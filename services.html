@@ -13,10 +13,10 @@
 <body>
 
     <div class="language-bar">
-        <button onclick="setLanguage('el')">ðŸ‡¬ðŸ‡· Î•Î›</button>
-        <button onclick="setLanguage('en')">ðŸ‡¬ðŸ‡§ EN</button>
-        <button onclick="setLanguage('ru')">ðŸ‡·ðŸ‡º RU</button>
-        <button onclick="setLanguage('zh')">ðŸ‡¨ðŸ‡³ CN</button>
+        <button onclick="setLanguage('el')" class="lang-el">ΕΛ</button>
+        <button onclick="setLanguage('en')" class="lang-en">EN</button>
+        <button onclick="setLanguage('ru')" class="lang-ru">RU</button>
+        <button onclick="setLanguage('zh')" class="lang-zh">CN</button>
     </div>
 
 <nav class="navbar">
@@ -52,12 +52,12 @@
 
 <div id="myBtnContainer">
     <button class="filter-btn active" onclick="filterSelection('all')" data-i18n="filter-all">All</button>
-    <button class="filter-btn" onclick="filterSelection('law')" data-i18n="filter-law">âš–ï¸ Law</button>
-    <button class="filter-btn" onclick="filterSelection('medical')" data-i18n="filter-medical">ðŸ¥ Medical</button>
-    <button class="filter-btn" onclick="filterSelection('accounting')" data-i18n="filter-accounting">ðŸ“Š Accounting</button>
-    <button class="filter-btn" onclick="filterSelection('architects')" data-i18n="filter-architects">ðŸ—ï¸ Architects</button>
-    <button class="filter-btn" onclick="filterSelection('flowers')" data-i18n="filter-flowers">ðŸŒ¸ Flowers & Florists</button>
-    <button class="filter-btn" onclick="filterSelection('taxi')" data-i18n="filter-taxi">ðŸš• Taxi</button>
+    <button class="filter-btn" onclick="filterSelection('law')" data-i18n="filter-law">⚖️ Law</button>
+    <button class="filter-btn" onclick="filterSelection('medical')" data-i18n="filter-medical">🏥 Medical</button>
+    <button class="filter-btn" onclick="filterSelection('accounting')" data-i18n="filter-accounting">📊 Accounting</button>
+    <button class="filter-btn" onclick="filterSelection('architects')" data-i18n="filter-architects">🏗️ Architects</button>
+    <button class="filter-btn" onclick="filterSelection('flowers')" data-i18n="filter-flowers">🌸 Flowers & Florists</button>
+    <button class="filter-btn" onclick="filterSelection('taxi')" data-i18n="filter-taxi">🚕 Taxi</button>
     
 </div>
 
@@ -111,15 +111,15 @@
             <h2 id="modal-title">Title</h2>
             
             <div class="modal-info-item">
-                ðŸ“ž <span data-i18n="lbl-phone">Tel:</span> <span id="modal-phone">-</span>
+                📞 <span data-i18n="lbl-phone">Tel:</span> <span id="modal-phone">-</span>
             </div>
             
             <div class="modal-info-item">
-                ðŸŒ <a href="#" id="modal-web" target="_blank">Website</a>
+                🌍 <a href="#" id="modal-web" target="_blank">Website</a>
             </div>
             
             <div class="modal-info-item">
-                ðŸ“ <a href="#" id="modal-map" target="_blank"><span data-i18n="lbl-map">Open Map</span></a>
+                📍 <a href="#" id="modal-map" target="_blank"><span data-i18n="lbl-map">Open Map</span></a>
             </div>
         </div>
     </div>
