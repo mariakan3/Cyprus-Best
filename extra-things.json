@@ -267,7 +267,7 @@
   },
   {
     "is_best_of_month": false,
-    "id": "liopetri",
+    "id": "liopetri-river",
     "category": "things",
     "image_url": "images/liopetri.jpg",
     "title_en": "Liopetri River & Fishing Shelter Visit",
@@ -343,7 +343,7 @@
   },
   {
     "is_best_of_month": false,
-    "id": "cyprusmuseum",
+    "id": "museum-nic",
     "category": "things",
     "image_url": "images/cyprusmuseum.jpg",
     "title_en": "Cyprus Museum Archaeological Exploration",
