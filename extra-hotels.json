@@ -59,8 +59,8 @@
   {
     "id": "ciaostelio",
     "category": "hotels",
-    "image_url": "images/ciaostelio.jpg",
-    "website": "https://www.ciaostelio.com/",
+    "image_url": "images/ciaostelio.jpg?v=hotel2",
+    "website": "https://theciaostelio.com/",
     "map_link": "https://maps.google.com/?q=34.8931297,33.6384064",
     "title_en": "The Ciao Stelio Deluxe Hotel",
     "desc_en": "This elegant, adults-only boutique hotel is located right by the famous Mackenzie Beach, offering sweeping views of the Mediterranean Sea. The Ciao Stelio is renowned for its personalized service, luxurious design, and tranquil, sophisticated atmosphere. Its exquisite dining venue serves gourmet dishes accompanied by a carefully curated wine list, ensuring a memorable culinary journey.",
@@ -78,8 +78,8 @@
   {
     "id": "goldenbay",
     "category": "hotels",
-    "image_url": "images/goldenbay.jpg",
-    "website": "https://www.goldenbay.com.cy/",
+    "image_url": "images/goldenbay.jpg?v=hotel2",
+    "website": "https://goldenbay.com.cy/",
     "map_link": "https://maps.google.com/?q=34.977541,33.6917523",
     "title_en": "Golden Bay Beach Hotel",
     "desc_en": "Set on a sandy stretch of coastline in Larnaca, the Golden Bay Beach Hotel is a prestigious five-star resort perfect for families and couples alike. The property boasts impressive landscaped gardens, sprawling outdoor pools, and a luxurious spa offering holistic treatments. Guests can choose from a variety of excellent restaurants on-site, serving everything from authentic Cypriot meze to refined international cuisine.",
@@ -97,7 +97,7 @@
   {
     "id": "lebay",
     "category": "hotels",
-    "image_url": "images/lebay.jpg",
+    "image_url": "images/lebay.jpg?v=hotel2",
     "phone": "+357 24 205 100",
     "website": "https://lebayhotel.com.cy/",
     "map_link": "https://maps.google.com/?q=34.9637644,33.6626459",
@@ -117,7 +117,7 @@
   {
     "id": "amathus",
     "category": "hotels",
-    "image_url": "images/amathus.jpg",
+    "image_url": "images/amathus.jpg?v=hotel2",
     "website": "https://www.amathuslimassol.com/",
     "map_link": "https://maps.google.com/?q=34.709194,33.1328935",
     "title_en": "Amathus Beach Hotel",
@@ -136,7 +136,7 @@
   {
     "id": "medbeach",
     "category": "hotels",
-    "image_url": "images/medbeach.jpg",
+    "image_url": "images/medbeach.jpg?v=hotel2",
     "website": "https://www.medbeach.com/",
     "map_link": "https://maps.google.com/?q=34.7096008,33.130216",
     "title_en": "Mediterranean Beach Hotel",
@@ -155,7 +155,7 @@
   {
     "id": "royalapollonia",
     "category": "hotels",
-    "image_url": "images/royalapollonia.jpg",
+    "image_url": "images/royalapollonia.jpg?v=hotel2",
     "website": "https://www.louishotels.com/royal-apollonia",
     "map_link": "https://maps.google.com/?q=34.6976215,33.0955127",
     "title_en": "The Royal Apollonia",
@@ -174,7 +174,7 @@
   {
     "id": "annabelle",
     "category": "hotels",
-    "image_url": "images/annabelle.jpg",
+    "image_url": "images/annabelle.jpg?v=hotel2",
     "website": "https://www.annabelle.com.cy/",
     "map_link": "https://maps.google.com/?q=34.7552807,32.4174452",
     "title_en": "Annabelle Hotel",
@@ -212,7 +212,7 @@
   {
     "id": "asimina",
     "category": "hotels",
-    "image_url": "images/asimina.jpg",
+    "image_url": "images/asimina.jpg?v=hotel2",
     "phone": "+357 26 964333",
     "website": "https://www.asimina-cbh.com/",
     "map_link": "https://maps.google.com/?q=34.7392,32.435",
@@ -232,8 +232,8 @@
   {
     "id": "adamsbeach",
     "category": "hotels",
-    "image_url": "images/adamsbeach.jpg",
-    "website": "https://www.adamsbeachhotel.com/",
+    "image_url": "images/adamsbeach.jpg?v=hotel2",
+    "website": "https://www.adams.com.cy/",
     "map_link": "https://maps.google.com/?q=34.9883841,33.9666124",
     "title_en": "Adams Beach Hotel",
     "desc_en": "Sitting right on the golden sands of the famous Nissi Bay, Adams Beach Hotel offers an unbeatable location and a bustling holiday atmosphere. The resort features a fantastic water park with slides, a lazy river, and multiple pools, making it an absolute paradise for families. For those seeking relaxation, the luxurious Coral Spa and an impressive variety of on-site dining options provide the perfect balance.",
@@ -251,7 +251,7 @@
   {
     "id": "grecianbay",
     "category": "hotels",
-    "image_url": "images/grecianbay.jpg",
+    "image_url": "images/grecianbay.jpg?v=hotel2",
     "website": "https://www.grecianbay.com/",
     "map_link": "https://maps.google.com/?q=34.9851455,34.0081791",
     "title_en": "Grecian Bay Hotel",
@@ -270,8 +270,8 @@
   {
     "id": "amarande",
     "category": "hotels",
-    "image_url": "images/amarande.jpg",
-    "website": "https://www.amarande.com/",
+    "image_url": "images/amarande.jpg?v=hotel2",
+    "website": "https://www.amarandehotel.com/",
     "map_link": "https://maps.google.com/?q=34.9861,34.013",
     "title_en": "Amarande (Adults Only)",
     "desc_en": "Positioned in an elevated, tranquil spot just steps from the beach in Ayia Napa, Amarande is a premium adults-only hotel defined by its ultra-modern design and sophisticated vibe. It boasts an expansive outdoor pool deck with stunning sea views and a highly luxurious wellness spa. The hotel takes pride in its fine-dining restaurants, providing guests with innovative gastronomic creations in a highly romantic setting.",
@@ -289,7 +289,7 @@
   {
     "id": "capobay",
     "category": "hotels",
-    "image_url": "images/capobay.jpg",
+    "image_url": "images/capobay.jpg?v=hotel2",
     "website": "https://www.capobay.com/",
     "map_link": "https://maps.google.com/?q=35.0127161,34.0569744",
     "title_en": "Capo Bay Hotel",
@@ -308,7 +308,7 @@
   {
     "id": "grecianpark",
     "category": "hotels",
-    "image_url": "images/grecianpark.jpg",
+    "image_url": "images/grecianpark.jpg?v=hotel2",
     "website": "https://www.grecianpark.com/",
     "map_link": "https://maps.google.com/?q=34.9854314,34.0680222",
     "title_en": "Grecian Park Hotel",
@@ -327,7 +327,7 @@
   {
     "id": "constantinosthegreat",
     "category": "hotels",
-    "image_url": "images/constantinosthegreat.jpg",
+    "image_url": "images/constantinosthegreat.jpg?v=hotel2",
     "website": "https://www.constantinosthegreat.com/",
     "map_link": "https://maps.google.com/?q=35.0177417,34.0515821",
     "title_en": "Constantinos the Great Beach Hotel",
