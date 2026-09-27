@@ -1235,6 +1235,12 @@ section { padding: 2rem 1rem; text-align: center; }
     color: var(--cb-muted);
 }
 
+.auth-form label[hidden],
+.auth-forgot-btn[hidden],
+.auth-switch-btn[hidden] {
+    display: none !important;
+}
+
 .auth-form input {
     padding: 14px 16px;
     border: 1px solid var(--cb-line);
@@ -1283,6 +1289,23 @@ section { padding: 2rem 1rem; text-align: center; }
 .password-toggle:hover {
     color: var(--cb-ink);
     background: rgba(26, 35, 50, 0.05);
+}
+
+.auth-forgot-btn {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    color: var(--cb-teal);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: inherit;
+    font-weight: 500;
+    padding: 0;
+    margin-top: -6px;
+}
+
+.auth-forgot-btn:hover {
+    text-decoration: underline;
 }
 
 .auth-submit-btn {

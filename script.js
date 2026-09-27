@@ -147,8 +147,22 @@ const staticTranslations = {
         "auth-submit-signup": "Δημιουργία λογαριασμού",
         "auth-switch-to-signup": "Δεν έχετε λογαριασμό; Εγγραφή",
         "auth-switch-to-login": "Έχετε ήδη λογαριασμό; Σύνδεση",
-        "auth-check-email": "Ελέγξτε το email σας για επιβεβαίωση.",
+        "auth-check-email": "Σας στείλαμε email επιβεβαίωσης. Ανοίξτε τον σύνδεσμο για να ενεργοποιηθεί ο λογαριασμός.",
         "auth-error": "Κάτι πήγε στραβά. Δοκιμάστε ξανά.",
+        "auth-forgot": "Ξεχάσατε τον κωδικό;",
+        "auth-title-forgot": "Επαναφορά κωδικού",
+        "auth-submit-forgot": "Αποστολή email",
+        "auth-reset-sent": "Σας στείλαμε email με σύνδεσμο για νέο κωδικό.",
+        "auth-back-to-login": "Επιστροφή στη σύνδεση",
+        "auth-title-recovery": "Νέος κωδικός",
+        "auth-new-password": "Νέος κωδικός",
+        "auth-submit-recovery": "Αποθήκευση κωδικού",
+        "auth-password-updated": "Ο κωδικός άλλαξε. Είστε συνδεδεμένοι.",
+        "auth-reset-link-invalid": "Ο σύνδεσμος έληξε ή δεν είναι έγκυρος. Ζητήστε νέο.",
+        "auth-email-not-confirmed": "Επιβεβαιώστε πρώτα το email σας για να συνδεθείτε.",
+        "auth-already-registered": "Υπάρχει ήδη λογαριασμός με αυτό το email.",
+        "auth-resend": "Αποστολή email ξανά",
+        "auth-resend-sent": "Σας στείλαμε ξανά το email επιβεβαίωσης.",
         "nav-favorites": "Αγαπημένα",
         "fav-save": "Αποθήκευση",
         "fav-saved": "Αποθηκευμένο",
@@ -263,8 +277,22 @@ const staticTranslations = {
         "auth-submit-signup": "Create account",
         "auth-switch-to-signup": "No account? Sign up",
         "auth-switch-to-login": "Already have an account? Log in",
-        "auth-check-email": "Check your email to confirm your account.",
+        "auth-check-email": "We sent a confirmation email. Open the link to activate your account.",
         "auth-error": "Something went wrong. Please try again.",
+        "auth-forgot": "Forgot password?",
+        "auth-title-forgot": "Reset password",
+        "auth-submit-forgot": "Send reset email",
+        "auth-reset-sent": "We sent you an email with a link to set a new password.",
+        "auth-back-to-login": "Back to log in",
+        "auth-title-recovery": "New password",
+        "auth-new-password": "New password",
+        "auth-submit-recovery": "Save password",
+        "auth-password-updated": "Your password was updated. You are signed in.",
+        "auth-reset-link-invalid": "This link has expired or is invalid. Request a new one.",
+        "auth-email-not-confirmed": "Confirm your email before logging in.",
+        "auth-already-registered": "An account with this email already exists.",
+        "auth-resend": "Send confirmation again",
+        "auth-resend-sent": "We sent the confirmation email again.",
         "nav-favorites": "Favorites",
         "fav-save": "Save",
         "fav-saved": "Saved",
@@ -379,8 +407,22 @@ const staticTranslations = {
         "auth-submit-signup": "Создать аккаунт",
         "auth-switch-to-signup": "Нет аккаунта? Регистрация",
         "auth-switch-to-login": "Уже есть аккаунт? Войти",
-        "auth-check-email": "Проверьте email для подтверждения.",
+        "auth-check-email": "Мы отправили письмо для подтверждения. Откройте ссылку, чтобы активировать аккаунт.",
         "auth-error": "Что-то пошло не так. Попробуйте снова.",
+        "auth-forgot": "Забыли пароль?",
+        "auth-title-forgot": "Сброс пароля",
+        "auth-submit-forgot": "Отправить письмо",
+        "auth-reset-sent": "Мы отправили письмо со ссылкой для нового пароля.",
+        "auth-back-to-login": "Вернуться ко входу",
+        "auth-title-recovery": "Новый пароль",
+        "auth-new-password": "Новый пароль",
+        "auth-submit-recovery": "Сохранить пароль",
+        "auth-password-updated": "Пароль изменён. Вы вошли в аккаунт.",
+        "auth-reset-link-invalid": "Ссылка недействительна или истекла. Запросите новую.",
+        "auth-email-not-confirmed": "Сначала подтвердите email, чтобы войти.",
+        "auth-already-registered": "Аккаунт с этим email уже существует.",
+        "auth-resend": "Отправить письмо снова",
+        "auth-resend-sent": "Мы снова отправили письмо для подтверждения.",
         "nav-favorites": "Избранное",
         "fav-save": "Сохранить",
         "fav-saved": "Сохранено",
@@ -495,8 +537,22 @@ const staticTranslations = {
         "auth-submit-signup": "创建账户",
         "auth-switch-to-signup": "没有账户？注册",
         "auth-switch-to-login": "已有账户？登录",
-        "auth-check-email": "请查收邮箱以确认账户。",
+        "auth-check-email": "我们已发送确认邮件。请打开链接以激活账户。",
         "auth-error": "出错了，请重试。",
+        "auth-forgot": "忘记密码？",
+        "auth-title-forgot": "重置密码",
+        "auth-submit-forgot": "发送邮件",
+        "auth-reset-sent": "我们已发送邮件，请通过链接设置新密码。",
+        "auth-back-to-login": "返回登录",
+        "auth-title-recovery": "新密码",
+        "auth-new-password": "新密码",
+        "auth-submit-recovery": "保存密码",
+        "auth-password-updated": "密码已更新，您已登录。",
+        "auth-reset-link-invalid": "链接已失效或已过期，请重新申请。",
+        "auth-email-not-confirmed": "请先确认邮箱后再登录。",
+        "auth-already-registered": "该邮箱已注册账户。",
+        "auth-resend": "重新发送确认邮件",
+        "auth-resend-sent": "我们已再次发送确认邮件。",
         "nav-favorites": "收藏",
         "fav-save": "收藏",
         "fav-saved": "已收藏",
@@ -540,12 +596,12 @@ function injectAuthUI() {
             <span class="close-btn" id="auth-close-btn">&times;</span>
             <h2 id="auth-modal-title" data-i18n="auth-title-login">${t('auth-title-login')}</h2>
             <form id="auth-form" class="auth-form">
-                <label for="auth-email">
+                <label for="auth-email" id="auth-email-label">
                     <span data-i18n="auth-email">${t('auth-email')}</span>
                     <input type="email" id="auth-email" name="email" required autocomplete="email">
                 </label>
-                <label for="auth-password">
-                    <span data-i18n="auth-password">${t('auth-password')}</span>
+                <label for="auth-password" id="auth-password-label">
+                    <span id="auth-password-label-text" data-i18n="auth-password">${t('auth-password')}</span>
                     <div class="password-field">
                         <input type="password" id="auth-password" name="password" required minlength="6" autocomplete="current-password">
                         <button type="button" id="auth-password-toggle" class="password-toggle" aria-label="Show password" title="Show password">
@@ -553,9 +609,11 @@ function injectAuthUI() {
                         </button>
                     </div>
                 </label>
+                <button type="button" id="auth-forgot-btn" class="auth-forgot-btn" data-i18n="auth-forgot">${t('auth-forgot')}</button>
                 <button type="submit" id="auth-submit-btn" class="btn auth-submit-btn" data-i18n="auth-submit-login">${t('auth-submit-login')}</button>
             </form>
             <p id="auth-message" class="auth-message" hidden></p>
+            <button type="button" id="auth-resend-btn" class="auth-switch-btn" data-i18n="auth-resend" hidden>${t('auth-resend')}</button>
             <button type="button" id="auth-switch-btn" class="auth-switch-btn" data-i18n="auth-switch-to-signup">${t('auth-switch-to-signup')}</button>
         </div>
     `;
@@ -564,6 +622,8 @@ function injectAuthUI() {
     document.getElementById('auth-nav-btn').addEventListener('click', handleAuthNavClick);
     document.getElementById('auth-close-btn').addEventListener('click', closeAuthModal);
     document.getElementById('auth-switch-btn').addEventListener('click', toggleAuthMode);
+    document.getElementById('auth-forgot-btn').addEventListener('click', showForgotPassword);
+    document.getElementById('auth-resend-btn').addEventListener('click', handleResendConfirmation);
     document.getElementById('auth-form').addEventListener('submit', handleAuthSubmit);
     document.getElementById('auth-password-toggle').addEventListener('click', togglePasswordVisibility);
     modal.addEventListener('click', (e) => {
@@ -601,36 +661,83 @@ function closeAuthModal() {
     clearAuthMessage();
 }
 
+function authRedirectUrl() {
+    const url = new URL('index.html', window.location.href);
+    url.search = '';
+    url.hash = '';
+    return url.href;
+}
+
+function setAuthText(el, key) {
+    if (!el) return;
+    el.setAttribute('data-i18n', key);
+    el.innerText = t(key);
+}
+
+function setResendVisible(visible) {
+    const btn = document.getElementById('auth-resend-btn');
+    if (btn) btn.hidden = !visible;
+}
+
 function setAuthMode(mode) {
+    const modal = document.getElementById('authModal');
+    if (modal) modal.dataset.mode = mode;
+
     const isSignup = mode === 'signup';
+    const isForgot = mode === 'forgot';
+    const isRecovery = mode === 'recovery';
     const title = document.getElementById('auth-modal-title');
     const submit = document.getElementById('auth-submit-btn');
     const switchBtn = document.getElementById('auth-switch-btn');
     const password = document.getElementById('auth-password');
+    const passwordLabel = document.getElementById('auth-password-label');
+    const passwordLabelText = document.getElementById('auth-password-label-text');
+    const emailLabel = document.getElementById('auth-email-label');
+    const email = document.getElementById('auth-email');
+    const forgotBtn = document.getElementById('auth-forgot-btn');
 
-    if (title) {
-        title.setAttribute('data-i18n', isSignup ? 'auth-title-signup' : 'auth-title-login');
-        title.innerText = t(isSignup ? 'auth-title-signup' : 'auth-title-login');
-    }
-    if (submit) {
-        submit.setAttribute('data-i18n', isSignup ? 'auth-submit-signup' : 'auth-submit-login');
-        submit.innerText = t(isSignup ? 'auth-submit-signup' : 'auth-submit-login');
-    }
-    if (switchBtn) {
-        switchBtn.setAttribute('data-i18n', isSignup ? 'auth-switch-to-login' : 'auth-switch-to-signup');
-        switchBtn.innerText = t(isSignup ? 'auth-switch-to-login' : 'auth-switch-to-signup');
+    const titleKey = isRecovery ? 'auth-title-recovery'
+        : isForgot ? 'auth-title-forgot'
+        : isSignup ? 'auth-title-signup'
+        : 'auth-title-login';
+    const submitKey = isRecovery ? 'auth-submit-recovery'
+        : isForgot ? 'auth-submit-forgot'
+        : isSignup ? 'auth-submit-signup'
+        : 'auth-submit-login';
+    const switchKey = (isForgot || isRecovery) ? 'auth-back-to-login'
+        : isSignup ? 'auth-switch-to-login'
+        : 'auth-switch-to-signup';
+
+    setAuthText(title, titleKey);
+    setAuthText(submit, submitKey);
+    setAuthText(switchBtn, switchKey);
+    setAuthText(passwordLabelText, isRecovery ? 'auth-new-password' : 'auth-password');
+
+    if (emailLabel) emailLabel.hidden = isRecovery;
+    if (passwordLabel) passwordLabel.hidden = isForgot;
+    if (forgotBtn) forgotBtn.hidden = mode !== 'login';
+    if (email) {
+        email.required = !isRecovery;
+        email.disabled = isRecovery;
     }
     if (password) {
-        password.autocomplete = isSignup ? 'new-password' : 'current-password';
+        password.required = !isForgot;
+        password.disabled = isForgot;
+        password.autocomplete = (isSignup || isRecovery) ? 'new-password' : 'current-password';
     }
+    setResendVisible(false);
 }
 
 function toggleAuthMode() {
     const modal = document.getElementById('authModal');
     if (!modal) return;
-    const next = modal.dataset.mode === 'signup' ? 'login' : 'signup';
-    modal.dataset.mode = next;
+    const next = modal.dataset.mode === 'login' ? 'signup' : 'login';
     setAuthMode(next);
+    clearAuthMessage();
+}
+
+function showForgotPassword() {
+    setAuthMode('forgot');
     clearAuthMessage();
 }
 
@@ -672,6 +779,24 @@ async function handleAuthNavClick() {
     openAuthModal('login');
 }
 
+function isEmailNotConfirmed(err) {
+    const code = err?.code || '';
+    const msg = (err?.message || '').toLowerCase();
+    return code === 'email_not_confirmed' || msg.includes('email not confirmed');
+}
+
+function isAlreadyRegistered(err) {
+    const code = err?.code || '';
+    const msg = (err?.message || '').toLowerCase();
+    return code === 'user_already_exists' || msg.includes('already registered') || msg.includes('already been registered');
+}
+
+function authErrorMessage(err) {
+    if (isEmailNotConfirmed(err)) return t('auth-email-not-confirmed');
+    if (isAlreadyRegistered(err)) return t('auth-already-registered');
+    return err?.message || t('auth-error');
+}
+
 async function handleAuthSubmit(e) {
     e.preventDefault();
     if (!dbClient) return;
@@ -684,25 +809,53 @@ async function handleAuthSubmit(e) {
 
     if (submitBtn) submitBtn.disabled = true;
     clearAuthMessage();
+    setResendVisible(false);
 
     try {
-        if (mode === 'signup') {
+        if (mode === 'forgot') {
+            const { error } = await dbClient.auth.resetPasswordForEmail(email, {
+                redirectTo: authRedirectUrl()
+            });
+            if (error) throw error;
+            showAuthMessage(t('auth-reset-sent'), 'success');
+        } else if (mode === 'recovery') {
+            const { error } = await dbClient.auth.updateUser({ password });
+            if (error) throw error;
+            showAuthMessage(t('auth-password-updated'), 'success');
+            updateAuthUI();
+        } else if (mode === 'signup') {
             const { data, error } = await dbClient.auth.signUp({
                 email,
                 password,
                 options: {
-                    emailRedirectTo: `${window.location.origin}/index.html`
+                    emailRedirectTo: authRedirectUrl()
                 }
             });
             if (error) throw error;
 
-            if (data.session) {
+            const alreadyExists = data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0;
+            if (alreadyExists) {
+                showAuthMessage(t('auth-already-registered'), 'error');
+                return;
+            }
+
+            const confirmed = Boolean(data.user?.email_confirmed_at);
+            if (data.session && confirmed) {
                 currentUser = data.user;
                 updateAuthUI();
                 closeAuthModal();
-            } else {
-                showAuthMessage(t('auth-check-email'), 'success');
+                return;
             }
+
+            if (data.session) {
+                await dbClient.auth.signOut();
+                currentUser = null;
+                updateAuthUI();
+            }
+            const passwordInput = document.getElementById('auth-password');
+            if (passwordInput) passwordInput.value = '';
+            showAuthMessage(t('auth-check-email'), 'success');
+            setResendVisible(true);
         } else {
             const { data, error } = await dbClient.auth.signInWithPassword({ email, password });
             if (error) throw error;
@@ -711,9 +864,33 @@ async function handleAuthSubmit(e) {
             closeAuthModal();
         }
     } catch (err) {
-        showAuthMessage(err.message || t('auth-error'), 'error');
+        showAuthMessage(authErrorMessage(err), 'error');
+        if (isEmailNotConfirmed(err)) setResendVisible(true);
     } finally {
         if (submitBtn) submitBtn.disabled = false;
+    }
+}
+
+async function handleResendConfirmation() {
+    if (!dbClient) return;
+    const email = document.getElementById('auth-email').value.trim();
+    const btn = document.getElementById('auth-resend-btn');
+    if (!email) return;
+
+    if (btn) btn.disabled = true;
+    clearAuthMessage();
+    try {
+        const { error } = await dbClient.auth.resend({
+            type: 'signup',
+            email,
+            options: { emailRedirectTo: authRedirectUrl() }
+        });
+        if (error) throw error;
+        showAuthMessage(t('auth-resend-sent'), 'success');
+    } catch (err) {
+        showAuthMessage(authErrorMessage(err), 'error');
+    } finally {
+        if (btn) btn.disabled = false;
     }
 }
 
@@ -756,12 +933,23 @@ async function initAuth() {
     if (!dbClient) return;
     injectAuthUI();
 
+    const authCallbackType = new URLSearchParams(window.location.hash.replace(/^#/, '')).get('type');
+
     const { data: { session } } = await dbClient.auth.getSession();
     currentUser = session?.user ?? null;
     updateAuthUI();
     await loadFavoriteIds();
 
-    // Clean auth tokens from the URL after email confirmation / magic link
+    if (authCallbackType === 'recovery') {
+        if (session?.user) {
+            openAuthModal('recovery');
+        } else {
+            openAuthModal('forgot');
+            showAuthMessage(t('auth-reset-link-invalid'), 'error');
+        }
+    }
+
+    // Clean auth tokens from the URL after email confirmation / password recovery
     if (window.location.hash && /access_token|refresh_token|type=/.test(window.location.hash)) {
         window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
     }
