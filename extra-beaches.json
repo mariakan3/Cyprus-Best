@@ -87,7 +87,7 @@
     "is_best_of_month": false,
     "lat": 34.9878895,
     "lng": 33.9589964,
-    "town": "ayia_napa"
+    "town": "famagusta"
   },
   {
     "id": "ayiathekla",
@@ -105,7 +105,7 @@
     "is_best_of_month": false,
     "lat": 34.9788373,
     "lng": 33.9348815,
-    "town": "ayia_napa"
+    "town": "famagusta"
   },
   {
     "id": "pantachou",
@@ -123,7 +123,7 @@
     "is_best_of_month": false,
     "lat": 34.9825,
     "lng": 34.0048,
-    "town": "ayia_napa"
+    "town": "famagusta"
   },
   {
     "id": "vathiagonia",
@@ -141,7 +141,7 @@
     "is_best_of_month": false,
     "lat": 34.986748,
     "lng": 33.9802124,
-    "town": "ayia_napa"
+    "town": "famagusta"
   },
   {
     "id": "sunrise",
@@ -159,7 +159,7 @@
     "is_best_of_month": false,
     "lat": 35.0182515,
     "lng": 34.0527365,
-    "town": "protaras"
+    "town": "famagusta"
   },
   {
     "id": "sirena",
@@ -177,7 +177,7 @@
     "is_best_of_month": false,
     "lat": 35.041582,
     "lng": 34.0330156,
-    "town": "protaras"
+    "town": "famagusta"
   },
   {
     "id": "greenbay",
@@ -195,7 +195,7 @@
     "is_best_of_month": false,
     "lat": 34.9996112,
     "lng": 34.0665827,
-    "town": "protaras"
+    "town": "famagusta"
   },
   {
     "id": "kalamies",
@@ -213,7 +213,7 @@
     "is_best_of_month": false,
     "lat": 35.036749,
     "lng": 34.037715,
-    "town": "protaras"
+    "town": "famagusta"
   },
   {
     "id": "ladiesmile",
@@ -358,5 +358,23 @@
     "lat": 34.9794241,
     "lng": 33.704157,
     "town": "larnaca"
+  },
+  {
+    "is_best_of_month": false,
+    "id": "bluelagoon",
+    "category": "beaches",
+    "image_url": "images/bluelagoon.jpg",
+    "title_en": "Blue Lagoon",
+    "desc_en": "Located on the stunning Akamas Peninsula, the Blue Lagoon is the crown jewel of Paphos and one of the most breathtaking natural spots in Cyprus. Famous for its crystal-clear, shallow turquoise waters, it offers a magical setting for swimming and snorkeling. Accessible primarily by boat trips departing from the picturesque Latchi harbor or via rugged off-road routes, this pristine bay promises an unforgettable Mediterranean escape.",
+    "title_el": "Γαλάζια Λίμνη (Blue Lagoon)",
+    "desc_el": "Βρίσκεται στη μαγευτική χερσόνησο του Ακάμα, η Γαλάζια Λίμνη (Blue Lagoon) είναι το απόλυτο στολίδι της Πάφου και ένα από τα πιο εντυπωσιακά φυσικά σημεία στην Κύπρο. Φημισμένη για τα κρυστάλλινα, ρηχά τιρκουάζ νερά της, προσφέρει ένα μαγευτικό σκηνικό για κολύμπι και εξερεύνηση με μάσκα. Με προσβασιμότητα κυρίως μέσω εκδρομών με σκάφος από το γραφικό λιμανάκι στο Λατσί ή μέσω χωματόδρομων, αυτός ο παρθένος κόλπος υπόσχεται μια αξέχαστη μεσογειακή απόδραση.",
+    "title_ru": "Голубая лагуна (Blue Lagoon)",
+    "desc_ru": "Расположенная на потрясающем полуострове Акамас, Голубая лагуна является жемчужиной Пафоса и одним из самых захватывающих природных мест на Кипре. Известная своими кристально чистыми мелководными бирюзовыми водами, она предлагает волшебную обстановку для плавания и сноркелинга. Добраться сюда можно преимущественно на лодках из живописной гавани Лачи или по грунтовым дорогам, и этот первозданный залив обещает незабываемый средиземноморский отдых.",
+    "title_zh": "蓝礁湖 (Blue Lagoon)",
+    "desc_zh": "蓝礁湖 (Blue Lagoon) 位于迷人的阿卡马斯半岛 (Akamas Peninsula)，是帕福斯皇冠上的明珠，也是塞浦路斯最令人叹为观止的自然景点之一。这里以清澈见底的浅海绿松石色海水而闻名，为游泳和浮潜提供了神奇的环境。主要通过从风景如画的拉奇 (Latchi) 港口出发的游船或越野路线到达，这片原始的海湾保证为您带来难忘的地中海度假体验。",
+    "lat": 35.0772,
+    "lng": 32.3164,
+    "town": "paphos",
+    "map_link": "https://maps.google.com/?q=35.0772,32.3164"
   }
 ]
