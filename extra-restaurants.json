@@ -2,7 +2,7 @@
   {
     "id": "zephyros",
     "category": "restaurants",
-    "image_url": "images/zephyros.jpg",
+    "image_url": "images/zephyros.jpg?v=rest3",
     "phone": "+357 24 657198",
     "website": "https://www.facebook.com/ZephyrosBeachTavern",
     "map_link": "https://maps.google.com/?q=34.899682,33.6382862",
@@ -23,7 +23,7 @@
   {
     "id": "columbia",
     "category": "restaurants",
-    "image_url": "images/columbia.jpg",
+    "image_url": "images/columbia.jpg?v=rest3",
     "phone": "+357 25 278000",
     "website": "https://columbiavenuecentre.com/",
     "map_link": "https://maps.google.com/?q=34.6771193,33.0479537",
@@ -44,7 +44,7 @@
   {
     "id": "beba",
     "category": "restaurants",
-    "image_url": "images/beba.jpg",
+    "image_url": "images/beba.jpg?v=rest3",
     "phone": "+357 22 252626",
     "website": null,
     "map_link": "https://maps.google.com/?q=35.1688429,33.3697502",
@@ -86,7 +86,7 @@
   {
     "id": "ouzeri",
     "category": "restaurants",
-    "image_url": "images/ouzeri.jpg",
+    "image_url": "images/ouzeri.jpg?v=rest3",
     "phone": "+357 26 888700",
     "website": "https://www.almyra.com/dine/ouzeri-restaurant",
     "map_link": "https://maps.google.com/?q=34.7541191,32.4189117",
@@ -192,7 +192,7 @@
     "is_best_of_month": false,
     "id": "pyxida",
     "category": "restaurants",
-    "image_url": "images/pyxida.jpg?v=rest2",
+    "image_url": "images/pyxida.jpg?v=rest3",
     "phone": "+357 22 671129",
     "website": "https://www.pyxidafishtavern.com/",
     "title_en": "Pyxida Fish Tavern",
@@ -234,7 +234,7 @@
     "is_best_of_month": false,
     "id": "militzis",
     "category": "restaurants",
-    "image_url": "images/militzis.jpg?v=rest2",
+    "image_url": "images/militzis.jpg?v=rest3",
     "phone": "+357 24 655867",
     "website": "https://militzis.com/",
     "title_en": "Militzis Traditional Tavern",
