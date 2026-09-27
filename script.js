@@ -922,7 +922,7 @@ function renderPlaceCard(place, { show = true } = {}) {
     let finalUrl = resolvePlaceImage(place.image_url);
 
     const subCat = place.subcategory ? String(place.subcategory) : "";
-    const town = place.town ? String(place.town) : "";
+    const town = normalizeTown(place);
     const subCatClass = subCat ? escapeHtml(subCat) : "";
     const townClass = town ? `town-${escapeHtml(town)}` : "";
     const showClass = show ? "show" : "";
@@ -1144,9 +1144,9 @@ let extraPlacesCache = EXTRA_PLACES;
 async function ensureExtraPlaces() {
     if (extraPlacesCache.length > EXTRA_PLACES.length) return extraPlacesCache;
     const extras = [];
-        for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json']) {
+        for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json', 'extra-things.json']) {
         try {
-            const res = await fetch(file + '?v=re16');
+            const res = await fetch(file + '?v=list18');
             if (res.ok) extras.push(...await res.json());
         } catch (err) {
             console.warn(file + ' not loaded', err);
@@ -1156,18 +1156,37 @@ async function ensureExtraPlaces() {
     return extraPlacesCache;
 }
 
+function normalizeTown(place) {
+    let town = place && place.town ? String(place.town).trim().toLowerCase() : '';
+    if (town === 'ayia_napa' || town === 'protaras' || town === 'paralimni' || town === 'ammochostos') {
+        return 'famagusta';
+    }
+    if (town && town !== 'other') return town;
+
+    const lat = Number(place && place.lat);
+    const lng = Number(place && place.lng);
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) return '';
+    if (lng >= 33.75) return 'famagusta';
+    if (lat >= 35.05 && lng >= 33.15 && lng < 33.55) return 'nicosia';
+    if (lng < 32.72) return 'paphos';
+    if (lng < 33.25) return 'limassol';
+    return 'larnaca';
+}
+
 function applyExtraGeo(place) {
     if (!place) return place;
     const extra = extraPlacesCache.find(item => item.id === place.id);
-    if (!extra) return place;
-    if (hasCoords(extra)) {
-        place.lat = extra.lat;
-        place.lng = extra.lng;
+    if (extra) {
+        if (hasCoords(extra)) {
+            place.lat = extra.lat;
+            place.lng = extra.lng;
+        }
+        if (extra.map_link) place.map_link = extra.map_link;
+        ['title_en', 'title_el', 'title_ru', 'title_zh', 'desc_en', 'desc_el', 'desc_ru', 'desc_zh', 'image_url', 'phone', 'website', 'subcategory', 'town'].forEach((key) => {
+            if (extra[key]) place[key] = extra[key];
+        });
     }
-    if (extra.map_link) place.map_link = extra.map_link;
-    ['title_en', 'title_el', 'title_ru', 'title_zh', 'desc_en', 'desc_el', 'desc_ru', 'desc_zh', 'image_url', 'phone', 'website', 'subcategory', 'town'].forEach((key) => {
-        if (extra[key]) place[key] = extra[key];
-    });
+    place.town = normalizeTown(place);
     return place;
 }
 
