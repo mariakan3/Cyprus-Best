@@ -1099,7 +1099,7 @@ async function loadFavoritesPage() {
         return;
     }
 
-    const places = (data || []).map(row => row.places).filter(Boolean);
+    const places = (data || []).map(row => row.places).filter(place => place && !isRemovedPlace(place));
     favoritePlaceIds = new Set((data || []).map(row => row.place_id));
 
     if (places.length === 0) {
@@ -1146,7 +1146,7 @@ async function ensureExtraPlaces() {
     const extras = [];
         for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json', 'extra-things.json']) {
         try {
-            const res = await fetch(file + '?v=list21');
+            const res = await fetch(file + '?v=list22');
             if (res.ok) extras.push(...await res.json());
         } catch (err) {
             console.warn(file + ' not loaded', err);
@@ -1180,6 +1180,13 @@ const PLACE_ID_ALIASES = {
     omodos: 'wine',
     troodosjeep: 'sunshine'
 };
+
+const REMOVED_PLACE_IDS = new Set(['duomo', 'musecafe']);
+
+function isRemovedPlace(placeOrId) {
+    const id = typeof placeOrId === 'string' ? placeOrId : (placeOrId && placeOrId.id);
+    return REMOVED_PLACE_IDS.has(id);
+}
 
 function canonicalPlaceId(id) {
     return PLACE_ID_ALIASES[id] || id;
@@ -1229,10 +1236,11 @@ function applyExtraGeo(place) {
 
 function mergeExtraPlaces(places, categoryName) {
     const list = (places || [])
-        .filter(place => !PLACE_ID_ALIASES[place.id])
+        .filter(place => !PLACE_ID_ALIASES[place.id] && !isRemovedPlace(place))
         .map(place => ({ ...place, id: canonicalPlaceId(place.id) }));
 
     extraPlacesCache.forEach(place => {
+        if (isRemovedPlace(place)) return;
         if (categoryName && place.category !== categoryName) return;
         const extra = { ...place, id: canonicalPlaceId(place.id) };
         if (list.some(existing => isSameListing(existing, extra))) return;
@@ -1695,7 +1703,7 @@ async function loadBestOfMonth() {
     if (error || !items) return;
 
     container.innerHTML = '';
-    items.forEach(place => {
+    items.filter(place => !isRemovedPlace(place)).forEach(place => {
         const title = place[`title_${currentLang}`] || place.title_en;
         const desc = place[`desc_${currentLang}`] || place.desc_en; // Διορθώθηκε το ID
         
@@ -1723,6 +1731,7 @@ async function loadBestOfMonth() {
 async function loadFullDetails(id) {
     if (!dbClient) return;
     id = id || getPlaceIdFromUrl();
+    if (isRemovedPlace(id)) id = '';
     if (!id) {
         const content = document.querySelector('.details-content');
         const header = document.getElementById('details-header');
