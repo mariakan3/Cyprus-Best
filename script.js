@@ -1146,7 +1146,7 @@ async function ensureExtraPlaces() {
     const extras = [];
         for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json']) {
         try {
-            const res = await fetch(file);
+            const res = await fetch(file + '?v=re16');
             if (res.ok) extras.push(...await res.json());
         } catch (err) {
             console.warn(file + ' not loaded', err);
