@@ -378,5 +378,15 @@
     "lng": 33.3686,
     "town": "nicosia",
     "map_link": "https://maps.google.com/?q=35.1743,33.3686"
+  },
+  {
+    "id": "kourion-site",
+    "category": "things",
+    "website": "https://www.gov.cy/culture/"
+  },
+  {
+    "id": "nea-paphos-site",
+    "category": "things",
+    "website": "https://www.gov.cy/culture/"
   }
 ]
