@@ -29,7 +29,7 @@ insert into public.places (
   'restaurants',
   'images/columbia.jpg?v=rest3',
   '+357 25 278000',
-  'https://columbiavenuecentre.com/',
+  'https://columbia-steakhouse.com/',
   'https://maps.google.com/?q=34.6771193,33.0479537',
   $columbiaen_t$Columbia Steak House$columbiaen_t$,
   $columbiaen$Situated in the heart of Limassol, Columbia Steak House is the ultimate destination for meat lovers. Offering an elegant, cosmopolitan setting, it specializes in premium USDA and Black Angus steaks perfectly cooked to order, complemented by an impressive wine cellar and world-class service.$columbiaen$,
