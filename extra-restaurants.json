@@ -25,7 +25,7 @@
     "category": "restaurants",
     "image_url": "images/columbia.jpg?v=rest3",
     "phone": "+357 25 278000",
-    "website": "https://columbiavenuecentre.com/",
+    "website": "https://columbia-steakhouse.com/",
     "map_link": "https://maps.google.com/?q=34.6771193,33.0479537",
     "title_en": "Columbia Steak House",
     "desc_en": "Situated in the heart of Limassol, Columbia Steak House is the ultimate destination for meat lovers. Offering an elegant, cosmopolitan setting, it specializes in premium USDA and Black Angus steaks perfectly cooked to order, complemented by an impressive wine cellar and world-class service.",
@@ -109,8 +109,8 @@
     "id": "tocayo",
     "category": "restaurants",
     "image_url": "images/tocayo.jpg?v=rest2",
-    "phone": "+357 22 100800",
-    "website": "https://tocayo.com.cy/",
+    "phone": "+357 70 088089",
+    "website": "https://www.cesorogroup.com/tocayo",
     "title_en": "Tocayo",
     "desc_en": "Located in the heart of Nicosia, Tocayo offers a chic, minimalist setting and an innovative Asian fusion menu. Known for its exquisite tapas-style dishes, creative cocktails, and vibrant atmosphere, it is the perfect spot for a sophisticated night out in the capital.",
     "title_el": "Tocayo",
@@ -120,10 +120,10 @@
     "title_zh": "Tocayo",
     "desc_zh": "Tocayo 位于尼科西亚市中心，提供别致、极简的环境和创新的亚洲融合菜单。这里以其精致的塔帕斯风格菜肴、创意鸡尾酒和充满活力的氛围而闻名，是首都享受精致夜晚的完美去处。",
     "subcategory": "asian",
-    "lat": 35.1694,
-    "lng": 33.3618,
+    "lat": 35.1658749,
+    "lng": 33.3585217,
     "town": "nicosia",
-    "map_link": "https://maps.google.com/?q=35.1694,33.3618"
+    "map_link": "https://maps.google.com/?q=35.1658749,33.3585217"
   },
   {
     "is_best_of_month": false,
@@ -172,7 +172,7 @@
     "id": "glasshouse",
     "category": "restaurants",
     "image_url": "images/glasshouse.jpg?v=rest2",
-    "phone": "+357 23 724000",
+    "phone": "+357 23 840000",
     "website": "https://www.adams.com.cy/",
     "title_en": "Glasshouse Lounge Restaurant",
     "desc_en": "Perched on the top floor of the Adams Beach Hotel in Ayia Napa, the Glasshouse Lounge offers a spectacular fine-dining experience with panoramic views of Nissi Bay. With its striking glass-themed décor and an innovative international menu, it is the ultimate destination for special occasions and luxury sunset dinners.",
@@ -183,10 +183,10 @@
     "title_zh": "Glasshouse Lounge Restaurant",
     "desc_zh": "Glasshouse Lounge 坐落于圣纳帕 (Ayia Napa) 亚当斯海滩酒店 (Adams Beach Hotel) 的顶层，提供壮观的高级餐饮体验，可欣赏尼斯湾 (Nissi Bay) 的全景。凭借其引人注目的玻璃主题装饰和创新的国际菜单，它是举办特殊场合和豪华日落晚餐的终极目的地。",
     "subcategory": "fine_dining",
-    "lat": 34.9874,
-    "lng": 33.9597,
+    "lat": 34.9883841,
+    "lng": 33.9666124,
     "town": "famagusta",
-    "map_link": "https://maps.google.com/?q=34.9874,33.9597"
+    "map_link": "https://maps.google.com/?q=34.9883841,33.9666124"
   },
   {
     "is_best_of_month": false,
@@ -214,8 +214,8 @@
     "id": "epsilon",
     "category": "restaurants",
     "image_url": "images/epsilon.jpg?v=rest2",
-    "phone": "+357 25 020200",
-    "website": "https://www.limassolmarina.com/dining/epsilon",
+    "phone": "+357 25 051393",
+    "website": "http://www.pns.com.cy/en/tastefulmiracles/epsilon-resto-bar",
     "title_en": "Epsilon Resto Bar",
     "desc_en": "Situated in the luxurious Limassol Marina, Epsilon Resto Bar offers a chic dining experience with mesmerizing views of the Mediterranean. Its modern menu features creative international dishes, premium sushi, and signature cocktails, making it a hotspot for trendy and sophisticated dining.",
     "title_el": "Epsilon Resto Bar",
@@ -225,10 +225,10 @@
     "title_zh": "Epsilon Resto Bar",
     "desc_zh": "Epsilon Resto Bar 位于豪华的利马索尔码头，提供别致的用餐体验，可欣赏地中海的迷人景色。其现代菜单以创意的国际菜肴、优质寿司和招牌鸡尾酒为特色，使其成为时尚精致餐饮的热门地点。",
     "subcategory": "asian",
-    "lat": 34.6729,
-    "lng": 33.0436,
+    "lat": 34.6698798,
+    "lng": 33.039005,
     "town": "limassol",
-    "map_link": "https://maps.google.com/?q=34.6729,33.0436"
+    "map_link": "https://maps.google.com/?q=34.6698798,33.039005"
   },
   {
     "is_best_of_month": false,
@@ -267,9 +267,9 @@
     "title_zh": "Kalamies Restaurant",
     "desc_zh": "Kalamies 是一家标志性的海滨餐厅，位于普罗塔拉斯风景如画的沙滩海湾，紧邻一座迷人的白顶小教堂。自 1976 年以来，这里一直以其卓越的新鲜海鲜、地中海风味和水边的浪漫氛围而令客人流连忘返。",
     "subcategory": "traditional",
-    "lat": 35.0124,
-    "lng": 34.0582,
+    "lat": 35.0354122,
+    "lng": 34.0385835,
     "town": "famagusta",
-    "map_link": "https://maps.google.com/?q=35.0124,34.0582"
+    "map_link": "https://maps.google.com/?q=35.0354122,34.0385835"
   }
 ]
