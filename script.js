@@ -2058,7 +2058,7 @@ async function ensureExtraPlaces() {
     const extras = [];
         for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json', 'extra-things.json']) {
         try {
-            const res = await fetch(file + '?v=list29');
+            const res = await fetch(file + '?v=list30');
             if (res.ok) extras.push(...(await res.json()).filter(place => !isRemovedPlace(place)));
         } catch (err) {
             console.warn(file + ' not loaded', err);
@@ -2093,7 +2093,7 @@ const PLACE_ID_ALIASES = {
     troodosjeep: 'sunshine'
 };
 
-const REMOVED_PLACE_IDS = new Set(['duomo', 'musecafe']);
+const REMOVED_PLACE_IDS = new Set(['duomo', 'musecafe', 'karmadevelopers', 'giovanihomes', 'medousa', 'medusa']);
 
 function isRemovedPlace(placeOrId) {
     const id = typeof placeOrId === 'string' ? placeOrId : (placeOrId && placeOrId.id);

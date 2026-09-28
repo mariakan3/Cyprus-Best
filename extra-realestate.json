@@ -175,26 +175,6 @@
     "town": "larnaca"
   },
   {
-    "id": "karmadevelopers",
-    "category": "realestate",
-    "image_url": "images/karmadevelopers.jpg?v=work",
-    "phone": "+357 23 730777",
-    "website": "https://karmadevelopers.com/",
-    "map_link": "https://maps.google.com/?q=34.756,32.4165",
-    "title_en": "Karma Developers",
-    "desc_en": "Karma Developers stands out for creating elegant boutique residences, coastal villas, and bespoke homes in Paphos and Polis Chrysochous, balancing serene Mediterranean lifestyles with cutting-edge architectural finishes.",
-    "title_el": "Karma Developers",
-    "desc_el": "Η Karma Developers ξεχωρίζει για τη δημιουργία κομψών boutique κατοικιών, παραθαλάσσιων βιλών και εξατομικευμένων σπιτιών στην Πάφο και την Πόλη Χρυσοχούς, συνδυάζοντας τη μεσογειακή γαλήνη με άρτια αρχιτεκτονική.",
-    "title_ru": "Karma Developers",
-    "desc_ru": "Karma Developers выделяется созданием элегантных бутик-резиденций, прибрежных вилл и домов по индивидуальным проектам в Пафосе и Полисе, гармонично сочетая средиземноморский уют с современной архитектурой.",
-    "title_zh": "Karma Developers",
-    "desc_zh": "Karma Developers 在帕福斯和波利斯 (Polis Chrysochous) 打造优雅的精品住宅、海岸别墅和定制房产，将静谧的地中海生活方式与尖端建筑工艺完美结合。",
-    "is_best_of_month": false,
-    "lat": 34.756,
-    "lng": 32.4165,
-    "town": "paphos"
-  },
-  {
     "id": "domenica",
     "category": "realestate",
     "image_url": "images/domenica.jpg?v=work",
@@ -212,26 +192,6 @@
     "is_best_of_month": false,
     "lat": 34.7607,
     "lng": 32.4068,
-    "town": "paphos"
-  },
-  {
-    "id": "giovanihomes",
-    "category": "realestate",
-    "image_url": "images/giovanihomes.jpg?v=work",
-    "phone": "+357 23 833780",
-    "website": "https://www.giovani.com.cy/",
-    "map_link": "https://maps.google.com/?q=34.748,32.428",
-    "title_en": "Giovani Homes (Paphos Projects)",
-    "desc_en": "Giovani Homes brings its renowned engineering pedigree to premium Paphos locations, delivering high-end villa developments and luxury coastal residences crafted for refined living and Golden Visa property investors.",
-    "title_el": "Giovani Homes (Πάφος)",
-    "desc_el": "Η Giovani Homes επεκτείνει την κατασκευαστική της εμπειρία σε προνομιούχες τοποθεσίες της Πάφου, παραδίδοντας πολυτελείς βίλες και παραθαλάσσιες κατοικίες ιδανικές για εκλεπτυσμένη διαβίωση και επενδυτικά προγράμματα.",
-    "title_ru": "Giovani Homes (Пафос)",
-    "desc_ru": "Giovani Homes реализует первоклассные проекты в Пафосе, создавая элитные виллы и прибрежные резиденции, созданные для комфортной жизни и участия в инвестиционных программах получения ВНЖ.",
-    "title_zh": "Giovani Homes（帕福斯）",
-    "desc_zh": "Giovani Homes 将其卓越的建筑品质拓展至帕福斯黄金地段，交付高端别墅社区和海滨豪宅，专为追求精致生活与居留投资的高净值人士打造。",
-    "is_best_of_month": false,
-    "lat": 34.748,
-    "lng": 32.428,
     "town": "paphos"
   },
   {
