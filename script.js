@@ -139,7 +139,7 @@ const staticTranslations = {
         "filter-accounting": "📊 Λογιστικά", 
         "filter-architects": "🏗️ Αρχιτέκτονες",
         "filter-flowers": "🌸 Ανθοπωλεία", 
-        "filter-taxi": "🚕 Ταξί", 
+        "filter-transfer": "🚗 Μεταφορές", 
         "filter-promenades": "🚶‍♂️ Περιπάτοι",
         "nav-login": "Σύνδεση",
         "nav-logout": "Αποσύνδεση",
@@ -297,7 +297,7 @@ const staticTranslations = {
         "filter-accounting": "📊 Accounting", 
         "filter-architects": "🏗️ Architects",
         "filter-flowers": "🌸 Florists", 
-        "filter-taxi": "🚕 Taxi", 
+        "filter-transfer": "🚗 Transfers", 
         "filter-promenades": "🚶‍♂️ Promenades",
         "nav-login": "Login",
         "nav-logout": "Logout",
@@ -455,7 +455,7 @@ const staticTranslations = {
         "filter-accounting": "📊 Бухгалтерские", 
         "filter-architects": "🏗️ Архитекторы",
         "filter-flowers": "🌸 Цветы", 
-        "filter-taxi": "🚕 Такси", 
+        "filter-transfer": "🚗 Трансферы", 
         "filter-promenades": "🚶‍♂️ Прогулки",
         "nav-login": "Войти",
         "nav-logout": "Выйти",
@@ -613,7 +613,7 @@ const staticTranslations = {
         "filter-accounting": "📊 财务", 
         "filter-architects": "🏗️ 建筑师",
         "filter-flowers": "🌸 花卉", 
-        "filter-taxi": "🚕 出租车", 
+        "filter-transfer": "🚗 接送", 
         "filter-promenades": "🚶‍♂️ 散步",
         "nav-login": "登录",
         "nav-logout": "退出",
@@ -2848,7 +2848,7 @@ const FAVORITE_TYPE_FILTERS = {
         ['accounting', 'filter-accounting'],
         ['architects', 'filter-architects'],
         ['flowers', 'filter-flowers'],
-        ['taxi', 'filter-taxi']
+        ['transfer', 'filter-transfer']
     ]
 };
 
