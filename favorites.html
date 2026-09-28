@@ -7,7 +7,7 @@
     <title>Cyprus Best - Favorites</title>
     <link rel="icon" type="image/png" href="logo2.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20260928c">
 </head>
 <body>
 
@@ -47,6 +47,38 @@
         <h1 data-i18n="fav-title">My Favorites</h1>
     </header>
 
+    <div class="filter-block">
+        <p class="filter-label" data-i18n="slider-label">Categories</p>
+        <div id="favCategoryContainer" class="filter-row">
+            <button class="filter-btn active" onclick="setCategoryFilter('all')" data-i18n="filter-all">All</button>
+            <button class="filter-btn" onclick="setCategoryFilter('hotels')" data-i18n="nav-hotels">Hotels</button>
+            <button class="filter-btn" onclick="setCategoryFilter('restaurants')" data-i18n="nav-restaurants">Restaurants</button>
+            <button class="filter-btn" onclick="setCategoryFilter('views')" data-i18n="nav-views">Views</button>
+            <button class="filter-btn" onclick="setCategoryFilter('beaches')" data-i18n="nav-beaches">Beaches</button>
+            <button class="filter-btn" onclick="setCategoryFilter('realestate')" data-i18n="nav-realestate">Real Estate</button>
+            <button class="filter-btn" onclick="setCategoryFilter('things')" data-i18n="nav-things">Things to Do</button>
+            <button class="filter-btn" onclick="setCategoryFilter('services')" data-i18n="nav-services">Services</button>
+        </div>
+    </div>
+
+    <div class="filter-block" id="favTypeFilterBlock" hidden>
+        <div id="myBtnContainer"></div>
+    </div>
+
+    <div class="filter-block">
+        <p class="filter-label" data-i18n="filter-towns">Town</p>
+        <div id="townFilterContainer" class="filter-row">
+            <button class="filter-btn active" onclick="setTownFilter('all')" data-i18n="filter-all">All</button>
+            <button class="filter-btn" onclick="setTownFilter('paphos')" data-i18n="town-paphos">Paphos</button>
+            <button class="filter-btn" onclick="setTownFilter('limassol')" data-i18n="town-limassol">Limassol</button>
+            <button class="filter-btn" onclick="setTownFilter('larnaca')" data-i18n="town-larnaca">Larnaca</button>
+            <button class="filter-btn" onclick="setTownFilter('nicosia')" data-i18n="town-nicosia">Nicosia</button>
+            <button class="filter-btn" onclick="setTownFilter('famagusta')" data-i18n="town-famagusta">Famagusta</button>
+        </div>
+    </div>
+
+    <p id="fav-filter-empty" class="favorites-empty" hidden data-i18n="fav-filter-empty">No favorites match this filter.</p>
+
     <section class="items-list" id="favorites-container">
         <p style="text-align:center; width:100%;" data-i18n="loading">Loading...</p>
     </section>
@@ -75,6 +107,6 @@
         </div>
     </footer>
 
-    <script src="script.js?v=auth4"></script>
+    <script src="script.js?v=favfilters1"></script>
 </body>
 </html>

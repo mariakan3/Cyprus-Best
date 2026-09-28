@@ -21,6 +21,9 @@ function resolvePlaceImage(url) {
 
 let currentLang = localStorage.getItem('userLang') || 'en';
 let currentUser = null;
+let signupAvatar = null;
+let profileAvatar = null;
+let profileAvatarRemoved = false;
 let favoritePlaceIds = new Set();
 let categoryMap = null;
 let categoryMarkerLayer = null;
@@ -36,6 +39,7 @@ let leafletLoader = null;
 let activeMapFilter = 'all';
 let activeTypeFilter = 'all';
 let activeTownFilter = 'all';
+let activeCategoryFilter = 'all';
 let markerIconCache = {};
 
 /* --- 2. ΠΛΗΡΕΣ ΛΕΞΙΚΟ (ΟΛΕΣ ΟΙ ΓΛΩΣΣΕΣ - 100% COMPLETE) --- */
@@ -163,11 +167,39 @@ const staticTranslations = {
         "auth-already-registered": "Υπάρχει ήδη λογαριασμός με αυτό το email.",
         "auth-resend": "Αποστολή email ξανά",
         "auth-resend-sent": "Σας στείλαμε ξανά το email επιβεβαίωσης.",
+        "auth-username": "Όνομα χρήστη",
+        "auth-username-invalid": "Το όνομα χρήστη χρειάζεται 3–20 χαρακτήρες: γράμματα, αριθμοί, τελεία, παύλα ή κάτω παύλα.",
+        "auth-avatar": "Φωτογραφία προφίλ",
+        "auth-avatar-optional": "Προαιρετική",
+        "auth-avatar-invalid": "Επιλέξτε εικόνα έως 8 MB.",
+        "profile-title": "Προφίλ",
+        "profile-save": "Αποθήκευση",
+        "profile-saved": "Το προφίλ αποθηκεύτηκε.",
+        "profile-remove-photo": "Αφαίρεση φωτογραφίας",
+        "profile-settings": "Ρυθμίσεις",
+        "profile-section-profile": "Προφίλ",
+        "profile-section-email": "Email",
+        "profile-section-password": "Κωδικός",
+        "profile-email-hint": "Θα στείλουμε σύνδεσμο επιβεβαίωσης στο νέο email.",
+        "profile-email-sent": "Ελέγξτε το νέο email και ανοίξτε τον σύνδεσμο για να ολοκληρωθεί η αλλαγή.",
+        "profile-email-saved": "Το email άλλαξε.",
+        "profile-email-same": "Αυτό είναι ήδη το email σας.",
+        "profile-email-invalid": "Γράψτε ένα έγκυρο email.",
+        "profile-save-email": "Αποθήκευση email",
+        "profile-password-new": "Νέος κωδικός",
+        "profile-password-confirm": "Επιβεβαίωση κωδικού",
+        "profile-password-mismatch": "Οι κωδικοί δεν είναι ίδιοι.",
+        "profile-password-short": "Ο κωδικός χρειάζεται τουλάχιστον 6 χαρακτήρες.",
+        "profile-password-saved": "Ο κωδικός άλλαξε.",
+        "profile-save-password": "Αποθήκευση κωδικού",
+        "profile-password-nonce": "Κωδικός επιβεβαίωσης",
+        "profile-password-reauth": "Σας στείλαμε email με κωδικό επιβεβαίωσης. Γράψτε τον και πατήστε ξανά αποθήκευση.",
         "nav-favorites": "Αγαπημένα",
         "fav-save": "Αποθήκευση",
         "fav-saved": "Αποθηκευμένο",
         "fav-login-required": "Συνδεθείτε για να αποθηκεύσετε αγαπημένα.",
         "fav-empty": "Δεν έχετε αποθηκεύσει ακόμα μέρη.",
+        "fav-filter-empty": "Δεν υπάρχουν αγαπημένα για αυτό το φίλτρο.",
         "fav-title": "Τα Αγαπημένα μου"
     },
     en: { 
@@ -293,11 +325,39 @@ const staticTranslations = {
         "auth-already-registered": "An account with this email already exists.",
         "auth-resend": "Send confirmation again",
         "auth-resend-sent": "We sent the confirmation email again.",
+        "auth-username": "Username",
+        "auth-username-invalid": "Username must be 3–20 characters: letters, numbers, dot, hyphen, or underscore.",
+        "auth-avatar": "Profile photo",
+        "auth-avatar-optional": "Optional",
+        "auth-avatar-invalid": "Choose an image up to 8 MB.",
+        "profile-title": "Profile",
+        "profile-save": "Save",
+        "profile-saved": "Profile saved.",
+        "profile-remove-photo": "Remove photo",
+        "profile-settings": "Settings",
+        "profile-section-profile": "Profile",
+        "profile-section-email": "Email",
+        "profile-section-password": "Password",
+        "profile-email-hint": "We will send a confirmation link to the new email.",
+        "profile-email-sent": "Check the new email and open the link to finish the change.",
+        "profile-email-saved": "Your email was updated.",
+        "profile-email-same": "This is already your email.",
+        "profile-email-invalid": "Enter a valid email.",
+        "profile-save-email": "Save email",
+        "profile-password-new": "New password",
+        "profile-password-confirm": "Confirm password",
+        "profile-password-mismatch": "Passwords do not match.",
+        "profile-password-short": "Password must be at least 6 characters.",
+        "profile-password-saved": "Your password was updated.",
+        "profile-save-password": "Save password",
+        "profile-password-nonce": "Confirmation code",
+        "profile-password-reauth": "We emailed you a confirmation code. Enter it and save again.",
         "nav-favorites": "Favorites",
         "fav-save": "Save",
         "fav-saved": "Saved",
         "fav-login-required": "Log in to save favorites.",
         "fav-empty": "You have not saved any places yet.",
+        "fav-filter-empty": "No favorites match this filter.",
         "fav-title": "My Favorites"
     },
     ru: { 
@@ -423,11 +483,39 @@ const staticTranslations = {
         "auth-already-registered": "Аккаунт с этим email уже существует.",
         "auth-resend": "Отправить письмо снова",
         "auth-resend-sent": "Мы снова отправили письмо для подтверждения.",
+        "auth-username": "Имя пользователя",
+        "auth-username-invalid": "Имя пользователя: 3–20 символов (буквы, цифры, точка, дефис или подчёркивание).",
+        "auth-avatar": "Фото профиля",
+        "auth-avatar-optional": "Необязательно",
+        "auth-avatar-invalid": "Выберите изображение до 8 МБ.",
+        "profile-title": "Профиль",
+        "profile-save": "Сохранить",
+        "profile-saved": "Профиль сохранён.",
+        "profile-remove-photo": "Удалить фото",
+        "profile-settings": "Настройки",
+        "profile-section-profile": "Профиль",
+        "profile-section-email": "Email",
+        "profile-section-password": "Пароль",
+        "profile-email-hint": "Мы отправим ссылку подтверждения на новый email.",
+        "profile-email-sent": "Откройте письмо на новом email, чтобы завершить смену.",
+        "profile-email-saved": "Email изменён.",
+        "profile-email-same": "Это уже ваш email.",
+        "profile-email-invalid": "Введите корректный email.",
+        "profile-save-email": "Сохранить email",
+        "profile-password-new": "Новый пароль",
+        "profile-password-confirm": "Подтвердите пароль",
+        "profile-password-mismatch": "Пароли не совпадают.",
+        "profile-password-short": "Пароль должен быть не короче 6 символов.",
+        "profile-password-saved": "Пароль изменён.",
+        "profile-save-password": "Сохранить пароль",
+        "profile-password-nonce": "Код подтверждения",
+        "profile-password-reauth": "Мы отправили код подтверждения на email. Введите его и сохраните снова.",
         "nav-favorites": "Избранное",
         "fav-save": "Сохранить",
         "fav-saved": "Сохранено",
         "fav-login-required": "Войдите, чтобы сохранять избранное.",
         "fav-empty": "Вы ещё ничего не сохранили.",
+        "fav-filter-empty": "Нет избранного по этому фильтру.",
         "fav-title": "Моё избранное"
     },
     zh: { 
@@ -553,11 +641,39 @@ const staticTranslations = {
         "auth-already-registered": "该邮箱已注册账户。",
         "auth-resend": "重新发送确认邮件",
         "auth-resend-sent": "我们已再次发送确认邮件。",
+        "auth-username": "用户名",
+        "auth-username-invalid": "用户名需为 3–20 个字符：字母、数字、点、连字符或下划线。",
+        "auth-avatar": "头像",
+        "auth-avatar-optional": "可选",
+        "auth-avatar-invalid": "请选择不超过 8 MB 的图片。",
+        "profile-title": "个人资料",
+        "profile-save": "保存",
+        "profile-saved": "个人资料已保存。",
+        "profile-remove-photo": "移除照片",
+        "profile-settings": "设置",
+        "profile-section-profile": "个人资料",
+        "profile-section-email": "邮箱",
+        "profile-section-password": "密码",
+        "profile-email-hint": "我们会向新邮箱发送确认链接。",
+        "profile-email-sent": "请查收新邮箱并打开链接以完成更改。",
+        "profile-email-saved": "邮箱已更新。",
+        "profile-email-same": "这已经是你的邮箱。",
+        "profile-email-invalid": "请输入有效的邮箱。",
+        "profile-save-email": "保存邮箱",
+        "profile-password-new": "新密码",
+        "profile-password-confirm": "确认密码",
+        "profile-password-mismatch": "两次密码不一致。",
+        "profile-password-short": "密码至少需要 6 个字符。",
+        "profile-password-saved": "密码已更新。",
+        "profile-save-password": "保存密码",
+        "profile-password-nonce": "确认码",
+        "profile-password-reauth": "我们已发送确认码到邮箱。请输入后再保存。",
         "nav-favorites": "收藏",
         "fav-save": "收藏",
         "fav-saved": "已收藏",
         "fav-login-required": "请登录后收藏。",
         "fav-empty": "你还没有收藏任何地点。",
+        "fav-filter-empty": "没有符合此筛选的收藏。",
         "fav-title": "我的收藏"
     }
 };
@@ -580,8 +696,14 @@ function injectAuthUI() {
         const li = document.createElement('li');
         li.id = 'auth-nav-item';
         li.innerHTML = `
+            <button type="button" id="profile-nav-btn" class="profile-nav-btn" hidden>
+                <span id="profile-nav-avatar" class="profile-nav-avatar" aria-hidden="true">
+                    <img alt="" hidden>
+                    <span class="profile-avatar-letter"></span>
+                </span>
+                <span id="profile-nav-name" class="profile-nav-name"></span>
+            </button>
             <button type="button" id="auth-nav-btn" class="auth-nav-btn" data-i18n="nav-login">${t('nav-login')}</button>
-            <span id="auth-user-email" class="auth-user-email" hidden></span>
         `;
         navLinks.appendChild(li);
     }
@@ -596,6 +718,22 @@ function injectAuthUI() {
             <span class="close-btn" id="auth-close-btn">&times;</span>
             <h2 id="auth-modal-title" data-i18n="auth-title-login">${t('auth-title-login')}</h2>
             <form id="auth-form" class="auth-form">
+                <div id="auth-avatar-field" class="auth-avatar-field" hidden>
+                    <button type="button" id="auth-avatar-btn" class="profile-photo-btn profile-photo-btn-sm">
+                        <img alt="" hidden>
+                        <span class="profile-avatar-letter">?</span>
+                        <span class="profile-photo-edit" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+                    </button>
+                    <span class="auth-avatar-copy">
+                        <span data-i18n="auth-avatar">${t('auth-avatar')}</span>
+                        <small data-i18n="auth-avatar-optional">${t('auth-avatar-optional')}</small>
+                    </span>
+                    <input type="file" id="auth-avatar-input" accept="image/*" hidden>
+                </div>
+                <label for="auth-username" id="auth-username-label" hidden>
+                    <span data-i18n="auth-username">${t('auth-username')}</span>
+                    <input type="text" id="auth-username" name="username" minlength="3" maxlength="20" autocomplete="username" autocapitalize="off" spellcheck="false">
+                </label>
                 <label for="auth-email" id="auth-email-label">
                     <span data-i18n="auth-email">${t('auth-email')}</span>
                     <input type="email" id="auth-email" name="email" required autocomplete="email">
@@ -619,15 +757,142 @@ function injectAuthUI() {
     `;
     document.body.appendChild(modal);
 
+    const profileModal = document.createElement('div');
+    profileModal.id = 'profileModal';
+    profileModal.className = 'modal-overlay';
+    profileModal.innerHTML = `
+        <div class="modal-content auth-modal-content profile-settings">
+            <span class="close-btn" id="profile-close-btn">&times;</span>
+            <h2 data-i18n="profile-settings">${t('profile-settings')}</h2>
+            <form id="profile-form" class="auth-form profile-section">
+                <h3 data-i18n="profile-section-profile">${t('profile-section-profile')}</h3>
+                <div class="profile-photo-row">
+                    <button type="button" id="profile-photo-btn" class="profile-photo-btn" aria-label="${t('auth-avatar')}">
+                        <img alt="" hidden>
+                        <span class="profile-avatar-letter">?</span>
+                        <span class="profile-photo-edit" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+                    </button>
+                    <input type="file" id="profile-photo-input" accept="image/*" hidden>
+                    <button type="button" id="profile-photo-remove" class="profile-remove-btn" data-i18n="profile-remove-photo" hidden>${t('profile-remove-photo')}</button>
+                </div>
+                <label for="profile-username">
+                    <span data-i18n="auth-username">${t('auth-username')}</span>
+                    <input type="text" id="profile-username" name="username" required minlength="3" maxlength="20" autocomplete="username" autocapitalize="off" spellcheck="false">
+                </label>
+                <p id="profile-message" class="auth-message" hidden></p>
+                <button type="submit" id="profile-submit-btn" class="btn auth-submit-btn" data-i18n="profile-save">${t('profile-save')}</button>
+            </form>
+            <form id="profile-email-form" class="auth-form profile-section">
+                <h3 data-i18n="profile-section-email">${t('profile-section-email')}</h3>
+                <label for="profile-email-input">
+                    <span data-i18n="auth-email">${t('auth-email')}</span>
+                    <input type="email" id="profile-email-input" name="email" required autocomplete="email">
+                </label>
+                <p class="profile-hint" data-i18n="profile-email-hint">${t('profile-email-hint')}</p>
+                <p id="profile-email-message" class="auth-message" hidden></p>
+                <button type="submit" id="profile-email-submit" class="btn auth-submit-btn" data-i18n="profile-save-email">${t('profile-save-email')}</button>
+            </form>
+            <form id="profile-password-form" class="auth-form profile-section">
+                <h3 data-i18n="profile-section-password">${t('profile-section-password')}</h3>
+                <label for="profile-new-password">
+                    <span data-i18n="profile-password-new">${t('profile-password-new')}</span>
+                    <div class="password-field">
+                        <input type="password" id="profile-new-password" name="new-password" required minlength="6" autocomplete="new-password">
+                        <button type="button" id="profile-new-password-toggle" class="password-toggle" aria-label="Show password" title="Show password">
+                            <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </label>
+                <label for="profile-confirm-password">
+                    <span data-i18n="profile-password-confirm">${t('profile-password-confirm')}</span>
+                    <div class="password-field">
+                        <input type="password" id="profile-confirm-password" name="confirm-password" required minlength="6" autocomplete="new-password">
+                        <button type="button" id="profile-confirm-password-toggle" class="password-toggle" aria-label="Show password" title="Show password">
+                            <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </label>
+                <label for="profile-password-nonce" id="profile-nonce-label" hidden>
+                    <span data-i18n="profile-password-nonce">${t('profile-password-nonce')}</span>
+                    <input type="text" id="profile-password-nonce" name="nonce" inputmode="numeric" autocomplete="one-time-code">
+                </label>
+                <p id="profile-password-message" class="auth-message" hidden></p>
+                <button type="submit" id="profile-password-submit" class="btn auth-submit-btn" data-i18n="profile-save-password">${t('profile-save-password')}</button>
+            </form>
+        </div>
+    `;
+    document.body.appendChild(profileModal);
+
     document.getElementById('auth-nav-btn').addEventListener('click', handleAuthNavClick);
+    document.getElementById('profile-nav-btn').addEventListener('click', openProfileModal);
     document.getElementById('auth-close-btn').addEventListener('click', closeAuthModal);
     document.getElementById('auth-switch-btn').addEventListener('click', toggleAuthMode);
     document.getElementById('auth-forgot-btn').addEventListener('click', showForgotPassword);
     document.getElementById('auth-resend-btn').addEventListener('click', handleResendConfirmation);
     document.getElementById('auth-form').addEventListener('submit', handleAuthSubmit);
     document.getElementById('auth-password-toggle').addEventListener('click', togglePasswordVisibility);
+    document.getElementById('auth-avatar-btn').addEventListener('click', () => {
+        document.getElementById('auth-avatar-input').click();
+    });
+    document.getElementById('auth-avatar-input').addEventListener('change', async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        try {
+            signupAvatar = await readAvatarFile(file);
+            paintAvatarPreview(document.getElementById('auth-avatar-btn'), signupAvatar.dataUrl, '');
+        } catch (err) {
+            signupAvatar = null;
+            showAuthMessage(t('auth-avatar-invalid'), 'error');
+        }
+    });
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeAuthModal();
+    });
+
+    document.getElementById('profile-close-btn').addEventListener('click', closeProfileModal);
+    document.getElementById('profile-form').addEventListener('submit', handleProfileSubmit);
+    document.getElementById('profile-email-form').addEventListener('submit', handleEmailSettings);
+    document.getElementById('profile-password-form').addEventListener('submit', handlePasswordSettings);
+    document.getElementById('profile-new-password-toggle').addEventListener('click', () => {
+        togglePasswordField(
+            document.getElementById('profile-new-password'),
+            document.getElementById('profile-new-password-toggle')
+        );
+    });
+    document.getElementById('profile-confirm-password-toggle').addEventListener('click', () => {
+        togglePasswordField(
+            document.getElementById('profile-confirm-password'),
+            document.getElementById('profile-confirm-password-toggle')
+        );
+    });
+    document.getElementById('profile-photo-btn').addEventListener('click', () => {
+        document.getElementById('profile-photo-input').click();
+    });
+    document.getElementById('profile-photo-input').addEventListener('change', async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        try {
+            profileAvatar = await readAvatarFile(file);
+            profileAvatarRemoved = false;
+            paintAvatarPreview(document.getElementById('profile-photo-btn'), profileAvatar.dataUrl, '');
+            const removeBtn = document.getElementById('profile-photo-remove');
+            if (removeBtn) removeBtn.hidden = false;
+        } catch (err) {
+            showProfileMessage(t('auth-avatar-invalid'), 'error');
+        }
+    });
+    document.getElementById('profile-photo-remove').addEventListener('click', () => {
+        profileAvatar = null;
+        profileAvatarRemoved = true;
+        const input = document.getElementById('profile-photo-input');
+        if (input) input.value = '';
+        const profile = userProfile(currentUser);
+        paintAvatarPreview(document.getElementById('profile-photo-btn'), '', profileInitial(profile));
+        const removeBtn = document.getElementById('profile-photo-remove');
+        if (removeBtn) removeBtn.hidden = true;
+    });
+    profileModal.addEventListener('click', (e) => {
+        if (e.target === profileModal) closeProfileModal();
     });
 }
 
@@ -651,6 +916,10 @@ function closeAuthModal() {
     if (form) form.reset();
     const passwordInput = document.getElementById('auth-password');
     if (passwordInput) passwordInput.type = 'password';
+    signupAvatar = null;
+    const avatarInput = document.getElementById('auth-avatar-input');
+    if (avatarInput) avatarInput.value = '';
+    paintAvatarPreview(document.getElementById('auth-avatar-btn'), '', '?');
     const toggleBtn = document.getElementById('auth-password-toggle');
     if (toggleBtn) {
         toggleBtn.setAttribute('aria-label', 'Show password');
@@ -702,6 +971,9 @@ function setAuthMode(mode) {
     const emailLabel = document.getElementById('auth-email-label');
     const email = document.getElementById('auth-email');
     const forgotBtn = document.getElementById('auth-forgot-btn');
+    const usernameLabel = document.getElementById('auth-username-label');
+    const usernameInput = document.getElementById('auth-username');
+    const avatarField = document.getElementById('auth-avatar-field');
 
     const titleKey = isRecovery ? 'auth-title-recovery'
         : isForgot ? 'auth-title-forgot'
@@ -721,8 +993,14 @@ function setAuthMode(mode) {
     setAuthText(passwordLabelText, isRecovery ? 'auth-new-password' : 'auth-password');
 
     if (emailLabel) emailLabel.hidden = isRecovery;
+    if (usernameLabel) usernameLabel.hidden = !isSignup;
+    if (avatarField) avatarField.hidden = !isSignup;
     if (passwordLabel) passwordLabel.hidden = isForgot;
     if (forgotBtn) forgotBtn.hidden = mode !== 'login';
+    if (usernameInput) {
+        usernameInput.required = isSignup;
+        usernameInput.disabled = !isSignup;
+    }
     if (email) {
         email.required = !isRecovery;
         email.disabled = isRecovery;
@@ -763,11 +1041,8 @@ function clearAuthMessage() {
     el.innerText = '';
 }
 
-function togglePasswordVisibility() {
-    const input = document.getElementById('auth-password');
-    const btn = document.getElementById('auth-password-toggle');
+function togglePasswordField(input, btn) {
     if (!input || !btn) return;
-
     const showing = input.type === 'text';
     input.type = showing ? 'password' : 'text';
     btn.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
@@ -776,6 +1051,13 @@ function togglePasswordVisibility() {
     if (icon) {
         icon.className = showing ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
     }
+}
+
+function togglePasswordVisibility() {
+    togglePasswordField(
+        document.getElementById('auth-password'),
+        document.getElementById('auth-password-toggle')
+    );
 }
 
 async function handleAuthNavClick() {
@@ -802,6 +1084,405 @@ function authErrorMessage(err) {
     if (isEmailNotConfirmed(err)) return t('auth-email-not-confirmed');
     if (isAlreadyRegistered(err)) return t('auth-already-registered');
     return err?.message || t('auth-error');
+}
+
+function normalizeUsername(value) {
+    return String(value || '').trim().replace(/\s+/g, '');
+}
+
+function isValidUsername(value) {
+    return /^[\p{L}\p{N}._-]{3,20}$/u.test(value);
+}
+
+function avatarStorageKey(userId) {
+    return `cyprusbest-avatar:${userId}`;
+}
+
+function readLocalAvatar(userId) {
+    try {
+        return localStorage.getItem(avatarStorageKey(userId)) || '';
+    } catch (err) {
+        return '';
+    }
+}
+
+function writeLocalAvatar(userId, dataUrl) {
+    try {
+        if (dataUrl) localStorage.setItem(avatarStorageKey(userId), dataUrl);
+        else localStorage.removeItem(avatarStorageKey(userId));
+    } catch (err) {
+        console.warn('Could not store profile photo locally:', err);
+    }
+}
+
+function userProfile(user) {
+    const meta = user?.user_metadata || {};
+    const username = normalizeUsername(meta.username || '');
+    const remoteAvatar = String(meta.avatar_url || '').trim();
+    const localAvatar = user ? readLocalAvatar(user.id) : '';
+    const emailName = (user?.email || '').split('@')[0];
+    return {
+        username,
+        avatarUrl: remoteAvatar || localAvatar,
+        displayName: username || emailName || ''
+    };
+}
+
+function profileInitial(profile) {
+    const source = profile?.username || profile?.displayName || '?';
+    return source.charAt(0).toUpperCase() || '?';
+}
+
+function suggestedUsername(user) {
+    const existing = normalizeUsername(user?.user_metadata?.username || '');
+    if (isValidUsername(existing)) return existing;
+    const local = (user?.email || '').split('@')[0].replace(/[^\p{L}\p{N}._-]/gu, '').slice(0, 20);
+    return isValidUsername(local) ? local : '';
+}
+
+function paintAvatarPreview(button, url, letter) {
+    if (!button) return;
+    const img = button.querySelector('img');
+    const fallback = button.querySelector('.profile-avatar-letter');
+    if (url && img) {
+        img.src = url;
+        img.hidden = false;
+        if (fallback) fallback.hidden = true;
+        return;
+    }
+    if (img) {
+        img.removeAttribute('src');
+        img.hidden = true;
+    }
+    if (fallback) {
+        fallback.hidden = false;
+        fallback.textContent = letter || '?';
+    }
+}
+
+function loadImageElement(file) {
+    return new Promise((resolve, reject) => {
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = () => {
+            URL.revokeObjectURL(url);
+            resolve(img);
+        };
+        img.onerror = () => {
+            URL.revokeObjectURL(url);
+            reject(new Error('image'));
+        };
+        img.src = url;
+    });
+}
+
+async function compressImageFile(file) {
+    const img = await loadImageElement(file);
+    const size = 160;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    const scale = Math.max(size / img.width, size / img.height);
+    const w = img.width * scale;
+    const h = img.height * scale;
+    ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.72));
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.72);
+    if (!blob || !dataUrl) throw new Error('image');
+    return { blob, dataUrl };
+}
+
+async function readAvatarFile(file) {
+    if (!file || !file.type || !file.type.startsWith('image/')) throw new Error('type');
+    if (file.size > 8 * 1024 * 1024) throw new Error('size');
+    return compressImageFile(file);
+}
+
+async function saveAvatar(user, blob, dataUrl) {
+    let publicUrl = '';
+    try {
+        const path = `${user.id}/avatar.jpg`;
+        const { error } = await dbClient.storage.from('avatars').upload(path, blob, {
+            upsert: true,
+            contentType: 'image/jpeg',
+            cacheControl: '3600'
+        });
+        if (!error) {
+            const { data } = dbClient.storage.from('avatars').getPublicUrl(path);
+            if (data?.publicUrl) publicUrl = `${data.publicUrl}?t=${Date.now()}`;
+        }
+    } catch (err) {
+        console.warn('Avatar upload failed:', err);
+    }
+
+    if (publicUrl) {
+        writeLocalAvatar(user.id, '');
+        return publicUrl;
+    }
+
+    writeLocalAvatar(user.id, dataUrl);
+    return '';
+}
+
+async function removeStoredAvatar(user) {
+    writeLocalAvatar(user.id, '');
+    try {
+        await dbClient.storage.from('avatars').remove([`${user.id}/avatar.jpg`]);
+    } catch (err) {
+        console.warn('Avatar remove failed:', err);
+    }
+}
+
+async function attachSignupAvatar(user) {
+    if (!user || !signupAvatar) return user;
+    const remote = await saveAvatar(user, signupAvatar.blob, signupAvatar.dataUrl);
+    if (!remote) return user;
+    const { data, error } = await dbClient.auth.updateUser({ data: { avatar_url: remote } });
+    if (!error && data?.user) return data.user;
+    return user;
+}
+
+async function applyPendingAvatar(user) {
+    if (!user) return user;
+    let dataUrl = '';
+    try {
+        dataUrl = localStorage.getItem('cyprusbest-pending-avatar') || '';
+        if (dataUrl) localStorage.removeItem('cyprusbest-pending-avatar');
+    } catch (err) {
+        return user;
+    }
+    if (!dataUrl) return user;
+
+    writeLocalAvatar(user.id, dataUrl);
+    try {
+        const blob = await (await fetch(dataUrl)).blob();
+        const remote = await saveAvatar(user, blob, dataUrl);
+        if (remote) {
+            const { data, error } = await dbClient.auth.updateUser({ data: { avatar_url: remote } });
+            if (!error && data?.user) return data.user;
+        }
+    } catch (err) {
+        console.warn('Pending avatar failed:', err);
+    }
+    return user;
+}
+
+function showProfileMessage(text, type = 'error', which = 'profile') {
+    const id = which === 'email' ? 'profile-email-message'
+        : which === 'password' ? 'profile-password-message'
+        : 'profile-message';
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.hidden = false;
+    el.className = `auth-message auth-message-${type}`;
+    el.innerText = text;
+}
+
+function clearProfileMessage(which) {
+    const names = which ? [which] : ['profile', 'email', 'password'];
+    names.forEach((name) => {
+        const id = name === 'email' ? 'profile-email-message'
+            : name === 'password' ? 'profile-password-message'
+            : 'profile-message';
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.hidden = true;
+        el.innerText = '';
+    });
+}
+
+function resetProfilePasswordFields() {
+    ['profile-new-password', 'profile-confirm-password'].forEach((id, index) => {
+        const input = document.getElementById(id);
+        const btn = document.getElementById(index === 0 ? 'profile-new-password-toggle' : 'profile-confirm-password-toggle');
+        if (input) input.type = 'password';
+        if (btn) {
+            btn.setAttribute('aria-label', 'Show password');
+            btn.title = 'Show password';
+            const icon = btn.querySelector('i');
+            if (icon) icon.className = 'fa-regular fa-eye';
+        }
+    });
+    const nonceLabel = document.getElementById('profile-nonce-label');
+    const nonceInput = document.getElementById('profile-password-nonce');
+    if (nonceLabel) nonceLabel.hidden = true;
+    if (nonceInput) {
+        nonceInput.required = false;
+        nonceInput.value = '';
+    }
+}
+
+function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function needsReauthentication(err) {
+    const code = err?.code || '';
+    const msg = (err?.message || '').toLowerCase();
+    return code === 'reauthentication_needed' || msg.includes('reauthentication');
+}
+
+function openProfileModal() {
+    if (!currentUser) return;
+    closeMobileMenu();
+    const modal = document.getElementById('profileModal');
+    if (!modal) return;
+    const profile = userProfile(currentUser);
+    const usernameInput = document.getElementById('profile-username');
+    const emailInput = document.getElementById('profile-email-input');
+    const passwordForm = document.getElementById('profile-password-form');
+    profileAvatar = null;
+    profileAvatarRemoved = false;
+    if (usernameInput) usernameInput.value = profile.username || suggestedUsername(currentUser);
+    if (emailInput) emailInput.value = currentUser.email || '';
+    if (passwordForm) passwordForm.reset();
+    resetProfilePasswordFields();
+    paintAvatarPreview(document.getElementById('profile-photo-btn'), profile.avatarUrl, profileInitial(profile));
+    const removeBtn = document.getElementById('profile-photo-remove');
+    if (removeBtn) removeBtn.hidden = !profile.avatarUrl;
+    const fileInput = document.getElementById('profile-photo-input');
+    if (fileInput) fileInput.value = '';
+    clearProfileMessage();
+    modal.style.display = 'flex';
+    document.body.classList.add('modal-open');
+}
+
+function closeProfileModal() {
+    const modal = document.getElementById('profileModal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+    profileAvatar = null;
+    profileAvatarRemoved = false;
+    resetProfilePasswordFields();
+    clearProfileMessage();
+}
+
+async function handleProfileSubmit(e) {
+    e.preventDefault();
+    if (!dbClient || !currentUser) return;
+
+    const username = normalizeUsername(document.getElementById('profile-username').value);
+    if (!isValidUsername(username)) {
+        showProfileMessage(t('auth-username-invalid'), 'error');
+        return;
+    }
+
+    const submitBtn = document.getElementById('profile-submit-btn');
+    if (submitBtn) submitBtn.disabled = true;
+    clearProfileMessage('profile');
+
+    try {
+        let avatarUrl = String(currentUser.user_metadata?.avatar_url || '').trim();
+        if (profileAvatarRemoved) {
+            await removeStoredAvatar(currentUser);
+            avatarUrl = '';
+        } else if (profileAvatar) {
+            avatarUrl = await saveAvatar(currentUser, profileAvatar.blob, profileAvatar.dataUrl);
+        }
+
+        const { data, error } = await dbClient.auth.updateUser({
+            data: { username, avatar_url: avatarUrl }
+        });
+        if (error) throw error;
+        currentUser = data.user;
+        updateAuthUI();
+        showProfileMessage(t('profile-saved'), 'success');
+    } catch (err) {
+        showProfileMessage(authErrorMessage(err), 'error');
+    } finally {
+        if (submitBtn) submitBtn.disabled = false;
+    }
+}
+
+async function handleEmailSettings(e) {
+    e.preventDefault();
+    if (!dbClient || !currentUser) return;
+
+    const email = document.getElementById('profile-email-input').value.trim();
+    if (!isValidEmail(email)) {
+        showProfileMessage(t('profile-email-invalid'), 'error', 'email');
+        return;
+    }
+    if (email.toLowerCase() === String(currentUser.email || '').toLowerCase()) {
+        showProfileMessage(t('profile-email-same'), 'error', 'email');
+        return;
+    }
+
+    const submitBtn = document.getElementById('profile-email-submit');
+    if (submitBtn) submitBtn.disabled = true;
+    clearProfileMessage('email');
+
+    try {
+        const { data, error } = await dbClient.auth.updateUser(
+            { email },
+            { emailRedirectTo: authRedirectUrl() }
+        );
+        if (error) throw error;
+        if (data?.user) currentUser = data.user;
+        updateAuthUI();
+        const pending = data?.user?.new_email;
+        showProfileMessage(t(pending ? 'profile-email-sent' : 'profile-email-saved'), 'success', 'email');
+    } catch (err) {
+        showProfileMessage(authErrorMessage(err), 'error', 'email');
+    } finally {
+        if (submitBtn) submitBtn.disabled = false;
+    }
+}
+
+async function handlePasswordSettings(e) {
+    e.preventDefault();
+    if (!dbClient || !currentUser) return;
+
+    const password = document.getElementById('profile-new-password').value;
+    const confirm = document.getElementById('profile-confirm-password').value;
+    const nonce = document.getElementById('profile-password-nonce').value.trim();
+
+    if (password.length < 6) {
+        showProfileMessage(t('profile-password-short'), 'error', 'password');
+        return;
+    }
+    if (password !== confirm) {
+        showProfileMessage(t('profile-password-mismatch'), 'error', 'password');
+        return;
+    }
+
+    const submitBtn = document.getElementById('profile-password-submit');
+    if (submitBtn) submitBtn.disabled = true;
+    clearProfileMessage('password');
+
+    try {
+        const attributes = { password };
+        if (nonce) attributes.nonce = nonce;
+        const { data, error } = await dbClient.auth.updateUser(attributes);
+        if (error) {
+            if (needsReauthentication(error)) {
+                const { error: reauthError } = await dbClient.auth.reauthenticate();
+                if (reauthError) throw reauthError;
+                const nonceLabel = document.getElementById('profile-nonce-label');
+                const nonceInput = document.getElementById('profile-password-nonce');
+                if (nonceLabel) nonceLabel.hidden = false;
+                if (nonceInput) {
+                    nonceInput.required = true;
+                    nonceInput.focus();
+                }
+                showProfileMessage(t('profile-password-reauth'), 'success', 'password');
+                return;
+            }
+            throw error;
+        }
+
+        if (data?.user) currentUser = data.user;
+        const passwordForm = document.getElementById('profile-password-form');
+        if (passwordForm) passwordForm.reset();
+        resetProfilePasswordFields();
+        showProfileMessage(t('profile-password-saved'), 'success', 'password');
+    } catch (err) {
+        showProfileMessage(authErrorMessage(err), 'error', 'password');
+    } finally {
+        if (submitBtn) submitBtn.disabled = false;
+    }
 }
 
 async function handleAuthSubmit(e) {
@@ -831,12 +1512,18 @@ async function handleAuthSubmit(e) {
             showAuthMessage(t('auth-password-updated'), 'success');
             updateAuthUI();
         } else if (mode === 'signup') {
+            const username = normalizeUsername(document.getElementById('auth-username').value);
+            if (!isValidUsername(username)) {
+                showAuthMessage(t('auth-username-invalid'), 'error');
+                return;
+            }
+
             const { data, error } = await dbClient.auth.signUp({
                 email,
                 password,
                 options: {
                     emailRedirectTo: authRedirectUrl(),
-                    data: { lang: authLang() }
+                    data: { lang: authLang(), username }
                 }
             });
             if (error) throw error;
@@ -849,10 +1536,18 @@ async function handleAuthSubmit(e) {
 
             const confirmed = Boolean(data.user?.email_confirmed_at);
             if (data.session && confirmed) {
-                currentUser = data.user;
+                currentUser = await attachSignupAvatar(data.user);
                 updateAuthUI();
                 closeAuthModal();
                 return;
+            }
+
+            if (signupAvatar?.dataUrl) {
+                try {
+                    localStorage.setItem('cyprusbest-pending-avatar', signupAvatar.dataUrl);
+                } catch (err) {
+                    console.warn('Could not keep profile photo for after confirmation:', err);
+                }
             }
 
             if (data.session) {
@@ -867,7 +1562,7 @@ async function handleAuthSubmit(e) {
         } else {
             const { data, error } = await dbClient.auth.signInWithPassword({ email, password });
             if (error) throw error;
-            currentUser = data.user;
+            currentUser = await applyPendingAvatar(data.user);
             updateAuthUI();
             closeAuthModal();
         }
@@ -915,25 +1610,29 @@ async function handleLogout() {
 
 function updateAuthUI() {
     const btn = document.getElementById('auth-nav-btn');
-    const emailEl = document.getElementById('auth-user-email');
+    const profileBtn = document.getElementById('profile-nav-btn');
+    const nameEl = document.getElementById('profile-nav-name');
+    const avatarEl = document.getElementById('profile-nav-avatar');
     if (!btn) return;
 
     if (currentUser) {
+        const profile = userProfile(currentUser);
         btn.setAttribute('data-i18n', 'nav-logout');
         btn.innerText = t('nav-logout');
         btn.classList.add('is-logged-in');
-        if (emailEl) {
-            emailEl.hidden = false;
-            emailEl.innerText = currentUser.email || '';
+        if (profileBtn) {
+            profileBtn.hidden = false;
+            profileBtn.setAttribute('aria-label', t('profile-settings'));
         }
+        if (nameEl) nameEl.textContent = profile.displayName;
+        paintAvatarPreview(avatarEl, profile.avatarUrl, profileInitial(profile));
     } else {
         btn.setAttribute('data-i18n', 'nav-login');
         btn.innerText = t('nav-login');
         btn.classList.remove('is-logged-in');
-        if (emailEl) {
-            emailEl.hidden = true;
-            emailEl.innerText = '';
-        }
+        if (profileBtn) profileBtn.hidden = true;
+        if (nameEl) nameEl.textContent = '';
+        paintAvatarPreview(avatarEl, '', '');
     }
 }
 
@@ -962,6 +1661,7 @@ async function initAuth() {
 
     const { data: { session } } = await dbClient.auth.getSession();
     currentUser = session?.user ?? null;
+    if (currentUser) currentUser = await applyPendingAvatar(currentUser);
     updateAuthUI();
     await loadFavoriteIds();
 
@@ -1143,6 +1843,7 @@ function renderPlaceCard(place, { show = true } = {}) {
     let finalUrl = resolvePlaceImage(place.image_url);
 
     const subCat = place.subcategory ? String(place.subcategory) : "";
+    const category = place.category ? String(place.category) : "";
     const town = normalizeTown(place);
     const subCatClass = subCat ? escapeHtml(subCat) : "";
     const townClass = town ? `town-${escapeHtml(town)}` : "";
@@ -1152,7 +1853,7 @@ function renderPlaceCard(place, { show = true } = {}) {
     const safeImg = escapeHtml(finalUrl || place.image_url || "");
 
     return `
-        <div class="item-card ${subCatClass} ${townClass} ${showClass}" data-subcategory="${escapeHtml(subCat)}" data-town="${escapeHtml(town)}">
+        <div class="item-card ${subCatClass} ${townClass} ${showClass}" data-category="${escapeHtml(category)}" data-subcategory="${escapeHtml(subCat)}" data-town="${escapeHtml(town)}">
             ${favoriteButtonHtml(place.id)}
             <a href="${detailsUrl(place.id)}" class="item-card-link" data-place-id="${escapeHtml(place.id)}">
                 <img src="${safeImg}" alt="${safeTitle}">
@@ -1234,8 +1935,8 @@ async function renderFavoritesMap(places) {
     const listContainer = document.getElementById('favorites-container');
     if (!listContainer) return;
 
-    const mappable = (places || []).filter(hasCoords);
-    favoritesPlacesCache = mappable;
+    favoritesPlacesCache = places || [];
+    const mappable = favoritesPlacesCache.filter(hasCoords);
 
     if (!mappable.length) {
         setFavoritesSideMapVisible(false);
@@ -1269,33 +1970,14 @@ async function renderFavoritesMap(places) {
         setTimeout(() => favoritesMap.invalidateSize(), 100);
     }
 
-    favoritesMarkerLayer.clearLayers();
-    const markers = mappable.map(place => {
-        const marker = createPlaceMarker(place, {
-            forceFavorite: true,
-            onClick: () => {
-                document.querySelectorAll('.item-card.is-map-active').forEach(el => el.classList.remove('is-map-active'));
-                const card = [...document.querySelectorAll('.item-card-link[data-place-id]')]
-                    .find(el => el.getAttribute('data-place-id') === place.id)
-                    ?.closest('.item-card');
-                if (card) {
-                    card.classList.add('is-map-active');
-                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }
-            }
-        });
-        favoritesMarkerLayer.addLayer(marker);
-        return marker;
-    });
-
-    if (emptyEl) emptyEl.hidden = markers.length > 0;
-    fitMapToMarkers(favoritesMap, markers);
-    setTimeout(() => favoritesMap.invalidateSize(), 80);
+    updateFavoritesMapMarkers();
+    if (emptyEl) emptyEl.hidden = favoritesPlacesCache.some(place => hasCoords(place) && placeMatchesActiveFilters(place));
 }
 
 async function loadFavoritesPage() {
     const container = document.getElementById('favorites-container');
     if (!container || !dbClient) return;
+    renderFavoriteTypeFilters();
 
     if (!currentUser) {
         setFavoritesSideMapVisible(false);
@@ -1305,8 +1987,11 @@ async function loadFavoritesPage() {
                 <button type="button" class="btn" onclick="openAuthModal('login')" data-i18n="nav-login">${t('nav-login')}</button>
             </div>
         `;
+        updateFavoritesFilterEmpty();
         return;
     }
+
+    await ensureExtraPlaces();
 
     const { data, error } = await dbClient
         .from('user_favorites')
@@ -1317,19 +2002,25 @@ async function loadFavoritesPage() {
         console.error('Error loading favorites page:', error);
         setFavoritesSideMapVisible(false);
         container.innerHTML = `<p class="favorites-empty">${t('auth-error')}</p>`;
+        updateFavoritesFilterEmpty();
         return;
     }
 
-    const places = (data || []).map(row => row.places).filter(place => place && !isRemovedPlace(place));
+    const places = (data || [])
+        .map(row => applyExtraGeo(row.places))
+        .filter(place => place && !isRemovedPlace(place));
     favoritePlaceIds = new Set((data || []).map(row => row.place_id));
 
     if (places.length === 0) {
         setFavoritesSideMapVisible(false);
+        favoritesPlacesCache = [];
         container.innerHTML = `<p class="favorites-empty" data-i18n="fav-empty">${t('fav-empty')}</p>`;
+        updateFavoritesFilterEmpty();
         return;
     }
 
     container.innerHTML = places.map(place => renderPlaceCard(place, { show: true })).join('');
+    applyFilters();
     renderFavoritesMap(places);
 }
 
@@ -1749,9 +2440,42 @@ async function renderCategoryMap(places) {
 }
 
 function placeMatchesActiveFilters(place) {
+    const onFavorites = !!document.getElementById('favCategoryContainer');
+    const categoryOk = !onFavorites || activeCategoryFilter === 'all' || place.category === activeCategoryFilter;
     const typeOk = activeTypeFilter === 'all' || place.subcategory === activeTypeFilter;
-    const townOk = activeTownFilter === 'all' || place.town === activeTownFilter;
-    return typeOk && townOk;
+    const townOk = activeTownFilter === 'all' || normalizeTown(place) === activeTownFilter;
+    return categoryOk && typeOk && townOk;
+}
+
+function updateFavoritesMapMarkers() {
+    if (!favoritesMap || !favoritesMarkerLayer) return;
+
+    favoritesMarkerLayer.clearLayers();
+    const markers = [];
+
+    favoritesPlacesCache.forEach(place => {
+        if (!hasCoords(place) || !placeMatchesActiveFilters(place)) return;
+        const marker = createPlaceMarker(place, {
+            forceFavorite: true,
+            onClick: () => {
+                document.querySelectorAll('.item-card.is-map-active').forEach(el => el.classList.remove('is-map-active'));
+                const card = [...document.querySelectorAll('.item-card-link[data-place-id]')]
+                    .find(el => el.getAttribute('data-place-id') === place.id)
+                    ?.closest('.item-card');
+                if (card) {
+                    card.classList.add('is-map-active');
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+        });
+        favoritesMarkerLayer.addLayer(marker);
+        markers.push(marker);
+    });
+
+    const emptyEl = document.getElementById('favorites-map-empty');
+    if (emptyEl) emptyEl.hidden = markers.length > 0;
+    fitMapToMarkers(favoritesMap, markers);
+    setTimeout(() => favoritesMap.invalidateSize(), 50);
 }
 
 function updateCategoryMapMarkers() {
@@ -2062,6 +2786,7 @@ function setLanguage(lang) {
 
     updateMonthHeading();
     refreshAllData();
+    updateAuthUI();
 }
 
 function refreshAllData() {
@@ -2089,6 +2814,74 @@ function setTownFilter(value) {
     applyFilters();
 }
 
+function setCategoryFilter(value) {
+    activeCategoryFilter = value || 'all';
+    activeTypeFilter = 'all';
+    renderFavoriteTypeFilters();
+    applyFilters();
+}
+
+const FAVORITE_TYPE_FILTERS = {
+    restaurants: [
+        ['all', 'filter-all'],
+        ['traditional', 'filter-trad'],
+        ['fine_dining', 'filter-fine'],
+        ['asian', 'filter-asian'],
+        ['mexican', 'filter-mexican']
+    ],
+    things: [
+        ['all', 'filter-all'],
+        ['safari', 'filter-safari'],
+        ['sea', 'filter-boat'],
+        ['diving', 'filter-diving'],
+        ['watersports', 'filter-watersports'],
+        ['ski', 'filter-ski'],
+        ['culture', 'filter-culture'],
+        ['wine', 'filter-wine'],
+        ['yoga', 'filter-yoga'],
+        ['promenades', 'filter-promenades']
+    ],
+    services: [
+        ['all', 'filter-all'],
+        ['law', 'filter-law'],
+        ['medical', 'filter-medical'],
+        ['accounting', 'filter-accounting'],
+        ['architects', 'filter-architects'],
+        ['flowers', 'filter-flowers'],
+        ['taxi', 'filter-taxi']
+    ]
+};
+
+function renderFavoriteTypeFilters() {
+    const block = document.getElementById('favTypeFilterBlock');
+    const row = document.getElementById('myBtnContainer');
+    if (!block || !row || !document.getElementById('favCategoryContainer')) return;
+
+    const options = FAVORITE_TYPE_FILTERS[activeCategoryFilter];
+    if (!options) {
+        block.hidden = true;
+        row.innerHTML = '';
+        return;
+    }
+
+    block.hidden = false;
+    row.innerHTML = options.map(([value, key]) => {
+        const active = value === activeTypeFilter ? ' active' : '';
+        return `<button type="button" class="filter-btn${active}" onclick="filterSelection('${value}')" data-i18n="${key}">${t(key)}</button>`;
+    }).join('');
+}
+
+function updateFavoritesFilterEmpty() {
+    const note = document.getElementById('fav-filter-empty');
+    if (!note) return;
+    const cards = document.querySelectorAll('#favorites-container .item-card');
+    if (!cards.length) {
+        note.hidden = true;
+        return;
+    }
+    note.hidden = [...cards].some(card => card.classList.contains('show'));
+}
+
 function filterSelection(category) {
     setTypeFilter(category);
 }
@@ -2103,20 +2896,25 @@ function syncFilterButtonState(containerSelector, activeValue) {
 
 function applyFilters() {
     const cards = document.getElementsByClassName('item-card');
-    if (cards.length === 0) return;
+    const onFavorites = !!document.getElementById('favCategoryContainer');
 
     for (let i = 0; i < cards.length; i++) {
         const card = cards[i];
         const type = card.getAttribute('data-subcategory') || '';
         const town = card.getAttribute('data-town') || '';
+        const category = card.getAttribute('data-category') || '';
+        const categoryOk = !onFavorites || activeCategoryFilter === 'all' || category === activeCategoryFilter;
         const typeOk = activeTypeFilter === 'all' || type === activeTypeFilter || card.classList.contains(activeTypeFilter);
         const townOk = activeTownFilter === 'all' || town === activeTownFilter;
-        card.classList.toggle('show', typeOk && townOk);
+        card.classList.toggle('show', categoryOk && typeOk && townOk);
     }
 
     syncFilterButtonState('#myBtnContainer', activeTypeFilter);
     syncFilterButtonState('#townFilterContainer', activeTownFilter);
+    syncFilterButtonState('#favCategoryContainer', activeCategoryFilter);
     updateCategoryMapMarkers();
+    updateFavoritesMapMarkers();
+    updateFavoritesFilterEmpty();
 }
 
 function getWeather() {
