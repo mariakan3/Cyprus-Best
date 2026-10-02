@@ -2058,7 +2058,7 @@ async function ensureExtraPlaces() {
     const extras = [];
         for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json', 'extra-things.json']) {
         try {
-            const res = await fetch(file + '?v=list30');
+            const res = await fetch(file + '?v=list31');
             if (res.ok) extras.push(...(await res.json()).filter(place => !isRemovedPlace(place)));
         } catch (err) {
             console.warn(file + ' not loaded', err);

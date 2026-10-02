@@ -25,7 +25,7 @@ insert into public.places (
   'images/tocayo.jpg?v=rest2',
   '+357 70 088089',
   'https://www.cesorogroup.com/tocayo',
-  'https://maps.google.com/?q=35.1658749,33.3585217',
+  'https://maps.google.com/?q=35.1663841,33.3587692',
   $tocayoen_t$Tocayo$tocayoen_t$,
   $tocayoen$Located in the heart of Nicosia, Tocayo offers a chic, minimalist setting and an innovative Asian fusion menu. Known for its exquisite tapas-style dishes, creative cocktails, and vibrant atmosphere, it is the perfect spot for a sophisticated night out in the capital.$tocayoen$,
   $tocayoel_t$Tocayo$tocayoel_t$,
@@ -36,8 +36,8 @@ insert into public.places (
   $tocayozh$Tocayo 位于尼科西亚市中心，提供别致、极简的环境和创新的亚洲融合菜单。这里以其精致的塔帕斯风格菜肴、创意鸡尾酒和充满活力的氛围而闻名，是首都享受精致夜晚的完美去处。$tocayozh$,
   'asian',
   false,
-  35.1658749,
-  33.3585217,
+  35.1663841,
+  33.3587692,
   'nicosia'
 ),
 (
@@ -46,7 +46,7 @@ insert into public.places (
   'images/dionysusmansion.jpg?v=rest2',
   '+357 25 222210',
   'https://dionysusmansion.com/',
-  'https://maps.google.com/?q=34.6756,33.0448',
+  'https://maps.google.com/?q=34.6789621,33.0395668',
   $dionysusmansionen_t$Dionysus Mansion$dionysusmansionen_t$,
   $dionysusmansionen$Situated in a beautifully restored historic house in Limassol, Dionysus Mansion elevates traditional Cypriot cuisine with modern culinary techniques. Featuring a stunning, fairy-lit garden for outdoor dining, it provides a magical atmosphere and a menu filled with authentic, localized flavors and premium local wines.$dionysusmansionen$,
   $dionysusmansionel_t$Dionysus Mansion$dionysusmansionel_t$,
@@ -57,8 +57,8 @@ insert into public.places (
   $dionysusmansionzh$Dionysus Mansion 坐落于利马索尔一栋经过精美修复的历史建筑内，采用现代烹饪技术提升了传统的塞浦路斯美食。这里拥有一个令人惊叹的、灯光闪烁的户外用餐花园，提供神奇的氛围以及充满地道风味和优质当地葡萄酒的菜单。$dionysusmansionzh$,
   'traditional',
   false,
-  34.6756,
-  33.0448,
+  34.6789621,
+  33.0395668,
   'limassol'
 ),
 (
@@ -67,7 +67,7 @@ insert into public.places (
   'images/maqamalsultan.jpg?v=rest2',
   '+357 24 628282',
   'https://www.maqamalsultan.com/',
-  'https://maps.google.com/?q=34.9163,33.6378',
+  'https://maps.google.com/?q=34.9110375,33.6376646',
   $maqamalsultanen_t$Maqam Al Sultan$maqamalsultanen_t$,
   $maqamalsultanen$Set right on the lively Finikoudes promenade in Larnaca, Maqam Al Sultan delivers a highly authentic Lebanese dining experience. Guests can enjoy a rich array of traditional mezzes, perfectly grilled meats, and shisha, all accompanied by spectacular views of the Mediterranean Sea and warm Middle Eastern hospitality.$maqamalsultanen$,
   $maqamalsultanel_t$Maqam Al Sultan$maqamalsultanel_t$,
@@ -78,8 +78,8 @@ insert into public.places (
   $maqamalsultanzh$Maqam Al Sultan 坐落于拉纳卡热闹的菲尼库德斯 (Finikoudes) 海滨长廊上，提供极其地道的黎巴嫩餐饮体验。客人可以享用丰富多样的传统小吃 (Meze)、完美的烤肉和水烟，同时欣赏地中海的壮丽景色并感受中东的热情好客。$maqamalsultanzh$,
   'traditional',
   false,
-  34.9163,
-  33.6378,
+  34.9110375,
+  33.6376646,
   'larnaca'
 ),
 (
@@ -107,9 +107,9 @@ insert into public.places (
   'pyxida',
   'restaurants',
   'images/pyxida.jpg?v=rest3',
-  '+357 22 671129',
+  '+357 22 445636',
   'https://www.pyxidafishtavern.com/',
-  'https://maps.google.com/?q=35.1698,33.3602',
+  'https://maps.google.com/?q=35.1668644,33.3568982',
   $pyxidaen_t$Pyxida Fish Tavern$pyxidaen_t$,
   $pyxidaen$Located in the center of Nicosia, Pyxida is a top-tier seafood restaurant renowned for its fresh fish and elegant atmosphere. From classic fish meze to gourmet seafood pasta, it offers an unforgettable culinary journey for seafood lovers in the capital.$pyxidaen$,
   $pyxidael_t$Pyxida Fish Tavern$pyxidael_t$,
@@ -120,8 +120,8 @@ insert into public.places (
   $pyxidazh$Pyxida 位于尼科西亚市中心，是一家顶级的海鲜餐厅，以其新鲜的鱼类和优雅的氛围而闻名。从经典的海鲜小吃到美味的海鲜意大利面，它为首都的海鲜爱好者提供了一次难忘的烹饪之旅。$pyxidazh$,
   'fine_dining',
   false,
-  35.1698,
-  33.3602,
+  35.1668644,
+  33.3568982,
   'nicosia'
 ),
 (
@@ -151,7 +151,7 @@ insert into public.places (
   'images/militzis.jpg?v=rest3',
   '+357 24 655867',
   'https://militzis.com/',
-  'https://maps.google.com/?q=34.9118,33.6379',
+  'https://maps.google.com/?q=34.9079811,33.6376496',
   $militzisen_t$Militzis Traditional Tavern$militzisen_t$,
   $militzisen$A true Larnaca landmark overlooking the sea, Militzis has been serving authentic Cypriot cuisine for decades. Famous for its traditional wood-fired oven dishes, tender kleftiko, and local wines, this rustic tavern guarantees a genuine and hearty taste of Cyprus.$militzisen$,
   $militzisel_t$Ταβέρνα Μιλίτζης$militzisel_t$,
@@ -162,8 +162,8 @@ insert into public.places (
   $militziszh$Militzis 是拉纳卡真正的地标建筑，俯瞰大海，几十年来一直供应正宗的塞浦路斯美食。这家质朴的酒馆以其传统的燃木烤炉菜肴、嫩滑的 Kleftiko 和当地葡萄酒而闻名，保证让您品尝到纯正而丰盛的塞浦路斯风味。$militziszh$,
   'traditional',
   false,
-  34.9118,
-  33.6379,
+  34.9079811,
+  33.6376496,
   'larnaca'
 ),
 (

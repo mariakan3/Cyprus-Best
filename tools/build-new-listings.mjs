@@ -22,7 +22,7 @@ const restaurants = [
     title_el: 'Tocayo', desc_el: 'Στην καρδιά της Λευκωσίας, το Tocayo προσφέρει ένα κομψό, μινιμαλιστικό περιβάλλον και ένα καινοτόμο μενού ασιατικής fusion κουζίνας. Γνωστό για τα εξαιρετικά πιάτα τύπου τάπας, τα δημιουργικά κοκτέιλ και τη ζωντανή ατμόσφαιρα, είναι το ιδανικό μέρος για μια εκλεπτυσμένη βραδινή έξοδο στην πρωτεύουσα.',
     title_ru: 'Tocayo', desc_ru: 'Расположенный в самом сердце Никосии, ресторан Tocayo предлагает элегантную минималистичную обстановку и инновационное меню азиатской кухни фьюжн. Известный своими изысканными блюдами в стиле тапас, креативными коктейлями и оживленной атмосферой, это идеальное место для изысканного вечера в столице.',
     title_zh: 'Tocayo', desc_zh: 'Tocayo 位于尼科西亚市中心，提供别致、极简的环境和创新的亚洲融合菜单。这里以其精致的塔帕斯风格菜肴、创意鸡尾酒和充满活力的氛围而闻名，是首都享受精致夜晚的完美去处。',
-    subcategory: 'asian', lat: 35.1694, lng: 33.3618, town: 'nicosia'
+    subcategory: 'asian', lat: 35.1663841, lng: 33.3587692, town: 'nicosia'
   }),
   place({
     id: 'dionysusmansion', category: 'restaurants', image_url: 'images/dionysusmansion.jpg',
@@ -31,7 +31,7 @@ const restaurants = [
     title_el: 'Dionysus Mansion', desc_el: 'Στεγασμένο σε ένα όμορφα αναπαλαιωμένο ιστορικό αρχοντικό στη Λεμεσό, το Dionysus Mansion απογειώνει την παραδοσιακή κυπριακή κουζίνα με σύγχρονες γαστρονομικές τεχνικές. Διαθέτοντας έναν μαγευτικό, φωταγωγημένο κήπο για δείπνο σε ανοιχτό χώρο, προσφέρει μια παραμυθένια ατμόσφαιρα και ένα μενού γεμάτο αυθεντικές γεύσεις και κορυφαία τοπικά κρασιά.',
     title_ru: 'Dionysus Mansion', desc_ru: 'Расположенный в прекрасно отреставрированном историческом особняке в Лимассоле, Dionysus Mansion возвышает традиционную кипрскую кухню с помощью современных кулинарных техник. Потрясающий сад, украшенный гирляндами для ужина на свежем воздухе, создает волшебную атмосферу и предлагает меню, полное аутентичных вкусов и первоклассных местных вин.',
     title_zh: 'Dionysus Mansion', desc_zh: 'Dionysus Mansion 坐落于利马索尔一栋经过精美修复的历史建筑内，采用现代烹饪技术提升了传统的塞浦路斯美食。这里拥有一个令人惊叹的、灯光闪烁的户外用餐花园，提供神奇的氛围以及充满地道风味和优质当地葡萄酒的菜单。',
-    subcategory: 'traditional', lat: 34.6756, lng: 33.0448, town: 'limassol'
+    subcategory: 'traditional', lat: 34.6789621, lng: 33.0395668, town: 'limassol'
   }),
   place({
     id: 'maqamalsultan', category: 'restaurants', image_url: 'images/maqamalsultan.jpg',
@@ -40,7 +40,7 @@ const restaurants = [
     title_el: 'Maqam Al Sultan', desc_el: 'Πάνω στον πολυσύχναστο πεζόδρομο των Φοινικούδων στη Λάρνακα, το Maqam Al Sultan προσφέρει μια εξαιρετικά αυθεντική λιβανέζικη γαστρονομική εμπειρία. Οι επισκέπτες μπορούν να απολαύσουν μια πλούσια ποικιλία από παραδοσιακούς μεζέδες, καλοψημένα κρέατα και ναργιλέ, με εκπληκτική θέα στη Μεσόγειο και ζεστή ανατολίτικη φιλοξενία.',
     title_ru: 'Maqam Al Sultan', desc_ru: 'Расположенный прямо на оживленной набережной Финикудес в Ларнаке, Maqam Al Sultan предлагает по-настоящему аутентичный опыт ливанской кухни. Гости могут насладиться богатым выбором традиционных мезе, идеально приготовленным на гриле мясом и кальяном в сопровождении захватывающего вида на Средиземное море и теплого ближневосточного гостеприимства.',
     title_zh: 'Maqam Al Sultan', desc_zh: 'Maqam Al Sultan 坐落于拉纳卡热闹的菲尼库德斯 (Finikoudes) 海滨长廊上，提供极其地道的黎巴嫩餐饮体验。客人可以享用丰富多样的传统小吃 (Meze)、完美的烤肉和水烟，同时欣赏地中海的壮丽景色并感受中东的热情好客。',
-    subcategory: 'traditional', lat: 34.9163, lng: 33.6378, town: 'larnaca'
+    subcategory: 'traditional', lat: 34.9110375, lng: 33.6376646, town: 'larnaca'
   }),
   place({
     id: 'glasshouse', category: 'restaurants', image_url: 'images/glasshouse.jpg',
@@ -49,16 +49,16 @@ const restaurants = [
     title_el: 'Glasshouse Lounge Restaurant', desc_el: 'Στον τελευταίο όροφο του Adams Beach Hotel στην Αγία Νάπα, το Glasshouse Lounge προσφέρει μια θεαματική fine-dining εμπειρία με πανοραμική θέα στον κόλπο του Nissi. Με εντυπωσιακή διακόσμηση από γυαλί και ένα καινοτόμο διεθνές μενού, αποτελεί τον απόλυτο προορισμό για ειδικές περιστάσεις και πολυτελή δείπνα στο ηλιοβασίλεμα.',
     title_ru: 'Glasshouse Lounge Restaurant', desc_ru: 'Расположенный на верхнем этаже отеля Adams Beach в Айя-Напе, ресторан Glasshouse Lounge предлагает захватывающие впечатления от высокой кухни с панорамным видом на залив Нисси. Яркий декор в стеклянном стиле и инновационное интернациональное меню делают его идеальным местом для особых случаев и роскошных ужинов на закате.',
     title_zh: 'Glasshouse Lounge Restaurant', desc_zh: 'Glasshouse Lounge 坐落于圣纳帕 (Ayia Napa) 亚当斯海滩酒店 (Adams Beach Hotel) 的顶层，提供壮观的高级餐饮体验，可欣赏尼斯湾 (Nissi Bay) 的全景。凭借其引人注目的玻璃主题装饰和创新的国际菜单，它是举办特殊场合和豪华日落晚餐的终极目的地。',
-    subcategory: 'fine_dining', lat: 34.9874, lng: 33.9597, town: 'famagusta'
+    subcategory: 'fine_dining', lat: 34.9883841, lng: 33.9666124, town: 'famagusta'
   }),
   place({
     id: 'pyxida', category: 'restaurants', image_url: 'images/pyxida.jpg',
-    phone: '+357 22 671129', website: 'https://www.pyxidafishtavern.com/',
+    phone: '+357 22 445636', website: 'https://www.pyxidafishtavern.com/',
     title_en: 'Pyxida Fish Tavern', desc_en: 'Located in the center of Nicosia, Pyxida is a top-tier seafood restaurant renowned for its fresh fish and elegant atmosphere. From classic fish meze to gourmet seafood pasta, it offers an unforgettable culinary journey for seafood lovers in the capital.',
     title_el: 'Pyxida Fish Tavern', desc_el: 'Βρίσκεται στο κέντρο της Λευκωσίας, η Pyxida είναι ένα κορυφαίο εστιατόριο θαλασσινών, φημισμένο για τα φρέσκα ψάρια και την κομψή του ατμόσφαιρα. Από τον κλασικό ψαρομεζέ μέχρι τις γκουρμέ μακαρονάδες θαλασσινών, προσφέρει ένα αξέχαστο γαστρονομικό ταξίδι στην πρωτεύουσα.',
     title_ru: 'Pyxida Fish Tavern', desc_ru: 'Расположенный в центре Никосии, Pyxida — это первоклассный рыбный ресторан, известный своей свежей рыбой и элегантной атмосферой. От классического рыбного мезе до изысканной пасты с морепродуктами — он предлагает незабываемое кулинарное путешествие.',
     title_zh: 'Pyxida Fish Tavern', desc_zh: 'Pyxida 位于尼科西亚市中心，是一家顶级的海鲜餐厅，以其新鲜的鱼类和优雅的氛围而闻名。从经典的海鲜小吃到美味的海鲜意大利面，它为首都的海鲜爱好者提供了一次难忘的烹饪之旅。',
-    subcategory: 'fine_dining', lat: 35.1698, lng: 33.3602, town: 'nicosia'
+    subcategory: 'fine_dining', lat: 35.1668644, lng: 33.3568982, town: 'nicosia'
   }),
   place({
     id: 'epsilon', category: 'restaurants', image_url: 'images/epsilon.jpg',
@@ -67,7 +67,7 @@ const restaurants = [
     title_el: 'Epsilon Resto Bar', desc_el: 'Στην πολυτελή Μαρίνα Λεμεσού, το Epsilon Resto Bar προσφέρει μια κομψή γαστρονομική εμπειρία με μαγευτική θέα στη Μεσόγειο. Το μοντέρνο μενού του περιλαμβάνει δημιουργικά διεθνή πιάτα, premium σούσι και signature κοκτέιλ, καθιστώντας το ένα hotspot για μοντέρνα διασκέδαση.',
     title_ru: 'Epsilon Resto Bar', desc_ru: 'Ресторан и бар Epsilon, расположенный в роскошной гавани Лимассола, предлагает шикарный ужин с завораживающим видом на Средиземное море. Его современное меню включает креативные блюда международной кухни, суши премиум-класса и фирменные коктейли.',
     title_zh: 'Epsilon Resto Bar', desc_zh: 'Epsilon Resto Bar 位于豪华的利马索尔码头，提供别致的用餐体验，可欣赏地中海的迷人景色。其现代菜单以创意的国际菜肴、优质寿司和招牌鸡尾酒为特色，使其成为时尚精致餐饮的热门地点。',
-    subcategory: 'asian', lat: 34.6729, lng: 33.0436, town: 'limassol'
+    subcategory: 'asian', lat: 34.6698798, lng: 33.039005, town: 'limassol'
   }),
   place({
     id: 'militzis', category: 'restaurants', image_url: 'images/militzis.jpg',
@@ -76,7 +76,7 @@ const restaurants = [
     title_el: 'Ταβέρνα Μιλίτζης', desc_el: 'Ένα πραγματικό ορόσημο της Λάρνακας με θέα στη θάλασσα, ο Μιλίτζης σερβίρει αυθεντική κυπριακή κουζίνα εδώ και δεκαετίες. Φημισμένη για τα παραδοσιακά πιάτα στον ξυλόφουρνο, το τρυφερό κλέφτικο και τα τοπικά κρασιά, αυτή η ρουστίκ ταβέρνα εγγυάται μια γνήσια γεύση της Κύπρου.',
     title_ru: 'Таверна Militzis', desc_ru: 'Настоящая достопримечательность Ларнаки с видом на море, таверна Militzis десятилетиями подает аутентичные блюда кипрской кухни. Эта деревенская таверна, известная своими традиционными блюдами из дровяной печи, нежным клефтико и местными винами, гарантирует настоящий вкус Кипра.',
     title_zh: 'Militzis Traditional Tavern', desc_zh: 'Militzis 是拉纳卡真正的地标建筑，俯瞰大海，几十年来一直供应正宗的塞浦路斯美食。这家质朴的酒馆以其传统的燃木烤炉菜肴、嫩滑的 Kleftiko 和当地葡萄酒而闻名，保证让您品尝到纯正而丰盛的塞浦路斯风味。',
-    subcategory: 'traditional', lat: 34.9118, lng: 33.6379, town: 'larnaca'
+    subcategory: 'traditional', lat: 34.9079811, lng: 33.6376496, town: 'larnaca'
   }),
   place({
     id: 'kalamiesrestaurant', category: 'restaurants', image_url: 'images/kalamiesrestaurant.jpg',
@@ -85,7 +85,7 @@ const restaurants = [
     title_el: 'Εστιατόριο Καλαμιές', desc_el: 'Πάνω σε έναν γραφικό αμμώδη κόλπο στον Πρωταρά, ακριβώς δίπλα σε ένα λευκό εκκλησάκι, το Καλαμιές είναι ένα εμβληματικό παραθαλάσσιο εστιατόριο. Ενθουσιάζει τους επισκέπτες από το 1976 με τα εξαιρετικά φρέσκα θαλασσινά, τις μεσογειακές γεύσεις και τη ρομαντική ατμόσφαιρα δίπλα στο κύμα.',
     title_ru: 'Ресторан Kalamies', desc_ru: 'Знаменитый прибрежный ресторан Kalamies расположен в живописной песчаной бухте в Протарасе, рядом с очаровательной часовней с белым куполом. С 1976 года он радует гостей свежайшими морепродуктами, средиземноморскими вкусами и романтической атмосферой у самой кромки воды.',
     title_zh: 'Kalamies Restaurant', desc_zh: 'Kalamies 是一家标志性的海滨餐厅，位于普罗塔拉斯风景如画的沙滩海湾，紧邻一座迷人的白顶小教堂。自 1976 年以来，这里一直以其卓越的新鲜海鲜、地中海风味和水边的浪漫氛围而令客人流连忘返。',
-    subcategory: 'traditional', lat: 35.0124, lng: 34.0582, town: 'famagusta'
+    subcategory: 'traditional', lat: 35.0354122, lng: 34.0385835, town: 'famagusta'
   })
 ];
 
