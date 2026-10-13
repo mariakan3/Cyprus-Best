@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
-
 /* --- 1. ΒΑΣΙΚΕΣ ΡΥΘΜΙΣΕΙΣ (BASIC SETUP) --- */
 :root {
     --cb-teal: #2eb8be;
@@ -242,13 +240,7 @@ body.modal-open {
         linear-gradient(180deg, rgba(10, 18, 26, 0.28) 0%, rgba(10, 18, 26, 0.62) 100%);
 }
 
-.hero-slide-bg--hotels { background-image: url('images/hotels.png'); }
-.hero-slide-bg--restaurants { background-image: url('images/restaurants.png'); }
-.hero-slide-bg--views { background-image: url('images/view.jpg'); }
-.hero-slide-bg--beaches { background-image: url('images/blue-lagoon.jpg'); }
-.hero-slide-bg--realestate { background-image: url('images/real-estate.jpg'); }
-.hero-slide-bg--things { background-image: url('images/paphos-castle.jpg'); }
-.hero-slide-bg--services { background-image: url('images/services.jpeg'); }
+.hero-slide-bg--hotels { background-image: url('images/opt/hero/hotels.png.webp'); }
 
 .hero-slide .hero-content {
     opacity: 0;
@@ -770,15 +762,7 @@ section { padding: 2rem 1rem; text-align: center; }
     }
 }
 
-/* Εικόνες Κατηγοριών */
-#hotels { background-image: url('images/hotels.png'); }
-#restaurants { background-image: url('images/restaurants.png'); }
-#views { background-image: url('images/view.jpg'); }
-#beaches { background-image: url('images/blue-lagoon.jpg'); }
-#real-estate { background-image: url('images/real-estate.jpg'); }
-#realestate { background-image: url('images/real-estate.jpg'); }
-#thingstodo { background-image: url('images/paphos-castle.jpg'); }
-#services { background-image: url('images/services.jpeg'); }
+/* Category photos are attached in index.html and loaded as the section nears the screen. */
 
 /* --- 6. PAGE HEADERS (ΤΙΤΛΟΙ ΣΕΛΙΔΩΝ) --- */
 .page-header {

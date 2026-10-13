@@ -7,16 +7,60 @@ if (typeof supabase !== 'undefined') {
     dbClient = supabase.createClient(PROJECT_URL, PROJECT_KEY);
 }
 
-function resolvePlaceImage(url) {
-    let finalUrl = (url || '').trim();
+function absolutizeAsset(url) {
+    const finalUrl = (url || '').trim();
     if (!finalUrl) return '';
-    if (finalUrl.includes('cloudinary.com')) {
-        finalUrl = finalUrl.replace('/upload/', '/upload/f_auto,q_auto/');
+    if (/^https?:\/\//i.test(finalUrl) || finalUrl.startsWith('data:')) return finalUrl;
+    return '/' + finalUrl.replace(/^\/+/, '');
+}
+
+function cloudinarySized(url, preset) {
+    const transforms = {
+        card: 'f_auto,q_auto,w_720,c_limit',
+        hero: 'f_auto,q_auto,w_1600,c_limit'
+    };
+    const transform = transforms[preset] || transforms.hero;
+    if (url.includes('/upload/f_auto,q_auto/')) {
+        return url.replace('/upload/f_auto,q_auto/', `/upload/${transform}/`);
     }
-    if (!/^https?:\/\//i.test(finalUrl) && !finalUrl.startsWith('data:')) {
-        finalUrl = '/' + finalUrl.replace(/^\/+/, '');
+    if (url.includes('/upload/')) {
+        return url.replace('/upload/', `/upload/${transform}/`);
     }
-    return finalUrl;
+    return url;
+}
+
+function localOptimizedPath(url, preset) {
+    const path = url.split('#')[0].split('?')[0];
+    if (/^https?:\/\//i.test(path) || path.startsWith('data:')) return '';
+    const file = path.split('/').pop();
+    if (!file || !/\.(avif|gif|jpe?g|jfif|png|webp)$/i.test(file)) return '';
+    return `images/opt/${preset}/${encodeURIComponent(file)}.webp`;
+}
+
+function placeImage(url, preset = 'hero') {
+    const raw = (url || '').trim();
+    if (!raw) return { src: '', fallback: '' };
+    if (raw.includes('cloudinary.com')) {
+        return { src: cloudinarySized(raw, preset), fallback: '' };
+    }
+    const optimized = localOptimizedPath(raw, preset);
+    const fallback = absolutizeAsset(raw);
+    if (!optimized) return { src: fallback, fallback: '' };
+    return { src: absolutizeAsset(optimized), fallback };
+}
+
+function resolvePlaceImage(url) {
+    return placeImage(url, 'hero').src;
+}
+
+function imageHtml(url, alt, { preset = 'card', eager = false } = {}) {
+    const image = placeImage(url, preset);
+    if (!image.src) return '';
+    const loading = eager ? 'eager' : 'lazy';
+    const fallback = image.fallback && image.fallback !== image.src
+        ? ` data-fallback="${escapeHtml(image.fallback)}" onerror="if(this.dataset.fallback){this.onerror=null;this.src=this.dataset.fallback}"`
+        : '';
+    return `<img src="${escapeHtml(image.src)}" alt="${escapeHtml(alt)}"${fallback} loading="${loading}" decoding="async">`;
 }
 
 let currentLang = localStorage.getItem('userLang') || 'en';
@@ -1837,10 +1881,9 @@ async function toggleFavorite(event, placeId) {
     }
 }
 
-function renderPlaceCard(place, { show = true } = {}) {
+function renderPlaceCard(place, { show = true, eager = false } = {}) {
     const title = place[`title_${currentLang}`] || place.title_en || "No Title";
     const description = place[`desc_${currentLang}`] || place.desc_en || "";
-    let finalUrl = resolvePlaceImage(place.image_url);
 
     const subCat = place.subcategory ? String(place.subcategory) : "";
     const category = place.category ? String(place.category) : "";
@@ -1850,13 +1893,12 @@ function renderPlaceCard(place, { show = true } = {}) {
     const showClass = show ? "show" : "";
     const safeTitle = escapeHtml(title);
     const safeDesc = escapeHtml(truncateText(description, 110));
-    const safeImg = escapeHtml(finalUrl || place.image_url || "");
 
     return `
         <div class="item-card ${subCatClass} ${townClass} ${showClass}" data-category="${escapeHtml(category)}" data-subcategory="${escapeHtml(subCat)}" data-town="${escapeHtml(town)}">
             ${favoriteButtonHtml(place.id)}
             <a href="${detailsUrl(place.id)}" class="item-card-link" data-place-id="${escapeHtml(place.id)}">
-                <img src="${safeImg}" alt="${safeTitle}">
+                ${imageHtml(place.image_url, title, { preset: 'card', eager })}
                 <div class="item-info">
                     <h3>${safeTitle}</h3>
                     <p>${safeDesc}</p>
@@ -1991,12 +2033,14 @@ async function loadFavoritesPage() {
         return;
     }
 
-    await ensureExtraPlaces();
-
-    const { data, error } = await dbClient
-        .from('user_favorites')
-        .select('place_id, created_at, places(*)')
-        .order('created_at', { ascending: false });
+    const [, favoritesResult] = await Promise.all([
+        ensureExtraPlaces(),
+        dbClient
+            .from('user_favorites')
+            .select('place_id, created_at, places(*)')
+            .order('created_at', { ascending: false })
+    ]);
+    const { data, error } = favoritesResult;
 
     if (error) {
         console.error('Error loading favorites page:', error);
@@ -2052,20 +2096,36 @@ const EXTRA_PLACES = [
 ];
 
 let extraPlacesCache = EXTRA_PLACES;
+let extraPlacesPromise = null;
+const categoryDataCache = {};
+const categoryLoadPromises = {};
+let bestOfMonthCache = null;
+let bestOfMonthPromise = null;
+let homeMapScheduled = false;
 
 async function ensureExtraPlaces() {
     if (extraPlacesCache.length > EXTRA_PLACES.length) return extraPlacesCache;
-    const extras = [];
-        for (const file of ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json', 'extra-things.json']) {
+    if (extraPlacesPromise) return extraPlacesPromise;
+
+    const files = ['extra-beaches.json', 'extra-views.json', 'extra-restaurants.json', 'extra-hotels.json', 'extra-realestate.json', 'extra-things.json'];
+    extraPlacesPromise = Promise.all(files.map(async (file) => {
         try {
             const res = await fetch(file + '?v=list31');
-            if (res.ok) extras.push(...(await res.json()).filter(place => !isRemovedPlace(place)));
+            if (!res.ok) return [];
+            return (await res.json()).filter(place => !isRemovedPlace(place));
         } catch (err) {
             console.warn(file + ' not loaded', err);
+            return [];
         }
-    }
-    extraPlacesCache = [...EXTRA_PLACES, ...extras];
-    return extraPlacesCache;
+    })).then((batches) => {
+        extraPlacesCache = [...EXTRA_PLACES, ...batches.flat()];
+        return extraPlacesCache;
+    }).catch((err) => {
+        extraPlacesPromise = null;
+        throw err;
+    });
+
+    return extraPlacesPromise;
 }
 
 function normalizeTown(place) {
@@ -2377,10 +2437,7 @@ function categoryLabel(category) {
 
 function placePopupHtml(place) {
     const title = place[`title_${currentLang}`] || place.title_en || place.id;
-    const img = resolvePlaceImage(place.image_url);
-    const thumb = img.includes('cloudinary.com')
-        ? img.replace('/upload/', '/upload/f_auto,q_auto,w_120,h_80,c_fill/')
-        : img;
+    const thumb = placeImage(place.image_url, 'card').src;
     const cat = categoryLabel(place.category);
     const favBadge = isFavorite(place.id)
         ? `<span class="map-popup-fav">${escapeHtml(t('map-legend-favorites'))}</span>`
@@ -2528,10 +2585,59 @@ function updateHomeMapMarkers() {
     setTimeout(() => homeMap.invalidateSize(), 50);
 }
 
+function scheduleHomeMap() {
+    const mapEl = document.getElementById('home-map');
+    if (!mapEl || !dbClient) return;
+    if (homeMap) {
+        updateHomeMapMarkers();
+        return;
+    }
+    if (homeMapScheduled) return;
+    homeMapScheduled = true;
+
+    const start = () => loadHomeMap();
+    if (!('IntersectionObserver' in window)) {
+        start();
+        return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+        if (!entries.some(entry => entry.isIntersecting)) return;
+        observer.disconnect();
+        start();
+    }, { rootMargin: '500px' });
+    observer.observe(mapEl);
+}
+
+function warmDeferredBackgrounds() {
+    const nodes = [...document.querySelectorAll('[data-bg]')].filter((node) => !node.closest('#hero-slider'));
+    if (!nodes.length) return;
+
+    const paint = (node) => {
+        if (node.dataset.painted) return;
+        const url = node.getAttribute('data-bg');
+        if (!url) return;
+        node.style.backgroundImage = `url("${url}")`;
+        node.dataset.painted = '1';
+    };
+
+    if (!('IntersectionObserver' in window)) {
+        nodes.forEach(paint);
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            paint(entry.target);
+            observer.unobserve(entry.target);
+        });
+    }, { rootMargin: '280px' });
+    nodes.forEach(node => observer.observe(node));
+}
+
 async function loadHomeMap() {
     const mapEl = document.getElementById('home-map');
     if (!mapEl || !dbClient) return;
-    await ensureExtraPlaces();
 
     try {
         await loadLeaflet();
@@ -2540,13 +2646,19 @@ async function loadHomeMap() {
         return;
     }
 
-    const { data: places, error } = await dbClient
-        .from('places')
-        .select('id, category, image_url, lat, lng, title_en, title_el, title_ru, title_zh, subcategory');
-
-    if (error) {
-        console.error('Error loading home map places:', error);
-        return;
+    let places = homePlacesCache;
+    if (!places.length) {
+        const [, result] = await Promise.all([
+            ensureExtraPlaces(),
+            dbClient
+                .from('places')
+                .select('id, category, image_url, lat, lng, title_en, title_el, title_ru, title_zh, subcategory')
+        ]);
+        if (result.error) {
+            console.error('Error loading home map places:', result.error);
+            return;
+        }
+        places = result.data || [];
     }
 
     homePlacesCache = mergeExtraPlaces(places).filter(hasCoords);
@@ -2619,14 +2731,30 @@ async function renderDetailsMap(place) {
 async function loadCategory(categoryName, containerId) {
     const container = document.getElementById(containerId);
     if (!container || !dbClient) return;
-    await ensureExtraPlaces();
 
-    const { data: places, error } = await dbClient
-        .from('places')
-        .select('*')
-        .eq('category', categoryName);
-    
-    if (error) {
+    if (!categoryLoadPromises[categoryName]) {
+        categoryLoadPromises[categoryName] = (async () => {
+            const columns = 'id, category, subcategory, town, image_url, lat, lng, map_link, title_en, title_el, title_ru, title_zh, desc_en, desc_el, desc_ru, desc_zh';
+            const [, first] = await Promise.all([
+                ensureExtraPlaces(),
+                dbClient.from('places').select(columns).eq('category', categoryName)
+            ]);
+            const result = first.error
+                ? await dbClient.from('places').select('*').eq('category', categoryName)
+                : first;
+            if (result.error) throw result.error;
+            categoryDataCache[categoryName] = result.data || [];
+            return categoryDataCache[categoryName];
+        })().catch((err) => {
+            delete categoryLoadPromises[categoryName];
+            throw err;
+        });
+    }
+
+    let places;
+    try {
+        places = categoryDataCache[categoryName] || await categoryLoadPromises[categoryName];
+    } catch (error) {
         console.error("Error loading category:", error);
         return;
     }
@@ -2636,7 +2764,7 @@ async function loadCategory(categoryName, containerId) {
     activeTypeFilter = 'all';
     activeTownFilter = 'all';
     activeMapFilter = 'all';
-    container.innerHTML = ordered.map(place => renderPlaceCard(place, { show: true })).join('');
+    container.innerHTML = ordered.map((place, index) => renderPlaceCard(place, { show: true, eager: index < 2 })).join('');
     renderCategoryMap(ordered);
     applyFilters();
 }
@@ -2646,22 +2774,37 @@ async function loadBestOfMonth() {
     const container = document.getElementById('month-recommendation');
     if (!container || !dbClient) return;
 
-    const { data: items, error } = await dbClient.from('places').select('*').eq('is_best_of_month', true);
-    if (error || !items) return;
+    if (!bestOfMonthPromise) {
+        bestOfMonthPromise = dbClient.from('places').select('id, category, subcategory, image_url, title_en, title_el, title_ru, title_zh, desc_en, desc_el, desc_ru, desc_zh').eq('is_best_of_month', true)
+            .then((result) => {
+                if (result.error) throw result.error;
+                bestOfMonthCache = result.data || [];
+                return bestOfMonthCache;
+            }).catch((err) => {
+                bestOfMonthPromise = null;
+                throw err;
+            });
+    }
+
+    let items;
+    try {
+        items = bestOfMonthCache || await bestOfMonthPromise;
+    } catch (error) {
+        console.error(error);
+        return;
+    }
 
     container.innerHTML = '';
     items.filter(place => !isRemovedPlace(place)).forEach(place => {
         const title = place[`title_${currentLang}`] || place.title_en;
-        const desc = place[`desc_${currentLang}`] || place.desc_en; // Διορθώθηκε το ID
-        
-        let finalUrl = resolvePlaceImage(place.image_url);
+        const desc = place[`desc_${currentLang}`] || place.desc_en;
 
         container.innerHTML += `
             <article class="month-card">
                 ${favoriteButtonHtml(place.id)}
                 <a href="${detailsUrl(place.id)}" class="month-layout" data-place-id="${escapeHtml(place.id)}">
                     <div class="month-media">
-                        <img src="${escapeHtml(finalUrl)}" alt="${escapeHtml(title)}" loading="lazy">
+                        ${imageHtml(place.image_url, title, { preset: 'card' })}
                     </div>
                     <div class="month-info">
                         <span class="month-badge" data-i18n="best-of">${t('best-of')}</span>
@@ -2692,14 +2835,10 @@ async function loadFullDetails(id) {
         return;
     }
 
-    // Τραβάμε τα δεδομένα για το συγκεκριμένο ID
-    const { data, error } = await dbClient
-        .from('places')
-        .select('*')
-        .eq('id', id)
-        .single();
-
-    await ensureExtraPlaces();
+    const [{ data, error }] = await Promise.all([
+        dbClient.from('places').select('*').eq('id', id).single(),
+        ensureExtraPlaces()
+    ]);
     const place = applyExtraGeo(data || extraPlacesCache.find(item => item.id === id) || null);
 
     if (!place) {
@@ -2714,7 +2853,7 @@ async function loadFullDetails(id) {
     const description = place[`desc_${currentLang}`] || place.desc_en || "";
 
     // 3. Εικόνα: Προσθέτει και το Cloudinary Optimization αν είναι link από εκεί
-    let imgUrl = resolvePlaceImage(place.image_url);
+    let imgUrl = placeImage(place.image_url, 'hero');
 
     // Εμφάνιση των στοιχείων στη σελίδα
     const headerEl = document.getElementById('details-header');
@@ -2722,7 +2861,16 @@ async function loadFullDetails(id) {
     const descEl = document.getElementById('place-description');
     const favSlot = document.getElementById('details-fav-slot');
 
-    if (headerEl) headerEl.style.backgroundImage = `url('${imgUrl}')`;
+    if (headerEl && imgUrl.src) {
+        headerEl.style.backgroundImage = `url('${imgUrl.src.replace(/'/g, '%27')}')`;
+        if (imgUrl.fallback && imgUrl.fallback !== imgUrl.src) {
+            const probe = new Image();
+            probe.onerror = () => {
+                headerEl.style.backgroundImage = `url('${imgUrl.fallback.replace(/'/g, '%27')}')`;
+            };
+            probe.src = imgUrl.src;
+        }
+    }
     if (titleEl) titleEl.innerText = title;
     if (descEl) descEl.innerHTML = description; // Χρησιμοποιούμε innerHTML για να πιάνει τυχόν αλλαγές γραμμής
     if (favSlot) favSlot.innerHTML = favoriteButtonHtml(place.id);
@@ -2796,7 +2944,7 @@ function refreshAllData() {
     });
     if (document.getElementById('month-recommendation')) loadBestOfMonth();
     if (document.getElementById('favorites-container')) loadFavoritesPage();
-    if (document.getElementById('home-map')) loadHomeMap();
+    if (document.getElementById('home-map')) scheduleHomeMap();
 
     if (document.getElementById('place-title') || document.getElementById('details-header')) {
         loadFullDetails(getPlaceIdFromUrl());
@@ -2986,6 +3134,15 @@ function initHeroSlider() {
     let index = Math.max(0, slides.findIndex(slide => slide.classList.contains('is-active')));
     let timer = null;
 
+    function paintHeroBackground(slide) {
+        const bg = slide && slide.querySelector('.hero-slide-bg');
+        if (!bg || bg.dataset.painted) return;
+        const url = bg.getAttribute('data-bg');
+        if (!url) return;
+        bg.style.backgroundImage = `url("${url}")`;
+        bg.dataset.painted = '1';
+    }
+
     function render(nextIndex) {
         index = (nextIndex + slides.length) % slides.length;
         slides.forEach((slide, i) => {
@@ -3000,6 +3157,8 @@ function initHeroSlider() {
             if (active) dot.setAttribute('aria-current', 'true');
             else dot.removeAttribute('aria-current');
         });
+        paintHeroBackground(slides[index]);
+        paintHeroBackground(slides[(index + 1) % slides.length]);
     }
 
     function stop() {
@@ -3073,6 +3232,7 @@ function initHeroSlider() {
 
 document.addEventListener("DOMContentLoaded", async () => {
     initHeroSlider();
+    warmDeferredBackgrounds();
     getWeather();
     await initAuth();
     const saved = localStorage.getItem('userLang') || 'en';

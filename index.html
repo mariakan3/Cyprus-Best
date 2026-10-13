@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W6C75JKZ2M"></script>
     <script>
@@ -10,16 +12,21 @@
 
       gtag('config', 'G-W6C75JKZ2M');
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyprus Best - Locals' Top Choices</title>
     <link rel="icon" type="image/png" href="logo2.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://qahpepjvksxrhugmxpgg.supabase.co">
+    <link rel="preload" as="image" href="images/opt/hero/hotels.png.webp" fetchpriority="high">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"></noscript>
     <meta property="og:title" content="Cyprus Best - Locals' Top Choices">
     <meta property="og:description" content="Discover the best of Cyprus with our locals' top recommendations for hotels, restaurants, views, beaches, real estate, things to do, and services. Your ultimate guide to the island's hidden gems and must-visit spots.">
     <meta property="og:image" content="https://mariakan3.github.io/Cyprus-Best/images/cyprus-holidays.jpg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=20260928d">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="stylesheet" href="style.css?v=20261013">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -41,7 +48,7 @@
     <nav class="navbar">
         <div class="logo">
             <a href="index.html">
-                <img src="logo1.png" alt="Cyprus Best" class="main-logo">
+                <img src="images/opt/ui/logo1.webp" decoding="async" data-fallback="logo1.png" onerror="if(this.dataset.fallback){this.onerror=null;this.src=this.dataset.fallback}" alt="Cyprus Best" class="main-logo">
             </a>
         </div>
 
@@ -65,7 +72,7 @@
     <section class="hero hero-slider" id="hero-slider" aria-roledescription="carousel" data-i18n-aria="slider-label" aria-label="Categories">
         <div class="hero-slides">
             <article class="hero-slide is-active" aria-hidden="false">
-                <div class="hero-slide-bg hero-slide-bg--hotels"></div>
+                <div class="hero-slide-bg hero-slide-bg--hotels" data-bg="images/opt/hero/hotels.png.webp"></div>
                 <div class="hero-content">
                     <p class="hero-brand">Cyprus Best</p>
                     <h1 data-i18n="card-hotels-title">Best Hotels</h1>
@@ -76,7 +83,7 @@
                 </div>
             </article>
             <article class="hero-slide" aria-hidden="true" inert>
-                <div class="hero-slide-bg hero-slide-bg--restaurants"></div>
+                <div class="hero-slide-bg hero-slide-bg--restaurants" data-bg="images/opt/hero/restaurants.png.webp"></div>
                 <div class="hero-content">
                     <p class="hero-brand">Cyprus Best</p>
                     <h1 data-i18n="card-restaurants-title">Best Restaurants</h1>
@@ -87,7 +94,7 @@
                 </div>
             </article>
             <article class="hero-slide" aria-hidden="true" inert>
-                <div class="hero-slide-bg hero-slide-bg--views"></div>
+                <div class="hero-slide-bg hero-slide-bg--views" data-bg="images/opt/hero/view.jpg.webp"></div>
                 <div class="hero-content">
                     <p class="hero-brand">Cyprus Best</p>
                     <h1 data-i18n="card-views-title">Best Views</h1>
@@ -98,7 +105,7 @@
                 </div>
             </article>
             <article class="hero-slide" aria-hidden="true" inert>
-                <div class="hero-slide-bg hero-slide-bg--beaches"></div>
+                <div class="hero-slide-bg hero-slide-bg--beaches" data-bg="images/opt/hero/blue-lagoon.jpg.webp"></div>
                 <div class="hero-content">
                     <p class="hero-brand">Cyprus Best</p>
                     <h1 data-i18n="card-beaches-title">Best Beaches</h1>
@@ -109,7 +116,7 @@
                 </div>
             </article>
             <article class="hero-slide" aria-hidden="true" inert>
-                <div class="hero-slide-bg hero-slide-bg--realestate"></div>
+                <div class="hero-slide-bg hero-slide-bg--realestate" data-bg="images/opt/hero/real-estate.jpg.webp"></div>
                 <div class="hero-content">
                     <p class="hero-brand">Cyprus Best</p>
                     <h1 data-i18n="card-realestate-title">Best Real Estate</h1>
@@ -120,7 +127,7 @@
                 </div>
             </article>
             <article class="hero-slide" aria-hidden="true" inert>
-                <div class="hero-slide-bg hero-slide-bg--things"></div>
+                <div class="hero-slide-bg hero-slide-bg--things" data-bg="images/opt/hero/paphos-castle.jpg.webp"></div>
                 <div class="hero-content">
                     <p class="hero-brand">Cyprus Best</p>
                     <h1 data-i18n="card-things-title">Best Things to Do</h1>
@@ -131,7 +138,7 @@
                 </div>
             </article>
             <article class="hero-slide" aria-hidden="true" inert>
-                <div class="hero-slide-bg hero-slide-bg--services"></div>
+                <div class="hero-slide-bg hero-slide-bg--services" data-bg="images/opt/hero/services.jpeg.webp"></div>
                 <div class="hero-content">
                     <p class="hero-brand">Cyprus Best</p>
                     <h1 data-i18n="card-services-title">Best Services</h1>
@@ -187,43 +194,43 @@
             <p class="section-subtitle" data-i18n="footer-tagline">The best of the island, recommended by locals.</p>
         </div>
         <div class="grid-container" id="categories-grid">
-            <a href="hotels.html" class="card" id="hotels">
+            <a href="hotels.html" class="card" id="hotels" data-bg="images/opt/card/hotels.png.webp">
                 <div class="card-body">
                     <h3 data-i18n="card-hotels-title">Best Hotels</h3>
                     <p data-i18n="card-hotels">Luxury and hospitality.</p>
                 </div>
             </a>
-            <a href="restaurants.html" class="card" id="restaurants">
+            <a href="restaurants.html" class="card" id="restaurants" data-bg="images/opt/card/restaurants.png.webp">
                 <div class="card-body">
                     <h3 data-i18n="card-restaurants-title">Best Restaurants</h3>
                     <p data-i18n="card-restaurants">Flavors that captivate.</p>
                 </div>
             </a>
-            <a href="views.html" class="card" id="views">
+            <a href="views.html" class="card" id="views" data-bg="images/opt/card/view.jpg.webp">
                 <div class="card-body">
                     <h3 data-i18n="card-views-title">Best Views</h3>
                     <p data-i18n="card-views">The most beautiful sunsets.</p>
                 </div>
             </a>
-            <a href="beaches.html" class="card" id="beaches">
+            <a href="beaches.html" class="card" id="beaches" data-bg="images/opt/card/blue-lagoon.jpg.webp">
                 <div class="card-body">
                     <h3 data-i18n="card-beaches-title">Best Beaches</h3>
                     <p data-i18n="card-beaches">Crystal waters and golden sand.</p>
                 </div>
             </a>
-            <a href="realestate.html" class="card" id="realestate">
+            <a href="realestate.html" class="card" id="realestate" data-bg="images/opt/card/real-estate.jpg.webp">
                 <div class="card-body">
                     <h3 data-i18n="card-realestate-title">Best Real Estate</h3>
                     <p data-i18n="card-realestate">The best properties.</p>
                 </div>
             </a>
-            <a href="thingstodo.html" class="card" id="thingstodo">
+            <a href="thingstodo.html" class="card" id="thingstodo" data-bg="images/opt/card/paphos-castle.jpg.webp">
                 <div class="card-body">
                     <h3 data-i18n="card-things-title">Best Things to Do</h3>
                     <p data-i18n="card-things">Activities and experiences.</p>
                 </div>
             </a>
-            <a href="services.html" class="card" id="services">
+            <a href="services.html" class="card" id="services" data-bg="images/opt/card/services.jpeg.webp">
                 <div class="card-body">
                     <h3 data-i18n="card-services-title">Best Services</h3>
                     <p data-i18n="card-services">Services locals trust.</p>
@@ -279,6 +286,7 @@
         <p class="copyright" data-i18n="footer-copyright">&copy; 2026 Cyprus Best. All rights reserved.</p>
     </div>
 </footer>
-<script src="script.js?v=transfer1"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="script.js?v=20261013"></script>
 </body>
 </html>
