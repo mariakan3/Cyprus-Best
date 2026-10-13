@@ -16,8 +16,8 @@ function absolutizeAsset(url) {
 
 function cloudinarySized(url, preset) {
     const transforms = {
-        card: 'f_auto,q_auto,w_720,c_limit',
-        hero: 'f_auto,q_auto,w_1600,c_limit'
+        card: 'f_auto,q_auto,w_560,c_limit',
+        hero: 'f_auto,q_auto,w_1280,c_limit'
     };
     const transform = transforms[preset] || transforms.hero;
     if (url.includes('/upload/f_auto,q_auto/')) {
@@ -29,12 +29,29 @@ function cloudinarySized(url, preset) {
     return url;
 }
 
+function fileNameFromUrl(url) {
+    const path = url.split('#')[0].split('?')[0];
+    let file = path.split('/').pop() || '';
+    try { file = decodeURIComponent(file); } catch (err) { /* keep raw name */ }
+    return file;
+}
+
 function localOptimizedPath(url, preset) {
     const path = url.split('#')[0].split('?')[0];
-    if (/^https?:\/\//i.test(path) || path.startsWith('data:')) return '';
-    const file = path.split('/').pop();
+    if (path.startsWith('data:')) return '';
+    const remote = /^https?:\/\//i.test(path);
+    if (remote && !/\/storage\/v1\/object\/public\/images\//i.test(path)) return '';
+    const file = fileNameFromUrl(url);
     if (!file || !/\.(avif|gif|jpe?g|jfif|png|webp)$/i.test(file)) return '';
     return `images/opt/${preset}/${encodeURIComponent(file)}.webp`;
+}
+
+function supabaseRender(url, preset) {
+    const match = String(url).match(/\/storage\/v1\/object\/public\/([^?#]+)/i);
+    if (!match) return '';
+    const width = preset === 'hero' ? 1280 : 560;
+    const quality = preset === 'hero' ? 60 : 52;
+    return `${PROJECT_URL}/storage/v1/render/image/public/${match[1]}?width=${width}&quality=${quality}&resize=contain`;
 }
 
 function placeImage(url, preset = 'hero') {
@@ -44,9 +61,13 @@ function placeImage(url, preset = 'hero') {
         return { src: cloudinarySized(raw, preset), fallback: '' };
     }
     const optimized = localOptimizedPath(raw, preset);
-    const fallback = absolutizeAsset(raw);
-    if (!optimized) return { src: fallback, fallback: '' };
-    return { src: absolutizeAsset(optimized), fallback };
+    const remote = supabaseRender(raw, preset);
+    const original = absolutizeAsset(raw);
+    if (optimized) {
+        return { src: absolutizeAsset(optimized), fallback: remote || original };
+    }
+    if (remote) return { src: remote, fallback: original };
+    return { src: original, fallback: '' };
 }
 
 function resolvePlaceImage(url) {
@@ -2764,7 +2785,7 @@ async function loadCategory(categoryName, containerId) {
     activeTypeFilter = 'all';
     activeTownFilter = 'all';
     activeMapFilter = 'all';
-    container.innerHTML = ordered.map((place, index) => renderPlaceCard(place, { show: true, eager: index < 2 })).join('');
+    container.innerHTML = ordered.map((place) => renderPlaceCard(place, { show: true })).join('');
     renderCategoryMap(ordered);
     applyFilters();
 }

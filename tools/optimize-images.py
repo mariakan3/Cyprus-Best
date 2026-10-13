@@ -1,7 +1,7 @@
 """Build smaller WebP copies used by the site.
 
-Card images are capped at 720px (listing thumbnails).
-Hero images are capped at 1600px (full-width photos).
+Card images are capped at 560px (listing thumbnails).
+Hero images are capped at 1280px (full-width photos).
 A copy is skipped when it is not smaller than the original.
 """
 from pathlib import Path
@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "images"
 OUT = SOURCE / "opt"
 EXTS = {".avif", ".gif", ".jpeg", ".jfif", ".jpg", ".png", ".webp"}
-PRESETS = (("card", 720, 68), ("hero", 1600, 74))
+PRESETS = (("card", 560, 52), ("hero", 1280, 60))
 
 
 def prepare(im, max_edge):
@@ -28,16 +28,21 @@ def prepare(im, max_edge):
 
 
 def write_webp(src, dest, max_edge, quality):
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_suffix(".tmp.webp")
     with Image.open(src) as raw:
         im = prepare(raw, max_edge)
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        im.save(dest, "WEBP", quality=quality, method=6)
+        im.save(tmp, "WEBP", quality=quality, method=6)
+    new_size = tmp.stat().st_size
+    previous = dest.stat().st_size if dest.exists() else None
     original = src.stat().st_size
-    saved = dest.stat().st_size
-    if saved >= original * 0.92:
-        dest.unlink(missing_ok=True)
-        return 0
-    return saved
+    keep_old = previous is not None and new_size >= previous
+    not_worth_it = previous is None and new_size >= original * 0.92
+    if keep_old or not_worth_it:
+        tmp.unlink(missing_ok=True)
+        return previous or 0
+    tmp.replace(dest)
+    return new_size
 
 
 def main():
